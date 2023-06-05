@@ -6,7 +6,6 @@ import NewPropertyCard from '@/components/cards/NewPropertyCard';
 
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
 
 export default function PropertyPage() {
 	// const router = useRouter();

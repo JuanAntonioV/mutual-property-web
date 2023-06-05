@@ -1,9 +1,12 @@
-import Router from '../routers/Router';
+import RouterScroll from '@/helpers/RouterScroll';
+import Router from '@/routers/Router';
 
 export default function App() {
 	return (
 		<>
-			<Router />
+			<RouterScroll>
+				<Router />
+			</RouterScroll>
 		</>
 	);
 }
