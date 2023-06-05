@@ -5,7 +5,7 @@ import { textDotsFormat } from '@/utils/formaters';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { IoLocationSharp } from 'react-icons/io5';
 
-import HouseImage from '@assets/img/house.jpg';
+import HouseImage from '@/assets/img/house.jpg';
 import ImageCardCarousel from '../carousel/ImageCardCarousel';
 import { useNavigate } from 'react-router-dom';
 

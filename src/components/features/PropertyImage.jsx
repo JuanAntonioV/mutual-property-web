@@ -1,6 +1,6 @@
 import { BiImage } from 'react-icons/bi';
 
-import HouseImage from '@assets/img/house.jpg';
+import HouseImage from '@/assets/img/house.jpg';
 
 export default function PropertyImage() {
 	return (

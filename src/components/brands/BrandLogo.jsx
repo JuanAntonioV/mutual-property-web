@@ -1,5 +1,5 @@
-import Logo from '@assets/brand/logo.svg';
-import LogoWhite from '@assets/brand/logo-white.svg';
+import Logo from '@/assets/brand/logo.svg';
+import LogoWhite from '@/assets/brand/logo-white.svg';
 import { Link } from 'react-router-dom';
 
 export default function BrandLogo({ white = false, className = '', ...props }) {

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import HeroImage from '@assets/img/hero-image.png';
+import HeroImage from '@/assets/img/hero-image.png';
 import HomePageStat from '../stats/HomePageStat';
 
 export default function HomePageHeroSection() {

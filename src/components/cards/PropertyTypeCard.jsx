@@ -1,4 +1,4 @@
-import PropertyImage from '@assets/img/house.jpg';
+import PropertyImage from '@/assets/img/house.jpg';
 import { Link } from 'react-router-dom';
 
 export default function PropertyTypeCard() {

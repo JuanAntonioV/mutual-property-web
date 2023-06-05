@@ -1,7 +1,7 @@
 import { BsTelephoneFill, BsWhatsapp } from 'react-icons/bs';
 import { MdOutlineSimCardDownload } from 'react-icons/md';
 
-import DeveloperLogo from '@assets/img/developer-logo.png';
+import DeveloperLogo from '@/assets/img/developer-logo.png';
 
 export default function DeveloperInfo() {
 	return (

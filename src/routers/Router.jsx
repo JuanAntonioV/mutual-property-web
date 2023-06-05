@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 
 // Pages
-import HomePage from '@pages/home/HomePage';
-import MainLayout from '@layouts/MainLayout';
+import HomePage from '@/pages/home/HomePage';
+import MainLayout from '@/layouts/MainLayout';
 import NotFoundPage from '@/pages/notFound/NotFoundPage';
 import LoginPage from '@/pages/login/LoginPage';
 import RegisterPage from '@/pages/register/RegisterPage';

@@ -5,7 +5,7 @@ import { MdOutlineKingBed } from 'react-icons/md';
 import { TbStairs } from 'react-icons/tb';
 import { BiBath } from 'react-icons/bi';
 
-import HouseImage from '@assets/img/house.jpg';
+import HouseImage from '@/assets/img/house.jpg';
 
 import ImageCardCarousel from '../carousel/ImageCardCarousel';
 import CardLiker from './CardLiker';

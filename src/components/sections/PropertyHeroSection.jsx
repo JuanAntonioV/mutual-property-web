@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { textCapitalize } from '@/utils/helpers';
 
 import MainContainer from '../containers/MainContainer';
-import PropertyHeroImage from '@assets/img/page-hero-img.svg';
+import PropertyHeroImage from '@/assets/img/page-hero-img.svg';
 
 export default function PropertyHeroSection({ type, category }) {
 	const formatedType = type?.includes('-') ? type?.replace('-', ' / ') : type;

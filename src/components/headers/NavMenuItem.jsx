@@ -30,7 +30,7 @@ export default function NavMenuItem({ item, closeNavbar }) {
 				</button>
 			) : (
 				<Link
-					href={item.link}
+					to={item.link}
 					className="w-full px-8 py-5 flexBetween"
 					onClick={navLinkClicked}
 				>

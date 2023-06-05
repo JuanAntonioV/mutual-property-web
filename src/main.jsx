@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from '@pages/App.jsx';
+import App from '@/pages/App.jsx';
 
-import '@styles/main.css';
+import '@/styles/main.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
