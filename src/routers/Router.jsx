@@ -8,6 +8,11 @@ import LoginPage from '@/pages/login/LoginPage';
 import RegisterPage from '@/pages/register/RegisterPage';
 import ForgotPasswordPage from '@/pages/forgotPassword/ForgotPasswordPage';
 import ResetPasswordPage from '@/pages/resetPassword/ResetPasswordPage';
+import TentangKamiPage from '@/pages/tentangKami/TentangKamiPage';
+import HitungKprPage from '@/pages/kpr/HitungKprPage';
+import ProfilePage from '@/pages/profile/ProfilePage';
+import PropertyPage from '@/pages/property/PropertyPage';
+import PropertyDetailPage from '@/pages/propertyDetail/PropertyDetailPage';
 
 export default function Router() {
 	return (
@@ -19,6 +24,13 @@ export default function Router() {
 				<Route path="/register" element={<RegisterPage />} />
 				<Route path="/forgot-password" element={<ForgotPasswordPage />} />
 				<Route path="/reset-password" element={<ResetPasswordPage />} />
+
+				<Route path="/kpr" element={<HitungKprPage />} />
+				<Route path="/akun-saya" element={<ProfilePage />} />
+				<Route path="/tentang-kami" element={<TentangKamiPage />} />
+
+				<Route path="/property" element={<PropertyPage />} />
+				<Route path="/property/:slug" element={<PropertyDetailPage />} />
 
 				<Route path="*" element={<NotFoundPage />} />
 			</Route>
