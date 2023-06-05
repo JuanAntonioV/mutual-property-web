@@ -19,4 +19,7 @@ export default defineConfig({
 			'@layouts': '/src/layouts',
 		},
 	},
+	build: {
+		chunkSizeWarningLimit: 1000,
+	},
 });
