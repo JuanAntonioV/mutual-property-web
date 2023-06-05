@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply font-inter;
+}
+
+button {
+	@apply outline-none;
+}
+
+input[type='number'].no-indicator::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+@layer components {
+	.flexCenter {
+		@apply flex items-center justify-center;
+	}
+
+	.flexCenterCol {
+		@apply flex flex-col items-center justify-center;
+	}
+
+	.flexCenterColGap {
+		@apply flex flex-col items-center justify-center gap-6;
+	}
+
+	.flexCenterGap {
+		@apply flex items-center justify-center gap-6;
+	}
+
+	.flexCol {
+		@apply flex flex-col;
+	}
+
+	.flexColGap {
+		@apply flex flex-col gap-6;
+	}
+
+	.flexBetween {
+		@apply flex items-center justify-between;
+	}
+
+	.flexBetweenGap {
+		@apply flex items-center justify-between gap-6;
+	}
+
+	.flexStart {
+		@apply flex items-center justify-start;
+	}
+
+	.flexStartCol {
+		@apply flex flex-col items-center justify-start;
+	}
+
+	.flexStartGap {
+		@apply flex items-center justify-start gap-6;
+	}
+
+	.flexEnd {
+		@apply flex items-center justify-end;
+	}
+
+	.flexEndGap {
+		@apply flex items-center justify-end gap-6;
+	}
+
+	.flexAround {
+		@apply flex items-center justify-around;
+	}
+
+	.flexAroundGap {
+		@apply flex items-center justify-around gap-6;
+	}
+
+	.flexEvenly {
+		@apply flex items-center justify-evenly;
+	}
+
+	.flexEvenlyGap {
+		@apply flex items-center gap-6 justify-evenly;
+	}
+
+	.btnPrimary {
+		@apply w-full px-6 py-4 font-medium text-white duration-200 bg-primary rounded-xl hover:bg-primaryHover disabled:bg-primaryDisabled;
+	}
+
+	.btnSecondary {
+		@apply px-8 py-3 duration-200 bg-transparent border rounded-xl text-primary border-primary hover:bg-primary/5;
+	}
+
+	.inputSecondary {
+		@apply w-full px-4 py-3 border rounded-lg border-borderPrimary focus:outline-none focus:border-primary;
+	}
+
+	.textLink {
+		@apply text-sm text-link hover:underline md:text-base;
+	}
+}
