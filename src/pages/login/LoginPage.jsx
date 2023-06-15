@@ -1,11 +1,19 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
 
 import { FcGoogle } from 'react-icons/fc';
 
 import MainContainer from '@/components/containers/MainContainer';
+import { useMutation } from '@tanstack/react-query';
+import { loginApi } from '@/api/auth-api';
+import { PulseLoader } from 'react-spinners';
+import { textCapitalize } from '../../utils/helpers';
+import AuthContext from '@/contexts/AuthProvider';
 
 export default function LoginPage() {
+	const navigate = useNavigate();
+	const { setAuth } = useContext(AuthContext);
+
 	const [formValue, setFormValue] = useState({
 		email: '',
 		password: '',
@@ -18,9 +26,25 @@ export default function LoginPage() {
 		});
 	};
 
+	const {
+		mutate: loginAction,
+		isLoading,
+		isError,
+		error,
+	} = useMutation(payload => loginApi(payload), {
+		onSuccess: data => {
+			const { token, user } = data.results;
+			const isAuth = true;
+			localStorage.setItem('token', token);
+			localStorage.setItem('user', JSON.stringify(user));
+			setAuth({ token, user, isAuth });
+			navigate('/');
+		},
+	});
+
 	const handleLogin = e => {
 		e.preventDefault();
-		console.log(formValue);
+		loginAction(formValue);
 	};
 
 	return (
@@ -31,7 +55,12 @@ export default function LoginPage() {
 						<h1 className="text-2xl font-bold">Masuk</h1>
 					</header>
 
-					<main className="my-5 mt-8">
+					<main className="my-5 mt-6">
+						{isError && (
+							<div className="p-4 mb-6 font-medium text-red-600 bg-red-200 border rounded-md border-error">
+								{textCapitalize(error.message)}
+							</div>
+						)}
 						<form className="flex flex-col gap-4" onSubmit={handleLogin}>
 							<div className="space-y-2">
 								<label
@@ -83,7 +112,7 @@ export default function LoginPage() {
 									type="submit"
 									className="mt-6 text-sm btnPrimary md:text-base"
 								>
-									Masuk
+									{isLoading ? <PulseLoader color="#fff" size={8} /> : 'Masuk'}
 								</button>
 							</div>
 						</form>

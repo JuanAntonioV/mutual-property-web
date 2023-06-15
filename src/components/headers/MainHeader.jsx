@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import NavMenuOnHover from './NavMenuOnHover';
@@ -14,9 +14,14 @@ import {
 	MdOutlineWarehouse,
 } from 'react-icons/md';
 import { HiOutlineUserGroup } from 'react-icons/hi';
+import AuthContext from '../../contexts/AuthProvider';
+import { MoonLoader } from 'react-spinners';
+import { useQuery } from '@tanstack/react-query';
+import { getProfileApi } from '../../api/user-api';
 
 export default function MainHeader() {
 	const navigate = useNavigate();
+	const { auth, setAuth } = useContext(AuthContext);
 	const [menuHover, setMenuHover] = useState(false);
 	const [selectedMenu, setSelectedMenu] = useState(null);
 	const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
@@ -190,6 +195,17 @@ export default function MainHeader() {
 			: (document.body.style.overflow = 'auto');
 	}, [openMobileNavbar]);
 
+	const { isLoading: isUserLoading, isError: isUserError } = useQuery(
+		['user'],
+		() => getProfileApi(auth.token),
+		{
+			retry: 0,
+			refetchOnWindowFocus: false,
+			refetchOnMount: false,
+			enabled: !!auth.token,
+		}
+	);
+
 	return (
 		<header className="relative z-30">
 			<div className="fixed top-0 left-0 right-0 text-white bg-primary h-[100px]">
@@ -238,12 +254,23 @@ export default function MainHeader() {
 							</button>
 						</div>
 
-						<button
-							className="hidden text-white border-white rounded-full btnSecondary lg:block"
-							onClick={() => navigate('/login')}
-						>
-							Masuk
-						</button>
+						{isUserLoading && !isUserError ? (
+							<MoonLoader color="#fff" size={30} />
+						) : !isUserLoading && !auth.isAuth ? (
+							<button
+								className="hidden text-white border-white rounded-full btnSecondary lg:block"
+								onClick={() => navigate('/login')}
+							>
+								Masuk
+							</button>
+						) : (
+							<Link
+								to={'/akun-saya'}
+								className="hidden text-white border-white rounded-full btnSecondary lg:block"
+							>
+								Akun saya
+							</Link>
+						)}
 
 						<button
 							className="block flexCenter lg:hidden"
