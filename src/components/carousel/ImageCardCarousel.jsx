@@ -10,7 +10,7 @@ export default function ImageCardCarousel({ image, height }) {
 	return (
 		<header onClick={e => e.stopPropagation()} className="group">
 			<div
-				className={'bg-gray-300 rounded-t-lg overflow-hidden'}
+				className={'bg-gray-200 rounded-t-lg overflow-hidden'}
 				style={{
 					height: height ? `${height}px` : '280px',
 				}}
@@ -29,12 +29,12 @@ export default function ImageCardCarousel({ image, height }) {
 							}}
 						>
 							<img
-								src={image}
-								alt="House Image"
+								src={image?.path}
+								alt={image?.alt}
 								style={{
 									height: 'inherit',
 								}}
-								className="-z-10 object-cover w-full"
+								className="object-cover w-full -z-10"
 							/>
 						</SwiperSlide>
 					))}

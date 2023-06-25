@@ -9,6 +9,7 @@ import { loginApi } from '@/api/auth-api';
 import { PulseLoader } from 'react-spinners';
 import { textCapitalize } from '../../utils/helpers';
 import AuthContext from '@/contexts/AuthProvider';
+import ErrorAlert from '../../components/alerts/ErrorAlert';
 
 export default function LoginPage() {
 	const navigate = useNavigate();
@@ -56,11 +57,7 @@ export default function LoginPage() {
 					</header>
 
 					<main className="my-5 mt-6">
-						{isError && (
-							<div className="p-4 mb-6 font-medium text-red-600 bg-red-200 border rounded-md border-error">
-								{textCapitalize(error.message)}
-							</div>
-						)}
+						<ErrorAlert isError={isError} error={error} />
 						<form className="flex flex-col gap-4" onSubmit={handleLogin}>
 							<div className="space-y-2">
 								<label
@@ -89,7 +86,7 @@ export default function LoginPage() {
 									Password
 								</label>
 								<input
-									type="text"
+									type="password"
 									name="password"
 									id="password"
 									className="inputSecondary"

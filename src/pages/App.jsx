@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import AuthContext from '../contexts/AuthProvider';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getProfileApi } from '../api/user-api';
+import { ToastContainer } from 'react-toastify';
 
 export default function App() {
 	const { auth, setAuth } = useContext(AuthContext);
@@ -43,6 +44,18 @@ export default function App() {
 
 	return (
 		<>
+			<ToastContainer
+				position="bottom-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable={false}
+				pauseOnHover={false}
+				theme="colored"
+			/>
 			<RouterScroll>
 				<Router />
 			</RouterScroll>

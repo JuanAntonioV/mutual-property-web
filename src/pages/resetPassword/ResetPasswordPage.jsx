@@ -1,23 +1,81 @@
 import { useState } from 'react';
 
 import MainContainer from '@/components/containers/MainContainer';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import ErrorAlert from '../../components/alerts/ErrorAlert';
+import { useMutation } from '@tanstack/react-query';
+import { resetPasswordApi } from '../../api/auth-api';
+import { PulseLoader } from 'react-spinners';
+import SuccessAlert from '../../components/alerts/SuccessAlert';
+import CountdownTimer from '../../components/timers/CountdownTimer';
 
 export default function ResetPasswordPage() {
+	const [isSending, setIsSending] = useState(false);
+	const [error, setError] = useState('');
+
+	const [searchParams] = useSearchParams();
+	const token = searchParams.get('token');
+	const email = searchParams.get('email');
+
+	const navigate = useNavigate();
+
 	const [formValue, setFormValue] = useState({
 		password: '',
 		passwordConfirmation: '',
 	});
 
 	const handleOnChange = e => {
+		const { name, value } = e.target;
+
 		setFormValue({
 			...formValue,
-			[e.target.name]: e.target.value,
+			[name]: value,
 		});
 	};
 
+	const {
+		mutate: resetPasswordAction,
+		isLoading: isResetPasswordLoading,
+		isError: isResetPasswordError,
+		error: resetPasswordError,
+		isSuccess: isResetPasswordSuccess,
+		data: resetPasswordData,
+	} = useMutation(payload => resetPasswordApi(payload), {
+		onSuccess: () => {
+			setError({
+				isError: false,
+				message: null,
+			});
+			setFormValue({
+				password: '',
+				passwordConfirmation: '',
+			});
+			navigate('/login');
+		},
+	});
+
 	const handleResetPassword = e => {
 		e.preventDefault();
-		console.log(formValue);
+		setError('');
+		setIsSending(false);
+
+		if (formValue.password !== formValue.passwordConfirmation) {
+			setError({
+				isError: true,
+				message: 'Password dan konfirmasi password tidak sama',
+			});
+			return;
+		}
+
+		const data = {
+			token: token,
+			email: email,
+			password: formValue.password,
+			password_confirmation: formValue.passwordConfirmation,
+		};
+
+		setIsSending(true);
+		resetPasswordAction(data);
 	};
 
 	return (
@@ -29,6 +87,16 @@ export default function ResetPasswordPage() {
 					</header>
 
 					<main className="my-5 mt-8">
+						<ErrorAlert isError={error?.isError} error={error} />
+						<ErrorAlert
+							isError={isResetPasswordError}
+							error={resetPasswordError}
+						/>
+						<SuccessAlert
+							isSuccess={isResetPasswordSuccess}
+							success={resetPasswordData}
+						/>
+
 						<form
 							className="flex flex-col gap-4"
 							onSubmit={handleResetPassword}
@@ -52,17 +120,21 @@ export default function ResetPasswordPage() {
 								/>
 							</div>
 
+							<div className="flex justify-center">
+								<CountdownTimer resendAction={handleResetPassword} />
+							</div>
+
 							<div className="space-y-2">
 								<label
-									htmlFor="password_confirmation"
+									htmlFor="passwordConfirmation"
 									className="text-sm font-medium sm:text-base"
 								>
 									Konfirmasi password
 								</label>
 								<input
 									type="password"
-									name="password_confirmation"
-									id="password_confirmation"
+									name="passwordConfirmation"
+									id="passwordConfirmation"
 									className="inputSecondary"
 									placeholder="Konfirmasi password baru"
 									onChange={handleOnChange}
@@ -75,8 +147,13 @@ export default function ResetPasswordPage() {
 								<button
 									type="submit"
 									className="mt-6 text-sm btnPrimary md:text-base"
+									disabled={isResetPasswordLoading}
 								>
-									Ganti password
+									{isResetPasswordLoading ? (
+										<PulseLoader size={8} color="#fff" />
+									) : (
+										'Ganti password'
+									)}
 								</button>
 							</div>
 						</form>

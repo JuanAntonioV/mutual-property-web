@@ -1,11 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import MainContainer from '@/components/containers/MainContainer';
 
 import { FcGoogle } from 'react-icons/fc';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { registerApi } from '../../api/auth-api';
+import { PulseLoader } from 'react-spinners';
 
 export default function RegisterPage() {
+	const navigate = useNavigate();
 	const [formValue, setFormValue] = useState({
 		name: '',
 		phone: '',
@@ -14,15 +19,38 @@ export default function RegisterPage() {
 	});
 
 	const handleOnChange = e => {
-		setFormValue({
-			...formValue,
-			[e.target.name]: e.target.value,
-		});
+		const { name, value } = e.target;
+
+		setFormValue(prev => ({
+			...prev,
+			[name]: value,
+		}));
 	};
+
+	const { mutate: register, isLoading: isRegisterLoading } = useMutation(
+		registerApi,
+		{
+			onSuccess: data => {
+				navigate('/login');
+				toast.success('Berhasil mendaftar');
+			},
+			onError: err => {
+				toast.error('Gagal mendaftar');
+			},
+		}
+	);
 
 	const handleRegister = e => {
 		e.preventDefault();
-		console.log(formValue);
+
+		const payload = {
+			full_name: formValue.name,
+			phone_number: formValue.phone,
+			email: formValue.email,
+			password: formValue.password,
+		};
+
+		register(payload);
 	};
 
 	return (
@@ -100,7 +128,7 @@ export default function RegisterPage() {
 									Password
 								</label>
 								<input
-									type="text"
+									type="password"
 									name="password"
 									id="password"
 									className="inputSecondary"
@@ -115,8 +143,13 @@ export default function RegisterPage() {
 								<button
 									type="submit"
 									className="mt-6 text-sm btnPrimary md:text-base"
+									disabled={isRegisterLoading}
 								>
-									Daftar
+									{isRegisterLoading ? (
+										<PulseLoader size={8} color={'#fff'} />
+									) : (
+										'Daftar'
+									)}
 								</button>
 							</div>
 						</form>

@@ -2,6 +2,11 @@ import { useState } from 'react';
 
 import MainContainer from '@/components/containers/MainContainer';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { forgotPasswordApi } from '../../api/auth-api';
+import { PulseLoader } from 'react-spinners';
+import ErrorAlert from '../../components/alerts/ErrorAlert';
+import SuccessAlert from '../../components/alerts/SuccessAlert';
 
 export default function ForgotPasswordPage() {
 	const [formValue, setFormValue] = useState({
@@ -15,9 +20,18 @@ export default function ForgotPasswordPage() {
 		});
 	};
 
+	const {
+		mutate: forgotPasswordAction,
+		data: forgotPasswordData,
+		isLoading: isForgotPasswordLoading,
+		isError: isForgotPasswordError,
+		error: forgotPasswordError,
+		isSuccess: isForgotPasswordSuccess,
+	} = useMutation(payload => forgotPasswordApi(payload));
+
 	const handleForgotPassword = e => {
 		e.preventDefault();
-		console.log(formValue);
+		forgotPasswordAction(formValue);
 	};
 
 	return (
@@ -29,6 +43,14 @@ export default function ForgotPasswordPage() {
 					</header>
 
 					<main className="my-5 mt-8">
+						<ErrorAlert
+							isError={isForgotPasswordError}
+							error={forgotPasswordError}
+						/>
+						<SuccessAlert
+							isSuccess={isForgotPasswordSuccess}
+							success={forgotPasswordData}
+						/>
 						<p className="pb-6 text-sm text-secondary md:text-base">
 							Silahkan masukkan email yang terdaftar. Kami akan mengirimkan link
 							untuk mengatur ulang password.
@@ -56,13 +78,17 @@ export default function ForgotPasswordPage() {
 									required
 								/>
 							</div>
-
 							<div>
 								<button
 									type="submit"
 									className="mt-6 text-sm btnPrimary md:text-base"
+									disabled={isForgotPasswordLoading}
 								>
-									Kirim
+									{isForgotPasswordLoading ? (
+										<PulseLoader color="#fff" size={8} />
+									) : (
+										'Kirim'
+									)}
 								</button>
 							</div>
 						</form>

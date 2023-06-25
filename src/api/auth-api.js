@@ -5,7 +5,16 @@ export const loginApi = async payload => {
 		const res = await api.post('/auth/login', payload);
 		return res.data;
 	} catch (err) {
-		throw err.response.data;
+		throw new Error(err.response.data.message);
+	}
+};
+
+export const registerApi = async payload => {
+	try {
+		const res = await api.post('/auth/register', payload);
+		return res.data;
+	} catch (err) {
+		throw new Error(err.response.data.message);
 	}
 };
 
@@ -22,6 +31,24 @@ export const logoutApi = async token => {
 		);
 		return res.data;
 	} catch (err) {
-		throw err.response.data;
+		throw new Error(err.response.data.message);
+	}
+};
+
+export const forgotPasswordApi = async payload => {
+	try {
+		const res = await api.post('/auth/forgot-password', payload);
+		return res.data;
+	} catch (err) {
+		throw new Error(err.response.data.message);
+	}
+};
+
+export const resetPasswordApi = async payload => {
+	try {
+		const res = await api.post('/auth/reset-password', payload);
+		return res.data;
+	} catch (err) {
+		throw new Error(err.response.data.message);
 	}
 };
