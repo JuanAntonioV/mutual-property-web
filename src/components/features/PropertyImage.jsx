@@ -1,41 +1,39 @@
 import { BiImage } from 'react-icons/bi';
 
-import HouseImage from '@/assets/img/house.jpg';
-
-export default function PropertyImage() {
+export default function PropertyImage({ images }) {
 	return (
 		<div className="grid grid-cols-4 xl:grid-cols-3 grid-rows-2 h-[400px] gap-5 relative">
 			<div className="w-full h-full col-span-4 row-span-1 overflow-hidden rounded-xl xl:col-span-2 xl:row-span-2">
-				<a href={HouseImage} data-fancybox="gallery">
+				<a href={images[0]?.path} data-fancybox="gallery">
 					<img
-						src={HouseImage}
-						alt="House Image"
-						className="w-full h-full object-cover"
+						src={images[0]?.path}
+						alt={images[0]?.alt}
+						className="object-cover w-full h-full"
 					/>
 				</a>
 			</div>
 			<div className="w-full h-full col-span-2 row-span-1 overflow-hidden rounded-xl xl:col-span-1 xl:row-span-1">
-				<a href={HouseImage} data-fancybox="gallery">
+				<a href={images[1]?.path} data-fancybox="gallery">
 					<img
-						src={HouseImage}
-						alt="House Image"
-						className="w-full h-full object-cover"
+						src={images[1]?.path}
+						alt={images[1]?.alt}
+						className="object-cover w-full h-full"
 					/>
 				</a>
 			</div>
 			<div className="w-full h-full col-span-2 row-span-1 overflow-hidden rounded-xl xl:col-span-1 xl:row-span-1">
-				<a href={HouseImage} data-fancybox="gallery">
+				<a href={images[2]?.path} data-fancybox="gallery">
 					<img
-						src={HouseImage}
-						alt="House Image"
-						className="w-full h-full object-cover"
+						src={images[2]?.path}
+						alt={images[2]?.alt}
+						className="object-cover w-full h-full"
 					/>
 				</a>
 			</div>
 
 			<a
 				type="button"
-				href={HouseImage}
+				href={images[3]?.path}
 				data-fancybox="gallery"
 				className="absolute gap-2 px-5 py-3 bg-white shadow-lg hover:bg-white btnPrimary flexCenter bottom-4 right-4 w-fit"
 			>
@@ -44,11 +42,14 @@ export default function PropertyImage() {
 					Lihat semua
 				</span>
 
-				<img
-					src={HouseImage}
-					alt="House Image"
-					className="w-full h-full object-cover hidden"
-				/>
+				{images?.map((image, index) => (
+					<img
+						key={index}
+						src={image?.path}
+						alt={image?.alt}
+						className="hidden object-cover w-full h-full"
+					/>
+				))}
 			</a>
 		</div>
 	);

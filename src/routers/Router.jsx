@@ -13,6 +13,7 @@ import HitungKprPage from '@/pages/kpr/HitungKprPage';
 import ProfilePage from '@/pages/profile/ProfilePage';
 import PropertyPage from '@/pages/property/PropertyPage';
 import PropertyDetailPage from '@/pages/propertyDetail/PropertyDetailPage';
+import ProjectDetailPage from '../pages/projects/ProjectDetailPage';
 
 export default function Router() {
 	return (
@@ -30,6 +31,7 @@ export default function Router() {
 				<Route path="/tentang-kami" element={<TentangKamiPage />} />
 
 				<Route path="/property" element={<PropertyPage />} />
+				<Route path="/projects/:slug" element={<ProjectDetailPage />} />
 				<Route path="/property/:slug" element={<PropertyDetailPage />} />
 
 				<Route path="*" element={<NotFoundPage />} />

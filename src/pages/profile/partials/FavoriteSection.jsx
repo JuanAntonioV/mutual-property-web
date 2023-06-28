@@ -8,11 +8,11 @@ export default function FavoriteSection() {
 		<div className="flex flex-col w-full gap-10">
 			<div className="w-full rounded-xl">
 				<div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-y-8">
-					{[...Array(6)].map((_, i) => (
+					{/* {[...Array(6)].map((_, i) => (
 						<div key={i} className="flexCenter">
 							<PropertyCard key={i} />
 						</div>
-					))}
+					))} */}
 				</div>
 			</div>
 

@@ -118,16 +118,15 @@ export default function PropertyPage() {
 								</>
 							) : (
 								<>
-									<NewPropertyCard />
-									<NewPropertyCard />
-									<NewPropertyCard />
-									<NewPropertyCard />
-									<NewPropertyCard />
+									{propertyData?.data?.map((property, index) => (
+										<NewPropertyCard key={index} data={property} />
+									))}
 								</>
 							)}
 						</MainContainer>
 
 						<MainPaginate
+							page={page}
 							setPage={setPage}
 							pageSlice={pageSlice}
 							setPageSlice={setPageSlice}

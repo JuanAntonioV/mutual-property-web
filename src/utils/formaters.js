@@ -66,3 +66,9 @@ export const dateFormater = (date, type) => {
 		return `${day} ${monthName[month - 1]} ${year}`;
 	}
 };
+
+export const formatPrice = price => {
+	if (price) {
+		return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+	}
+};

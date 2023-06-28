@@ -15,7 +15,7 @@ export default function NewPropertySection() {
 		}
 	);
 
-	if (!isNewPropertyLoading && newProperty.length === 0) return null;
+	if (!isNewPropertyLoading && newProperty?.length === 0) return null;
 
 	return (
 		<SectionContainer>

@@ -8,13 +8,14 @@ import { IoLocationSharp } from 'react-icons/io5';
 import HouseImage from '@/assets/img/house.jpg';
 import ImageCardCarousel from '../carousel/ImageCardCarousel';
 import { useNavigate } from 'react-router-dom';
+import { dateFormater, formatPrice } from '../../utils/formaters';
 
-export default function NewPropertyCard() {
+export default function NewPropertyCard({ data }) {
 	const [like, setLike] = useState(false);
 	const navigate = useNavigate();
 
 	const hadleCardClicked = () => {
-		navigate('/property/rumah-disewa-baru-2023?category=baru');
+		navigate(`/projects/${data?.slug}`);
 	};
 
 	const handleLikeClicked = e => {
@@ -22,49 +23,44 @@ export default function NewPropertyCard() {
 		setLike(!like);
 	};
 
-	const imageList = [HouseImage, HouseImage, HouseImage, HouseImage];
-
 	return (
 		<div
 			className="w-full md:w-[420px] bg-white shadow-md rounded-lg overflow-hidden"
 			onClick={hadleCardClicked}
 		>
-			<ImageCardCarousel image={imageList} />
+			<ImageCardCarousel image={data?.images} />
 
 			<main className="p-5 cursor-pointer">
 				<div className="flex item-center gap-x-2">
 					<IoLocationSharp size={18} color="#00092980" />
 
-					<span className="block mb-0 text-sm leading-tight text-secondarySoftTrans md:hidden md:text-base">
-						{textDotsFormat(
-							'Jl.Pelita VI, Kel. Sidorame, Kec.Medan Helvetia',
-							36
-						)}
+					<span className="block text-sm leading-tight text-secondarySoftTrans md:hidden md:text-base">
+						{textDotsFormat(data?.address, 36)}
 					</span>
-					<span className="hidden mb-0 text-sm leading-tight text-secondarySoftTrans md:block md:text-base">
-						{textDotsFormat(
-							'Jl.Pelita VI, Kel. Sidorame, Kec.Medan Helvetia',
-							38
-						)}
+					<span className="hidden text-sm leading-tight text-secondarySoftTrans md:block md:text-base">
+						{textDotsFormat(data?.address, 38)}
 					</span>
 				</div>
 
 				<h3 className="mt-3 text-lg font-bold md:text-xl">
-					Ampera Tomio | by 123 Property
+					{data?.name} | by {data?.developer_name}
 				</h3>
 
 				<div className="pt-4 mt-4 space-y-1 border-t border-borderPrimary">
-					<h1 className="text-lg font-semibold">Dimulai dari Rp.900.000.000</h1>
+					<h1 className="text-lg font-semibold">
+						Dimulai dari Rp {formatPrice(data?.started_price)}
+					</h1>
 
 					<p className="text-sm text-secondary sm:text-base">
-						3 tipe unit | 13 Jumlah Unit
+						{data?.total_product_types} tipe unit | {data?.detail?.total_unit}{' '}
+						Jumlah Unit
 					</p>
 				</div>
 			</main>
 
 			<footer className="px-5 pt-2 pb-5 cursor-pointer flexBetween">
 				<span className={'text-sm text-secondarySoftTrans'}>
-					#1 • Diposting 12 Agustus 2023
+					#{data?.id} • Diposting {dateFormater(data?.created_at)}
 				</span>
 
 				<button className="flexCenter" onClick={handleLikeClicked}>

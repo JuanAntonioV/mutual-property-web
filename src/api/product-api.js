@@ -29,3 +29,12 @@ export const getAllProductsApi = async ({
 		throw new Error(err.response.data.message);
 	}
 };
+
+export const getProductDetailApi = async ({ slug }) => {
+	try {
+		const res = await api.get(`/products/${slug}`);
+		return res.data;
+	} catch (err) {
+		throw new Error(err.response.data.message);
+	}
+};

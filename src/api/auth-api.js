@@ -52,3 +52,16 @@ export const resetPasswordApi = async payload => {
 		throw new Error(err.response.data.message);
 	}
 };
+
+export const changePasswordApi = async ({ data, token }) => {
+	try {
+		const res = await api.post('/auth/change-password', data, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		return res.data;
+	} catch (err) {
+		throw new Error(err.response.data.message);
+	}
+};

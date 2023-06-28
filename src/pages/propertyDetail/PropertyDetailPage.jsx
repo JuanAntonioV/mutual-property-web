@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 import { BsMap } from 'react-icons/bs';
 import { FiShare } from 'react-icons/fi';
@@ -14,33 +14,80 @@ import PropertyProjectDetail from '@/components/features/PropertyProjectDetail';
 import PropertyPriceList from '@/components/features/PropertyPriceList';
 import PropertySidePlan from '@/components/features/PropertySidePlan';
 import PropertyFloorPlan from '@/components/features/PropertyFloorPlan';
+import { useQuery } from '@tanstack/react-query';
+import { getProductDetailApi } from '../../api/product-api';
+import ScreenLoading from '../../components/handlers/ScreenLoading';
+import { formatPrice } from '../../utils/formaters';
+import { useEffect, useState } from 'react';
 
 export default function PropertyDetailPage() {
-	const [searchParams] = useSearchParams();
-	const category = searchParams.get('category');
-	const type = searchParams.get('type');
+	const [isProjectProduct, setIsProjectProduct] = useState(false);
+	const [isProjectUnit, setIsProjectUnit] = useState(false);
 
-	const isCategoryBaru = category === 'baru';
-	const isTypeExist = type !== null;
+	const { slug } = useParams();
+
+	const { data, isLoading, isError } = useQuery(
+		['propertyDetails', slug],
+		() => getProductDetailApi({ slug }),
+		{
+			staleTime: 1000 * 60 * 5,
+			enabled: !!slug,
+			select: res => res.results,
+		}
+	);
+
+	useEffect(() => {
+		if (data?.categories_id == 3) {
+			setIsProjectProduct(true);
+		}
+
+		setIsProjectUnit(data?.is_project_unit);
+	}, [data]);
+
+	const handleViewMap = () => {
+		// push to map page but in new tab
+		const url = `${data?.map_url}`;
+		window.open(url, '_blank');
+	};
+
+	const handleShare = () => {
+		// copy current url to clipboard and share it to whatsapp
+		const url = `${window.location.href}`;
+		navigator.clipboard.writeText(url);
+
+		const message = `Cek properti ${data?.title} di ${data?.address} 
+		seharga ${formatPrice(data?.price)} dapat dilihat di ${url}`;
+		const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+		window.open(whatsappUrl, '_blank');
+	};
+
+	if (isLoading) return <ScreenLoading />;
+
+	if (isError) return <NotFoundPage />;
 
 	return (
-		<MainContainer className="mt-[100px] pb-20">
+		<MainContainer className="mt-[130px] pb-20">
 			<header className="flex flex-col py-10 gap-y-6 md:flex-row md:flexBetween">
-				<div className="space-y-2 md:space-y-1">
-					<h1 className="text-2xl font-bold">Rumah Johor</h1>
-					<h2 className="text-2xl font-bold text-primary">Rp.878.000.000</h2>
-					<p className="text-sm text-secondary md:text-base">
-						Jl. Bilal Ujung, Kel. Pulo Brayan Darat I, Kec. Medan Timur, Kota.
-						Medan, Sumatera Utara, 20221
-					</p>
+				<div className="w-full space-y-2 md:space-y-1">
+					<h1 className="text-2xl font-bold">{data?.title}</h1>
+					<h2 className="text-2xl font-bold text-primary">
+						Rp {formatPrice(data?.price)}
+					</h2>
+					<p className="text-sm text-secondary md:text-base">{data?.address}</p>
 				</div>
 
 				<div className="w-full gap-4 md:flexEnd flexCenter">
-					<button className="w-full gap-3 px-6 py-2 text-sm btnSecondary flexCenter md:w-fit md:text-base">
+					<button
+						className="w-full gap-3 px-6 py-2 text-sm btnSecondary flexCenter md:w-fit md:text-base"
+						onClick={handleViewMap}
+					>
 						<BsMap size={18} />
 						<span className="text-primary">Lihat peta</span>
 					</button>
-					<button className="w-full gap-3 px-6 py-2 text-sm btnSecondary flexCenter md:w-fit md:text-base">
+					<button
+						className="w-full gap-3 px-6 py-2 text-sm btnSecondary flexCenter md:w-fit md:text-base"
+						onClick={handleShare}
+					>
 						<FiShare size={18} />
 						<span className="text-primary">Share</span>
 					</button>
@@ -49,27 +96,27 @@ export default function PropertyDetailPage() {
 
 			<main className="grid grid-cols-1 gap-y-8 lg:gap-x-8 lg:grid-cols-3">
 				<div className="col-span-2 space-y-8">
-					<PropertyImage />
+					<PropertyImage images={data?.images} />
 
-					{!isCategoryBaru && isTypeExist ? (
+					{!isProjectProduct && isProjectUnit ? (
 						<>
-							<PropertyDetail />
+							<PropertyDetail data={data} />
 						</>
-					) : !isCategoryBaru && !isTypeExist ? (
+					) : !isProjectProduct && !isProjectUnit ? (
 						<>
-							<PropertyDetail />
+							<PropertyDetail data={data} />
 						</>
 					) : (
 						<>
-							{!isTypeExist ? (
+							{!isProjectUnit ? (
 								<>
-									<PropertyProjectDetail />
-									<PropertyPriceList />
-									<PropertySidePlan />
+									<PropertyProjectDetail data={data} />
+									<PropertyPriceList data={data} />
+									<PropertySidePlan data={data} />
 								</>
 							) : (
 								<>
-									<PropertyDetail />
+									<PropertyDetail data={data} />
 								</>
 							)}
 						</>
@@ -77,22 +124,22 @@ export default function PropertyDetailPage() {
 				</div>
 
 				<div className="col-span-1 space-y-8 md:sticky md:top-36 h-fit">
-					{!isCategoryBaru ? (
+					{!isProjectProduct ? (
 						<>
-							<MarketingInfo />
+							<MarketingInfo data={data} />
 							<SimulationKpr />
 						</>
 					) : (
 						<>
-							{!isTypeExist ? (
+							{!isProjectUnit ? (
 								<>
-									<DeveloperInfo />
-									<TypeProperty />
+									<DeveloperInfo data={data} />
+									<TypeProperty data={data} />
 								</>
 							) : (
 								<>
-									<PropertyFloorPlan />
-									<SimulationKpr />
+									<PropertyFloorPlan data={data} />
+									<SimulationKpr data={data} />
 								</>
 							)}
 						</>

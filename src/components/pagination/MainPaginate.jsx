@@ -2,6 +2,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 export default function MainPaginate({
 	isLoading,
+	page,
 	setPage,
 	maxPageSlice = 5,
 	data,
