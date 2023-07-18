@@ -10,7 +10,6 @@ export default function PropertyFilter({
 	setSelectedSubCategory,
 	setOrderBy,
 	setSearch,
-	searchAction,
 }) {
 	const navigate = useNavigate();
 	const [subCategoryOptions, setSubCategoryOptions] = useState([]);
@@ -18,6 +17,9 @@ export default function PropertyFilter({
 		value: 'semua',
 		label: 'Semua',
 	});
+	const [selectedOrderBy, setSelectedOrderBy] = useState('created_at');
+	const [selectedSubCategoryValue, setSelectedSubCategoryValue] =
+		useState(null);
 
 	const [searchValue, setSearchValue] = useState('');
 
@@ -38,12 +40,25 @@ export default function PropertyFilter({
 				label: item.name,
 			}));
 
-			setSubCategoryOptions([
-				{ value: 'semua', label: 'Semua' },
-				...subCategoryOptions,
-			]);
+			subCategoryOptions.unshift({
+				value: 'semua',
+				label: 'Semua',
+			});
+
+			setSubCategoryOptions(subCategoryOptions);
 		}
 	}, [category]);
+
+	useEffect(() => {
+		if (selectedSubCategory) {
+			const selectedSubCategoryOptions = {
+				value: selectedSubCategory?.slug,
+				label: selectedSubCategory?.name,
+			};
+
+			setSelectedSubCategoryOptions(selectedSubCategoryOptions);
+		}
+	}, [selectedSubCategory]);
 
 	const handleSubCategoryChange = data => {
 		const { value } = data[0];
@@ -52,25 +67,19 @@ export default function PropertyFilter({
 			item => item.slug === value
 		);
 
-		setSelectedSubCategory(selected);
-
-		if (value == 'semua') {
-			navigate(`/property?category=${category?.slug}`);
-		} else {
-			navigate(`/property?category=${category.slug}&type=${selected.slug}`);
-		}
+		setSelectedSubCategoryValue(selected);
 	};
 
 	useEffect(() => {
-		if (selectedSubCategory) {
+		if (selectedSubCategoryValue) {
 			const selectedSubCategoryOptions = {
-				value: selectedSubCategory.slug,
-				label: selectedSubCategory.name,
+				value: selectedSubCategoryValue?.slug,
+				label: selectedSubCategoryValue?.name,
 			};
 
 			setSelectedSubCategoryOptions(selectedSubCategoryOptions);
 		}
-	}, [selectedSubCategory]);
+	}, [selectedSubCategoryValue]);
 
 	const sortedPrice = [
 		{ value: 'semua', label: 'Semua' },
@@ -85,7 +94,16 @@ export default function PropertyFilter({
 
 	const handleSearchAction = () => {
 		setSearch(searchValue);
-		searchAction();
+		setOrderBy(selectedOrderBy);
+		setSelectedSubCategory(selectedSubCategoryValue);
+
+		if (selectedSubCategoryValue?.slug !== undefined) {
+			navigate(
+				`/property?category=${category?.slug}&type=${selectedSubCategoryValue?.slug}`
+			);
+		} else {
+			navigate(`/property?category=${category?.slug}`);
+		}
 	};
 
 	return (
@@ -123,7 +141,7 @@ export default function PropertyFilter({
 					</label>
 					<InputSelect
 						options={sortedPrice}
-						onChange={value => setOrderBy(value[0].value)}
+						onChange={value => setSelectedOrderBy(value[0].value)}
 						value={sortedPrice[0]}
 					/>
 				</div>

@@ -1,40 +1,104 @@
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import PropertyCard from '@/components/cards/PropertyCard';
+import { useContext, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getAllUserFavorites } from '../../../api/favorite-api';
+import AuthContext from '../../../contexts/AuthProvider';
+import NewPropertyCard from '../../../components/cards/NewPropertyCard';
+import MainContainer from '../../../components/containers/MainContainer';
+import MainPaginate from '../../../components/pagination/MainPaginate';
+import { SyncLoader } from 'react-spinners';
 
 export default function FavoriteSection() {
-	const maxPage = 50;
+	const [selectedType, setSelectedType] = useState(1);
+	const [page, setPage] = useState(1);
+	const [pageSlice, setPageSlice] = useState([]);
+
+	const { auth } = useContext(AuthContext);
+
+	const types = [
+		{
+			id: 1,
+			name: 'Property',
+		},
+		{
+			id: 2,
+			name: 'Developer',
+		},
+	];
+
+	const { data: userFavorite, isLoading: isUserFavoriteLoading } = useQuery(
+		['userFavorite', selectedType, page],
+		() => getAllUserFavorites({ type: selectedType, page: page }),
+		{
+			enabled: !!auth?.token,
+			select: data => data.results,
+			onSuccess: data => {
+				console.log(data);
+			},
+		}
+	);
 
 	return (
 		<div className="flex flex-col w-full gap-10">
-			<div className="w-full rounded-xl">
-				<div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-y-8">
-					{/* {[...Array(6)].map((_, i) => (
-						<div key={i} className="flexCenter">
-							<PropertyCard key={i} />
-						</div>
-					))} */}
+			<div className="flexCenter">
+				<div className="p-2 bg-white border rounded-xl">
+					{types.map((type, i) => (
+						<button
+							key={i}
+							className={`px-20 py-2 ${
+								selectedType === type.id
+									? 'text-white bg-primary rounded-xl'
+									: ''
+							}`}
+							onClick={() => setSelectedType(type.id)}
+						>
+							{type.name}
+						</button>
+					))}
 				</div>
 			</div>
 
-			<div className="flex justify-center">
-				{Array.from({ length: maxPage }, (_, i) =>
-					// show only 5 pages
-					i < 4 ? (
-						<button
-							key={i}
-							className={`px-4 py-2 mx-1 rounded-md border border-borderPrimary ${
-								i === 0 ? 'bg-primary text-white' : 'bg-white text-primary'
-							}`}
-						>
-							{i + 1}
-						</button>
-					) : null
-				)}
+			{isUserFavoriteLoading ? (
+				<div className="flex flex-col items-center justify-center w-full gap-6 h-96">
+					<SyncLoader color="#2563EB" />
+					<p className="font-medium text-gray-400">Memuat...</p>
+				</div>
+			) : !isUserFavoriteLoading && userFavorite?.length === 0 ? (
+				<div className="flex flex-col items-center justify-center w-full gap-6 h-96">
+					<p className="font-medium text-gray-400">
+						Tidak ada favorite yang ditemukan
+					</p>
+				</div>
+			) : (
+				<>
+					<div
+						className={`grid grid-cols-1 mt-4 md:grid-cols-2 place-items-center gap-y-8 xl:grid-cols-3 lg:grid-cols-2`}
+					>
+						{selectedType === 1 ? (
+							<>
+								{userFavorite?.map((property, index) => (
+									<PropertyCard key={index} data={property} small />
+								))}
+							</>
+						) : (
+							<>
+								{userFavorite?.map((property, index) => (
+									<NewPropertyCard key={index} data={property} small />
+								))}
+							</>
+						)}
+					</div>
 
-				<button className="px-2.5 py-2 mx-1 text-white rounded-md bg-white border border-borderPrimary flexCenter">
-					<MdKeyboardArrowRight size={24} color="#213D77" />
-				</button>
-			</div>
+					<MainPaginate
+						page={page}
+						setPage={setPage}
+						pageSlice={pageSlice}
+						setPageSlice={setPageSlice}
+						data={userFavorite}
+					/>
+				</>
+			)}
 		</div>
 	);
 }

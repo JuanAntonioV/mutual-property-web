@@ -7,11 +7,12 @@ import { MdKeyboardArrowRight } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getAllProductsApi } from '../../api/product-api';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PropertyCard from '../../components/cards/PropertyCard';
 import { SyncLoader } from 'react-spinners';
 import useStore from '../../hooks/useStore';
 import MainPaginate from '../../components/pagination/MainPaginate';
+import AuthContext from '../../contexts/AuthProvider';
 
 export default function PropertyPage() {
 	// const router = useRouter();
@@ -32,6 +33,7 @@ export default function PropertyPage() {
 	//     if (pathname === '/property')
 	//         router.push('/property?category=disewa&type=rumah');
 	// }, [pathname, router]);
+	const { auth } = useContext(AuthContext);
 
 	useEffect(() => {
 		const selected = categoryData?.find(item => item.slug === category);
@@ -59,6 +61,7 @@ export default function PropertyPage() {
 			selectedSubCategory?.id,
 			orderBy,
 			search,
+			auth?.user,
 		],
 		() =>
 			getAllProductsApi({
@@ -67,6 +70,7 @@ export default function PropertyPage() {
 				subCategory: selectedSubCategory?.id,
 				orderBy: orderBy,
 				search: search,
+				userId: auth?.user?.id,
 			}),
 		{
 			select: data => data.results,

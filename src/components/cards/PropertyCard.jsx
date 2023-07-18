@@ -80,7 +80,7 @@ export default function PropertyCard({ data }) {
 					#{data?.id} • Diposting {dateFormater(data?.created_at, 'short')}
 				</span>
 
-				<CardLiker propertyId={data?.id} />
+				<CardLiker propertyId={data?.id} isFavorite={data?.favorite} />
 			</footer>
 		</div>
 	);

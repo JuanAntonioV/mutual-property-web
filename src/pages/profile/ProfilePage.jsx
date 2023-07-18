@@ -37,7 +37,7 @@ export default function ProfilePage() {
 		<div className="bg-gradient-to-b from-white via-indigo-50 via-80% to-white">
 			<MainContainer className="mt-[100px]">
 				<section className="grid grid-cols-1 gap-10 py-20 md:grid-cols-3 xl:grid-cols-4">
-					<div className="items-start col-span-1 md:col-span-1 xl:col-span-1 flexCenter">
+					<div className="items-start col-span-1 md:col-span-1 xl:col-span-1 flexCenter top-20">
 						<SideMenuSection
 							selectedTab={selectedTab}
 							onChangeTab={value => setSelectedTab(value)}

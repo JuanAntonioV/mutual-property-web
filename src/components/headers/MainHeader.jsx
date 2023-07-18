@@ -21,10 +21,11 @@ import { getProfileApi } from '../../api/user-api';
 
 export default function MainHeader() {
 	const navigate = useNavigate();
-	const { auth, setAuth } = useContext(AuthContext);
+	const { auth } = useContext(AuthContext);
 	const [menuHover, setMenuHover] = useState(false);
 	const [selectedMenu, setSelectedMenu] = useState(null);
 	const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
+	const [searchValue, setSearchValue] = useState('');
 
 	const menuList = [
 		{
@@ -206,6 +207,12 @@ export default function MainHeader() {
 		}
 	);
 
+	const handleOnSearch = () => {
+		if (searchValue.length > 0) {
+			navigate(`/property/search?keyword=${searchValue}`);
+		}
+	};
+
 	return (
 		<header className="relative z-30">
 			<div className="fixed top-0 left-0 right-0 text-white bg-primary h-[100px]">
@@ -247,9 +254,20 @@ export default function MainHeader() {
 								type="text"
 								placeholder="Cari Lokasi..."
 								className="w-full py-3 pl-4 text-black rounded-full sm:w-48 xl:w-60 lg:pr-12 placeholder:text-sm focus:outline-none"
+								onChange={e => setSearchValue(e.target.value)}
+								value={searchValue}
+								maxLength={50}
+								onKeyDown={e => {
+									if (e.key === 'Enter') {
+										handleOnSearch();
+									}
+								}}
 							/>
 
-							<button className="absolute w-10 h-10 -translate-y-1/2 rounded-full top-1/2 right-1 flexCenter bg-primary">
+							<button
+								className="absolute w-10 h-10 -translate-y-1/2 rounded-full top-1/2 right-1 flexCenter bg-primary"
+								onClick={handleOnSearch}
+							>
 								<BiSearch color="#fff" size={18} />
 							</button>
 						</div>

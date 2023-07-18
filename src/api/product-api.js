@@ -15,6 +15,7 @@ export const getAllProductsApi = async ({
 	subCategory,
 	orderBy,
 	search,
+	userId,
 }) => {
 	try {
 		const res = await api.get(
@@ -22,7 +23,7 @@ export const getAllProductsApi = async ({
 				subCategory ? `&sub_category=${subCategory}` : ''
 			}${orderBy ? `&order_by=${orderBy}` : ''}${
 				search ? `&search=${search}` : ''
-			}&page=${page}`
+			}&page=${page}${userId ? `&user_id=${userId}` : ''}`
 		);
 		return res.data;
 	} catch (err) {

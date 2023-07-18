@@ -1,44 +1,37 @@
-import { useState } from 'react';
-
 import { textDotsFormat } from '@/utils/formaters';
 
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { IoLocationSharp } from 'react-icons/io5';
 
-import HouseImage from '@/assets/img/house.jpg';
 import ImageCardCarousel from '../carousel/ImageCardCarousel';
 import { useNavigate } from 'react-router-dom';
 import { dateFormater, formatPrice } from '../../utils/formaters';
+import CardLiker from './CardLiker';
 
-export default function NewPropertyCard({ data }) {
-	const [like, setLike] = useState(false);
+export default function NewPropertyCard({ data, small }) {
 	const navigate = useNavigate();
 
 	const hadleCardClicked = () => {
 		navigate(`/projects/${data?.slug}`);
 	};
 
-	const handleLikeClicked = e => {
-		e.stopPropagation();
-		setLike(!like);
-	};
-
 	return (
 		<div
-			className="w-full md:w-[420px] bg-white shadow-md rounded-lg overflow-hidden"
+			className={`w-full bg-white shadow-md rounded-lg overflow-hidden ${
+				small ? ' md:w-[330px]' : 'md:w-[420px]'
+			}`}
 			onClick={hadleCardClicked}
 		>
-			<ImageCardCarousel image={data?.images} />
+			<ImageCardCarousel image={data?.images} height={small ? '230' : '280'} />
 
 			<main className="p-5 cursor-pointer">
 				<div className="flex item-center gap-x-2">
 					<IoLocationSharp size={18} color="#00092980" />
 
 					<span className="block text-sm leading-tight text-secondarySoftTrans md:hidden md:text-base">
-						{textDotsFormat(data?.address, 36)}
+						{textDotsFormat(data?.address, small ? 26 : 36)}
 					</span>
 					<span className="hidden text-sm leading-tight text-secondarySoftTrans md:block md:text-base">
-						{textDotsFormat(data?.address, 38)}
+						{textDotsFormat(data?.address, small ? 28 : 38)}
 					</span>
 				</div>
 
@@ -63,13 +56,7 @@ export default function NewPropertyCard({ data }) {
 					#{data?.id} • Diposting {dateFormater(data?.created_at)}
 				</span>
 
-				<button className="flexCenter" onClick={handleLikeClicked}>
-					{like ? (
-						<AiFillHeart size={38} color="#EB4335" />
-					) : (
-						<AiOutlineHeart size={38} color="#00092980" />
-					)}
-				</button>
+				<CardLiker projectId={data?.id} isFavorite={data?.favorite} />
 			</footer>
 		</div>
 	);
