@@ -1,18 +1,13 @@
-import { MdKeyboardArrowRight } from 'react-icons/md';
 import PropertyCard from '@/components/cards/PropertyCard';
 import { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getAllUserFavorites } from '../../../api/favorite-api';
 import AuthContext from '../../../contexts/AuthProvider';
 import NewPropertyCard from '../../../components/cards/NewPropertyCard';
-import MainContainer from '../../../components/containers/MainContainer';
-import MainPaginate from '../../../components/pagination/MainPaginate';
 import { SyncLoader } from 'react-spinners';
 
 export default function FavoriteSection() {
 	const [selectedType, setSelectedType] = useState(1);
-	const [page, setPage] = useState(1);
-	const [pageSlice, setPageSlice] = useState([]);
 
 	const { auth } = useContext(AuthContext);
 
@@ -28,14 +23,11 @@ export default function FavoriteSection() {
 	];
 
 	const { data: userFavorite, isLoading: isUserFavoriteLoading } = useQuery(
-		['userFavorite', selectedType, page],
-		() => getAllUserFavorites({ type: selectedType, page: page }),
+		['userFavorite', selectedType],
+		() => getAllUserFavorites({ type: selectedType }),
 		{
 			enabled: !!auth?.token,
 			select: data => data.results,
-			onSuccess: data => {
-				console.log(data);
-			},
 		}
 	);
 
@@ -89,14 +81,6 @@ export default function FavoriteSection() {
 							</>
 						)}
 					</div>
-
-					<MainPaginate
-						page={page}
-						setPage={setPage}
-						pageSlice={pageSlice}
-						setPageSlice={setPageSlice}
-						data={userFavorite}
-					/>
 				</>
 			)}
 		</div>

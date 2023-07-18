@@ -1,8 +1,8 @@
 import api from '../lib/client-api';
 
-export const getAllUserFavorites = async ({ type, page = 1 }) => {
+export const getAllUserFavorites = async ({ type }) => {
 	try {
-		const res = await api.get(`/user/favorites?type=${type}&page=${page}`);
+		const res = await api.get(`/user/favorites?type=${type}`);
 		return res.data;
 	} catch (err) {
 		throw new Error(err.response.data.message);
