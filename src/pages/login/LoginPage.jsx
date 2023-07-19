@@ -123,10 +123,10 @@ export default function LoginPage() {
 							</span>
 						</div>
 
-						<button className="w-full gap-3 mt-8 btnSecondary border-borderPrimary flexCenter">
+						{/* <button className="w-full gap-3 mt-8 btnSecondary border-borderPrimary flexCenter">
 							<FcGoogle size={24} />
 							<span className="text-base font-semibold md:text-lg">Google</span>
-						</button>
+						</button> */}
 
 						<p className="mt-6 text-sm text-center text-secondary md:text-base">
 							Belum punya akun ?{' '}
