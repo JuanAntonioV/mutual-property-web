@@ -6,7 +6,6 @@ const PROD_URL = import.meta.env.VITE_PRODUCTION_API_URL;
 
 const api = axios.create({
 	baseURL: APP_ENV === 'production' ? PROD_URL : LOCAL_URL,
-	withCredentials: true,
 });
 
 api.interceptors.request.use(

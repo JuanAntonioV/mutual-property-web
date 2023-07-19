@@ -116,12 +116,12 @@ export default function LoginPage() {
 					</main>
 
 					<footer>
-						<div className="relative mt-10 mb-6 flexCenter">
+						{/* <div className="relative mt-10 mb-6 flexCenter">
 							<span className="w-full h-[1px] bg-borderPrimary"></span>
 							<span className="absolute px-3 text-sm -translate-y-1/2 bg-white text-secondary top-1/2">
 								Atau masuk dengan
 							</span>
-						</div>
+						</div> */}
 
 						{/* <button className="w-full gap-3 mt-8 btnSecondary border-borderPrimary flexCenter">
 							<FcGoogle size={24} />
