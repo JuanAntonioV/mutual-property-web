@@ -4,7 +4,7 @@ import MainContainer from '../containers/MainContainer';
 export default function NavMenuOnHover({ data, isHover, onHover, onUnhover }) {
 	return (
 		<div
-			className={`absolute w-screen h-80 bg-white shadow transition-all duration-200`}
+			className={`absolute w-screen h-80 bg-white shadow transition-all duration-200 z-20`}
 			onMouseEnter={onHover}
 			onMouseLeave={onUnhover}
 			style={
@@ -23,12 +23,12 @@ export default function NavMenuOnHover({ data, isHover, onHover, onUnhover }) {
 					  }
 			}
 		>
-			<MainContainer className="grid w-full h-full grid-cols-2 px-32 place-content-center gap-10 relative text-black">
+			<MainContainer className="relative grid w-full h-full grid-cols-2 gap-10 px-32 text-black place-content-center">
 				{data?.section.map((item, index) => (
 					<div className={'h-full'} key={index}>
 						<header className={'space-y-2 border-b border-borderPrimary pb-6'}>
 							{item.icon}
-							<h1 className="font-medium text-lg">{item.title}</h1>
+							<h1 className="text-lg font-medium">{item.title}</h1>
 						</header>
 
 						<main className={'flex items-center flex-wrap gap-4 py-4'}>

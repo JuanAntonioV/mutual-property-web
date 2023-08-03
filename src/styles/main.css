@@ -18,6 +18,24 @@ input[type='number']::-webkit-outer-spin-button {
 	margin: 0;
 }
 
+.styles_ticker__-0UvZ {
+	background-color: #fff;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.styles_ticker__-0UvZ .styles_newsticker__py7eW {
+	background-color: #fff;
+	color: #1f2937 !important;
+}
+
+.styles_ticker__-0UvZ .styles_newsticker__py7eW:hover {
+	background-color: #fff;
+}
+
+.styles_ticker__-0UvZ .styles_title__n7qOv:hover {
+	text-decoration: none;
+}
+
 @layer components {
 	.flexCenter {
 		@apply flex items-center justify-center;

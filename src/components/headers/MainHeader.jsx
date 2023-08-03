@@ -18,6 +18,9 @@ import AuthContext from '../../contexts/AuthProvider';
 import { MoonLoader } from 'react-spinners';
 import { useQuery } from '@tanstack/react-query';
 import { getProfileApi } from '../../api/user-api';
+import Ticker, { FinancialTicker, NewsTicker } from 'nice-react-ticker';
+import { getAllNews } from '../../api/newsApi';
+import { dateFormater } from '../../utils/formaters';
 
 export default function MainHeader() {
 	const navigate = useNavigate();
@@ -26,6 +29,8 @@ export default function MainHeader() {
 	const [selectedMenu, setSelectedMenu] = useState(null);
 	const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
 	const [searchValue, setSearchValue] = useState('');
+	const location = window.location.pathname;
+	const isHome = location === '/';
 
 	const menuList = [
 		{
@@ -213,12 +218,20 @@ export default function MainHeader() {
 		}
 	};
 
+	const { data: news, isLoading: isNewsLoading } = useQuery(
+		['news'],
+		getAllNews,
+		{
+			select: data => data.results,
+		}
+	);
+
 	return (
 		<header className="relative z-30">
 			<div className="fixed top-0 left-0 right-0 text-white bg-primary h-[100px]">
 				<MainContainer className="relative h-full flexBetween">
 					<div className="space-x-8 flexStart">
-						<BrandLogo white width={150} />
+						<BrandLogo white width={160} />
 
 						<nav className="hidden lg:block">
 							<ul className="flex items-center gap-x-1 lg:gap-x-3 xl:gap-x-4">
@@ -305,6 +318,18 @@ export default function MainHeader() {
 					onHover={() => setMenuHover(true)}
 					onUnhover={() => setMenuHover(false)}
 				/>
+
+				{isHome && !isNewsLoading && news?.length > 0 && (
+					<Ticker isNewsTicker={true} slideSpeed={30}>
+						{news?.map((item, index) => (
+							<NewsTicker
+								id={index}
+								title={item.title}
+								meta={dateFormater(item.created_at, 'short')}
+							/>
+						))}
+					</Ticker>
+				)}
 			</div>
 
 			<NavMenuMobile

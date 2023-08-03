@@ -20,6 +20,7 @@ export default function HitungKprPage() {
 	const [calculateResult, setCalculateResult] = useState({
 		totalBunga: 0,
 		cicilanNasabah: 0,
+		bunga: 0,
 	});
 
 	const handleOnChange = e => {
@@ -75,6 +76,7 @@ export default function HitungKprPage() {
 			setCalculateResult({
 				totalBunga: totalBunga.toFixed(0),
 				cicilanNasabah: resultCicilanNasabah.toFixed(0),
+				bunga: valueParsed.bunga,
 			});
 
 			setCalculateClicked(true);
@@ -229,7 +231,7 @@ export default function HitungKprPage() {
 									<div className="flexBetween">
 										<div className="space-y-1">
 											<h4 className="font-semibold md:text-lg">
-												Bunga {formValue.jangkaCicilan}%
+												Bunga {calculateResult.bunga}%
 											</h4>
 										</div>
 

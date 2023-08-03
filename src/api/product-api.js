@@ -9,6 +9,15 @@ export const getNewestProductsApi = async () => {
 	}
 };
 
+export const getListingProductsApi = async () => {
+	try {
+		const res = await api.get('/listing-products');
+		return res.data;
+	} catch (err) {
+		throw new Error(err.response.data.message);
+	}
+};
+
 export const getAllProductsApi = async ({
 	page = 1,
 	category,
