@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "1.0.0",
 	"type": "module",
-	"homepage": "https://mutualproperty.co.id",
+	"homepage": "https://test.mutualproperty.co.id",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",

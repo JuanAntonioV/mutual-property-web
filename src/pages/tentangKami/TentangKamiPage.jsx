@@ -3,7 +3,7 @@ import ContactSection from '@/components/sections/ContactSection';
 import { useMutation } from '@tanstack/react-query';
 
 import { FaQuoteLeft } from 'react-icons/fa';
-import { sendContactApi } from '../../api/contact-api';
+import { sendContactApi } from '@/api/contact-api';
 import { PulseLoader } from 'react-spinners';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -25,7 +25,7 @@ export default function TentangKamiPage() {
 	};
 
 	const { mutate: sendMessage, isLoading: isSendMessageLoading } = useMutation(
-		sendContactApi,
+		payload => sendContactApi(payload),
 		{
 			onSuccess: data => {
 				toast.success('Pesan berhasil dikirim');
