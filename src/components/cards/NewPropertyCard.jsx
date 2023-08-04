@@ -56,7 +56,7 @@ export default function NewPropertyCard({ data, small }) {
 					#{data?.id} • Diposting {dateFormater(data?.created_at)}
 				</span>
 
-				<CardLiker projectId={data?.id} isFavorite={data?.favorite} />
+				<CardLiker projectId={data?.id} isFavorite={parseInt(data?.favorite)} />
 			</footer>
 		</div>
 	);

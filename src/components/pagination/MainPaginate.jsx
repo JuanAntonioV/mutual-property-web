@@ -19,6 +19,8 @@ export default function MainPaginate({
 		setPage(pageSlice - maxPageSlice);
 	};
 
+	console.log(data?.last_page);
+
 	if (isLoading) return null;
 
 	return (
@@ -37,9 +39,9 @@ export default function MainPaginate({
 					.map((_, index) => (
 						<button
 							key={index}
-							className={`w-8 h-8 px-4 py-2 mx-1 rounded-md border border-borderPrimary ${
+							className={`w-10 h-10 px-4 py-2 mx-1 rounded-md border border-borderPrimary flexCenter ${
 								data?.current_page === index + 1
-									? 'border-primary text-primary'
+									? 'border-primary bg-primary text-white'
 									: 'border-borderPrimary text-textSecondary'
 							}`}
 							onClick={() => setPage(index + 1)}
@@ -47,17 +49,19 @@ export default function MainPaginate({
 							{index + 1}
 						</button>
 					))
-					.slice(pageSlice - maxPageSlice, pageSlice)}
+					.slice(
+						pageSlice - maxPageSlice < 0 ? 0 : pageSlice - maxPageSlice,
+						pageSlice < maxPageSlice ? maxPageSlice : pageSlice
+					)}
 
-				{pageSlice < data?.last_page ||
-					(page > 1 && (
-						<button
-							className="px-2.5 py-2 mx-1 text-white rounded-md bg-white border border-borderPrimary flexCenter"
-							onClick={nextSlicePage}
-						>
-							<MdKeyboardArrowRight size={24} color="#213D77" />
-						</button>
-					))}
+				{pageSlice < data?.last_page && data?.last_page > maxPageSlice ? (
+					<button
+						className="px-2.5 py-2 mx-1 text-white rounded-md bg-white border border-borderPrimary flexCenter"
+						onClick={nextSlicePage}
+					>
+						<MdKeyboardArrowRight size={24} color="#213D77" />
+					</button>
+				) : null}
 			</div>
 		</>
 	);

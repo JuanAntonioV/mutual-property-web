@@ -25,6 +25,7 @@ export const getAllProductsApi = async ({
 	orderBy,
 	search,
 	userId,
+	count = 8,
 }) => {
 	try {
 		const res = await api.get(
@@ -32,7 +33,9 @@ export const getAllProductsApi = async ({
 				subCategory ? `&sub_category=${subCategory}` : ''
 			}${orderBy ? `&order_by=${orderBy}` : ''}${
 				search ? `&search=${search}` : ''
-			}&page=${page}${userId ? `&user_id=${userId}` : ''}`
+			}&page=${page}${userId ? `&user_id=${userId}` : ''}${
+				count ? `&count=${count}` : ''
+			}`
 		);
 		return res.data;
 	} catch (err) {

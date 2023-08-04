@@ -13,6 +13,7 @@ import { SyncLoader } from 'react-spinners';
 import useStore from '../../hooks/useStore';
 import MainPaginate from '../../components/pagination/MainPaginate';
 import AuthContext from '../../contexts/AuthProvider';
+import { getAllCategoriesApi } from '../../api/category-api';
 
 export default function PropertyPage() {
 	// const router = useRouter();
@@ -21,11 +22,12 @@ export default function PropertyPage() {
 	const category = searchParams.get('category');
 	const type = searchParams.get('type');
 	const [page, setPage] = useState(1);
-	const [pageSlice, setPageSlice] = useState([]);
+	const [pageSlice, setPageSlice] = useState(0);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 	const [orderBy, setOrderBy] = useState('created_at');
 	const [search, setSearch] = useState('');
+	const [count, setCount] = useState(0);
 
 	const { category: categoryData } = useStore();
 
@@ -35,8 +37,13 @@ export default function PropertyPage() {
 	// }, [pathname, router]);
 	const { auth } = useContext(AuthContext);
 
+	useQuery(['categories'], getAllCategoriesApi, {
+		select: res => res.results,
+	});
+
 	useEffect(() => {
 		const selected = categoryData?.find(item => item.slug === category);
+		setPage(1);
 
 		if (category) {
 			setSelectedCategory(selected);
@@ -47,11 +54,20 @@ export default function PropertyPage() {
 		const selected = selectedCategory?.sub_categories?.find(
 			item => item.slug === type
 		);
+		setPage(1);
 
 		if (type) {
 			setSelectedSubCategory(selected);
 		}
 	}, [type, selectedCategory]);
+
+	useEffect(() => {
+		if (selectedCategory?.id === 3) {
+			setCount(9);
+		} else {
+			setCount(8);
+		}
+	}, [selectedCategory]);
 
 	const { data: propertyData, isLoading: isPropertyDataLoading } = useQuery(
 		[
@@ -62,6 +78,7 @@ export default function PropertyPage() {
 			orderBy,
 			search,
 			auth?.user,
+			count,
 		],
 		() =>
 			getAllProductsApi({
@@ -71,8 +88,10 @@ export default function PropertyPage() {
 				orderBy: orderBy,
 				search: search,
 				userId: auth?.user?.id,
+				count: count,
 			}),
 		{
+			cacheTime: 0,
 			select: data => data.results,
 		}
 	);
@@ -135,6 +154,8 @@ export default function PropertyPage() {
 							pageSlice={pageSlice}
 							setPageSlice={setPageSlice}
 							data={propertyData}
+							maxPageSlice={5}
+							isLoading={isPropertyDataLoading}
 						/>
 					</>
 				)}
