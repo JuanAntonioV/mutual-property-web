@@ -8,7 +8,7 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 
 export default function SubscriptionSection() {
-	const [email, setEmail] = useState('');
+	const [phone, setPhone] = useState('');
 
 	const { mutate: sendSubscription, isLoading: isSubscriptionLoading } =
 		useMutation(sendSubscriptionApi, {
@@ -24,10 +24,20 @@ export default function SubscriptionSection() {
 		e.preventDefault();
 
 		const payload = {
-			email: email,
+			phone: phone,
 		};
 
 		sendSubscription(payload);
+	};
+
+	const handleOnChange = e => {
+		const { value } = e.target;
+
+		const regex = /^[0-9\b]+$/;
+
+		if (value === '' || regex.test(value)) {
+			setPhone(value);
+		}
 	};
 
 	return (
@@ -35,10 +45,11 @@ export default function SubscriptionSection() {
 			<MainContainer className="text-center text-white">
 				<header className="space-y-2">
 					<h3 className="text-2xl font-bold">
-						Ingin mendapatkan informasi terbaru?
+						Ingin mendapatkan info properti terbaru?
 					</h3>
 					<p className="text-sm md:text-lg">
-						Daftarkan email anda untuk mendapatkan informasi terbaru dari kami
+						Daftarkan nomor whatsapp anda untuk mendapatkan info properti
+						terbaru dari kami
 					</p>
 				</header>
 
@@ -46,13 +57,14 @@ export default function SubscriptionSection() {
 					<div className="relative w-full lg:w-[600px] mx-auto">
 						<form onSubmit={handleSubcriptionSubmit}>
 							<input
-								type="email"
-								name="email"
-								placeholder="Masukkan alamat email anda"
+								type="text"
+								name="phone"
+								placeholder="Masukkan nomor whatsapp anda"
 								className="w-full py-4 pl-4 text-black bg-white pr-28 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
 								required
-								onChange={e => setEmail(e.target.value)}
-								value={email}
+								maxLength={15}
+								onChange={handleOnChange}
+								value={phone}
 							/>
 							<button
 								type="submit"

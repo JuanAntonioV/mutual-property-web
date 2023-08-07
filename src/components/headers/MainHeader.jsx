@@ -18,9 +18,10 @@ import AuthContext from '../../contexts/AuthProvider';
 import { MoonLoader } from 'react-spinners';
 import { useQuery } from '@tanstack/react-query';
 import { getProfileApi } from '../../api/user-api';
-import Ticker, { FinancialTicker, NewsTicker } from 'nice-react-ticker';
+import Ticker, { NewsTicker } from 'nice-react-ticker';
 import { getAllNews } from '../../api/newsApi';
 import { dateFormater } from '../../utils/formaters';
+import HotNewsTicker from '../tickers/HotNewsTicker';
 
 export default function MainHeader() {
 	const navigate = useNavigate();
@@ -320,15 +321,7 @@ export default function MainHeader() {
 				/>
 
 				{isHome && !isNewsLoading && news?.length > 0 && (
-					<Ticker isNewsTicker={true} slideSpeed={30}>
-						{news?.map((item, index) => (
-							<NewsTicker
-								id={index}
-								title={item.title}
-								meta={dateFormater(item.created_at, 'short')}
-							/>
-						))}
-					</Ticker>
+					<HotNewsTicker item={news} />
 				)}
 			</div>
 

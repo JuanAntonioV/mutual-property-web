@@ -17,9 +17,9 @@ export default function ListingPropertySection() {
 			<MainContainer>
 				<header>
 					<SectionTitle
-						title={'Listingan Baru Buat Kamu'}
+						title={'Properti Seken Buat Kamu '}
 						description={
-							'Cek listingan terbaru kami serta informasi lengkapnya'
+							'Cek listingan terbaru kami serta informasi selengkapnya'
 						}
 					/>
 				</header>

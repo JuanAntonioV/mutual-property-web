@@ -132,7 +132,7 @@ export default function TentangKamiPage() {
 
 			<div className="bg-gradient-to-b from-white via-indigo-50 via-80% to-white">
 				<MainContainer>
-					<section className="py-10 space-y-10">
+					<section className="py-10 space-y-10" id="contact">
 						<header className="space-y-1">
 							<h1 className="text-2xl font-bold text-center text-primary">
 								Titip Jual Property Anda!
