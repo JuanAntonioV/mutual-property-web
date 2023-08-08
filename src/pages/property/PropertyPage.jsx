@@ -20,8 +20,6 @@ export default function PropertyPage() {
 	const [searchParams] = useSearchParams();
 	const category = searchParams.get('category');
 	const type = searchParams.get('type');
-	const [page, setPage] = useState(1);
-	const [pageSlice, setPageSlice] = useState(0);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 	const [orderBy, setOrderBy] = useState('created_at');
@@ -42,7 +40,6 @@ export default function PropertyPage() {
 
 	useEffect(() => {
 		const selected = categoryData?.find(item => item.slug === category);
-		setPage(1);
 
 		if (category) {
 			setSelectedCategory(selected);
@@ -53,7 +50,6 @@ export default function PropertyPage() {
 		const selected = selectedCategory?.sub_categories?.find(
 			item => item.slug === type
 		);
-		setPage(1);
 
 		if (type) {
 			setSelectedSubCategory(selected);
