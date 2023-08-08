@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 export default function TentangKamiPage() {
 	const [contactForm, setContactForm] = useState({
 		full_name: '',
-		email: '',
+		phoneNumber: '',
 		message: '',
 	});
 
@@ -38,7 +38,14 @@ export default function TentangKamiPage() {
 
 	const handleSendMessage = e => {
 		e.preventDefault();
-		sendMessage(contactForm);
+
+		const payload = {
+			full_name: contactForm.full_name,
+			phone_number: contactForm.phoneNumber,
+			message: contactForm.message,
+		};
+
+		sendMessage(payload);
 	};
 
 	return (
@@ -164,16 +171,16 @@ export default function TentangKamiPage() {
 									</div>
 									<div className="space-y-2">
 										<label
-											htmlFor="email"
+											htmlFor="phoneNumber"
 											className="font-semibold text-secondary"
 										>
-											Email
+											Nomor WhatsApp
 										</label>
 										<input
-											type="email"
-											name="email"
-											id="email"
-											placeholder="Masukkan email Anda"
+											type="text"
+											name="phoneNumber"
+											id="phoneNumber"
+											placeholder="Masukkan nomor WhatsApp Anda"
 											className="inputSecondary"
 											required
 											onChange={handleOnChange}

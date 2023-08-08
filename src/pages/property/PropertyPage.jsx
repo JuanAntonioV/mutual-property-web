@@ -3,17 +3,16 @@ import PropertyHeroSection from '@/components/sections/PropertyHeroSection';
 import PropertyFilter from '@/components/filters/PropertyFilter';
 import NewPropertyCard from '@/components/cards/NewPropertyCard';
 
-import { MdKeyboardArrowRight } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getAllProductsApi } from '../../api/product-api';
 import { useContext, useEffect, useState } from 'react';
 import PropertyCard from '../../components/cards/PropertyCard';
 import { SyncLoader } from 'react-spinners';
 import useStore from '../../hooks/useStore';
-import MainPaginate from '../../components/pagination/MainPaginate';
 import AuthContext from '../../contexts/AuthProvider';
 import { getAllCategoriesApi } from '../../api/category-api';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
 export default function PropertyPage() {
 	// const router = useRouter();
@@ -69,10 +68,15 @@ export default function PropertyPage() {
 		}
 	}, [selectedCategory]);
 
-	const { data: propertyData, isLoading: isPropertyDataLoading } = useQuery(
+	const {
+		data: propertyData,
+		isLoading: isPropertyDataLoading,
+		fetchNextPage,
+		isFetchingNextPage,
+		hasNextPage,
+	} = useInfiniteQuery(
 		[
 			'allProperty',
-			page,
 			selectedCategory?.id,
 			selectedSubCategory?.id,
 			orderBy,
@@ -80,9 +84,9 @@ export default function PropertyPage() {
 			auth?.user,
 			count,
 		],
-		() =>
+		({ pageParam }) =>
 			getAllProductsApi({
-				page: page,
+				pageParam,
 				category: selectedCategory?.id,
 				subCategory: selectedSubCategory?.id,
 				orderBy: orderBy,
@@ -92,9 +96,17 @@ export default function PropertyPage() {
 			}),
 		{
 			cacheTime: 0,
-			select: data => data.results,
+			getNextPageParam: (lastPage, pages) => {
+				if (pages.length < lastPage.results.last_page) {
+					return pages.length + 1;
+				} else {
+					return undefined;
+				}
+			},
 		}
 	);
+
+	useInfiniteScroll({ action: fetchNextPage, hasNextPage });
 
 	return (
 		<>
@@ -135,28 +147,29 @@ export default function PropertyPage() {
 						>
 							{category !== 'baru' ? (
 								<>
-									{propertyData?.data?.map((property, index) => (
-										<PropertyCard key={index} data={property} />
-									))}
+									{propertyData?.pages?.map(page =>
+										page?.results?.data?.map((item, index) => (
+											<PropertyCard key={index} data={item} />
+										))
+									)}
 								</>
 							) : (
 								<>
-									{propertyData?.data?.map((property, index) => (
-										<NewPropertyCard key={index} data={property} />
-									))}
+									{propertyData?.pages?.map(page =>
+										page?.results?.data?.map((item, index) => (
+											<NewPropertyCard key={index} data={item} />
+										))
+									)}
 								</>
 							)}
 						</MainContainer>
 
-						<MainPaginate
-							page={page}
-							setPage={setPage}
-							pageSlice={pageSlice}
-							setPageSlice={setPageSlice}
-							data={propertyData}
-							maxPageSlice={5}
-							isLoading={isPropertyDataLoading}
-						/>
+						{isFetchingNextPage && (
+							<div className="flex flex-col items-center justify-center w-full gap-6 py-10">
+								<SyncLoader color="#2563EB" />
+								<p className="font-medium text-gray-400">Memuat...</p>
+							</div>
+						)}
 					</>
 				)}
 			</main>

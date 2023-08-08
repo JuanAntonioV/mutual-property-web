@@ -18,9 +18,7 @@ import AuthContext from '../../contexts/AuthProvider';
 import { MoonLoader } from 'react-spinners';
 import { useQuery } from '@tanstack/react-query';
 import { getProfileApi } from '../../api/user-api';
-import Ticker, { NewsTicker } from 'nice-react-ticker';
 import { getAllNews } from '../../api/newsApi';
-import { dateFormater } from '../../utils/formaters';
 import HotNewsTicker from '../tickers/HotNewsTicker';
 
 export default function MainHeader() {
@@ -55,6 +53,10 @@ export default function MainHeader() {
 							link: '/property?category=dijual&type=gudang-pabrik',
 						},
 						{
+							title: 'Tanah',
+							link: '/property?category=dijual&type=tanah',
+						},
+						{
 							title: 'Apartemen',
 							link: '/property?category=dijual&type=apartemen',
 						},
@@ -87,6 +89,10 @@ export default function MainHeader() {
 							link: '/property?category=disewa&type=gudang-pabrik',
 						},
 						{
+							title: 'Tanah',
+							link: '/property?category=disewa&type=tanah',
+						},
+						{
 							title: 'Apartemen',
 							link: '/property?category=disewa&type=apartemen',
 						},
@@ -117,6 +123,10 @@ export default function MainHeader() {
 						{
 							title: 'Gudang / Pabrik',
 							link: '/property?category=baru&type=gudang-pabrik',
+						},
+						{
+							title: 'Tanah',
+							link: '/property?category=baru&type=tanah',
 						},
 						{
 							title: 'Apartemen',

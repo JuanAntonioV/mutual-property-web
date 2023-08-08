@@ -19,7 +19,7 @@ export const getListingProductsApi = async () => {
 };
 
 export const getAllProductsApi = async ({
-	page = 1,
+	pageParam: page = 1,
 	category,
 	subCategory,
 	orderBy,

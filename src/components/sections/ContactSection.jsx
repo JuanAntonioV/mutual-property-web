@@ -29,7 +29,7 @@ export default function ContactSection() {
 						<main className="space-y-2 text-center">
 							<p>Hubungi Kami</p>
 							<p className="text-lg font-bold text-primary">
-								0859 - 2313 - 3452
+								0852 - 7730 - 3838
 							</p>
 						</main>
 					</div>
@@ -41,7 +41,7 @@ export default function ContactSection() {
 						<main className="space-y-2 text-center">
 							<p>Kunjungi kantor kami di</p>
 							<p className="text-lg font-bold text-primary">
-								Jl. Gatot Subroto, No.123, Medan
+								Jalan William Iskandar Pasar V, <br /> Komplek MMTC Blok N-25
 							</p>
 						</main>
 					</div>
@@ -53,7 +53,7 @@ export default function ContactSection() {
 						<main className="space-y-2 text-center">
 							<p>Email kami di</p>
 							<p className="text-lg font-bold text-primary">
-								property@gmail.com
+								mutualproperti@gmail.com
 							</p>
 						</main>
 					</div>

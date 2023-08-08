@@ -5,6 +5,7 @@ import SubscriptionSection from '@/components/sections/SubscriptionSection';
 import ListingPropertySection from '@/components/sections/ListingPropertySection';
 import ContactFeatureSection from '@/components/sections/ContactFeatureSection';
 import ContactSection from '../../components/sections/ContactSection';
+import ContactForm from '../../components/sections/ContactForm';
 
 export default function HomePage() {
 	return (
@@ -17,6 +18,7 @@ export default function HomePage() {
 			<ListingPropertySection />
 			<ContactSection />
 			<ContactFeatureSection />
+			<ContactForm />
 			<SubscriptionSection />
 		</>
 	);
