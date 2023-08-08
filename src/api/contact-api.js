@@ -8,3 +8,12 @@ export const sendContactApi = async data => {
 		throw new Error(err.response.data.message);
 	}
 };
+
+export const sellPropertyApi = async data => {
+	try {
+		const res = await api.post('/sell-property', data);
+		return res.data;
+	} catch (err) {
+		throw new Error(err.response.data.message);
+	}
+};

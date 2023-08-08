@@ -4,11 +4,13 @@ import HeroImage from '@/assets/img/hero-image.png';
 import HeroImageProperty from '@/assets/img/property.jpeg';
 import HomePageStat from '../stats/HomePageStat';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { getAllCategoriesApi } from '../../api/category-api';
 import { PulseLoader } from 'react-spinners';
 import { formatRupiah, parseRupiah } from '../../utils/helpers';
 import { formatPrice } from '../../utils/formaters';
+import { sellPropertyApi } from '../../api/contact-api';
+import { toast } from 'react-toastify';
 
 export default function HomePageHeroSection() {
 	const navigate = useNavigate();
@@ -59,6 +61,17 @@ export default function HomePageHeroSection() {
 		}
 	};
 
+	const { mutate: sendSellProperty, isLoading: isSellPropertyLoading } =
+		useMutation(payload => sellPropertyApi(payload), {
+			onSuccess: data => {
+				toast.success('Pesan berhasil dikirim');
+				window.titipJualModal.close();
+			},
+			onError: err => {
+				toast.error(err.message);
+			},
+		});
+
 	const handleSubmitTitipJual = e => {
 		e.preventDefault();
 
@@ -67,12 +80,12 @@ export default function HomePageHeroSection() {
 			email: formTitipJual.email,
 			phone_number: formTitipJual.phoneNumber,
 			address: formTitipJual.address,
-			property: formTitipJual.property,
+			category: formTitipJual.property,
 			price: parseRupiah(formTitipJual.price),
 			description: formTitipJual.description,
 		};
 
-		console.log(payload);
+		sendSellProperty(payload);
 	};
 
 	const { data, isLoading } = useQuery(['category'], getAllCategoriesApi, {
@@ -224,8 +237,13 @@ export default function HomePageHeroSection() {
 							type="submit"
 							className="px-8 outline-none btn btnPrimary w-fit"
 							form="titipJualForm"
+							disabled={isSellPropertyLoading}
 						>
-							Kirim
+							{isSellPropertyLoading ? (
+								<PulseLoader color="#fff" size={8} />
+							) : (
+								'Kirim'
+							)}
 						</button>
 					</div>
 				</div>
