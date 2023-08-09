@@ -126,13 +126,15 @@ export default function PropertyPage() {
 						<SyncLoader color="#2563EB" />
 						<p className="font-medium text-gray-400">Memuat...</p>
 					</div>
-				) : !isPropertyDataLoading && propertyData?.length === 0 ? (
+				) : !isPropertyDataLoading &&
+				  propertyData?.pages[0]?.results?.length === 0 ? (
 					<div className="flex flex-col items-center justify-center w-full gap-6 h-96">
 						<p className="font-medium text-gray-400">
 							Tidak ada properti yang ditemukan
 						</p>
 					</div>
-				) : (
+				) : !isPropertyDataLoading &&
+				  propertyData?.pages[0]?.results?.data?.length > 0 ? (
 					<>
 						<MainContainer
 							className={`grid grid-cols-1 mt-40 mb-20 md:grid-cols-2 place-items-center gap-y-8 ${
@@ -167,7 +169,7 @@ export default function PropertyPage() {
 							</div>
 						)}
 					</>
-				)}
+				) : null}
 			</main>
 		</>
 	);

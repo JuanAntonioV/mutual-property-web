@@ -7,17 +7,26 @@ import SectionTitle from '../titles/SectionTitle';
 import { SyncLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ListingPropertySection() {
 	const navigate = useNavigate();
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+		if (isMobile) {
+			setCount(4);
+		} else {
+			setCount(8);
+		}
+	}, [isMobile]);
 
 	const { data: listingProperty, isLoading: isListingPropertyLoading } =
 		useQuery(
-			['listingProperty'],
+			['listingProperty', count],
 			() =>
 				getListingProductsApi({
-					count: isMobile ? 4 : 8,
+					count: count,
 				}),
 			{
 				select: data => data.results,

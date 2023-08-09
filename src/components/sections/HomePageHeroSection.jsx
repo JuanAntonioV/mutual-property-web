@@ -5,7 +5,10 @@ import HeroImageProperty from '@/assets/img/property.jpeg';
 import HomePageStat from '../stats/HomePageStat';
 import { useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getAllCategoriesApi } from '../../api/category-api';
+import {
+	getAllCategoriesApi,
+	getAllSubCategoriesApi,
+} from '../../api/category-api';
 import { PulseLoader } from 'react-spinners';
 import { formatRupiah, parseRupiah } from '../../utils/helpers';
 import { formatPrice } from '../../utils/formaters';
@@ -76,17 +79,21 @@ export default function HomePageHeroSection() {
 			full_name: formTitipJual.fullName,
 			phone_number: formTitipJual.phoneNumber,
 			address: formTitipJual.address,
-			category: formTitipJual.property,
+			sub_category: formTitipJual.property,
 			description: formTitipJual.description,
 		};
 
 		sendSellProperty(payload);
 	};
 
-	const { data, isLoading } = useQuery(['category'], getAllCategoriesApi, {
-		select: res => res.results,
-		refetchOnWindowFocus: false,
-	});
+	const { data, isLoading } = useQuery(
+		['subCategory'],
+		getAllSubCategoriesApi,
+		{
+			select: res => res.results,
+			refetchOnWindowFocus: false,
+		}
+	);
 
 	const handleTitipJual = () => {
 		window.titipJualModal.showModal();

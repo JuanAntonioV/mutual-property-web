@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getAllProductsApi } from '../../api/product-api';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -6,12 +6,13 @@ import PropertyCard from '../../components/cards/PropertyCard';
 import { SyncLoader } from 'react-spinners';
 import MainContainer from '../../components/containers/MainContainer';
 import MainPaginate from '../../components/pagination/MainPaginate';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import useStore from '@/hooks/useStore';
 
 export default function SearchPropertyPage() {
 	const [searchParams] = useSearchParams();
-	const [page, setPage] = useState(1);
-	const [pageSlice, setPageSlice] = useState([]);
 	const [search, setSearch] = useState('');
+	const { auth } = useStore();
 
 	useEffect(() => {
 		const keyword = searchParams.get('keyword');
@@ -21,29 +22,49 @@ export default function SearchPropertyPage() {
 		}
 	}, [searchParams]);
 
-	const { data: propertyData, isLoading: isPropertyDataLoading } = useQuery(
-		['allProperty', page, search],
-		() =>
+	const {
+		data: propertyData,
+		isLoading: isPropertyDataLoading,
+		fetchNextPage,
+		isFetchingNextPage,
+		hasNextPage,
+	} = useInfiniteQuery(
+		['allProperty', search, auth?.user],
+		({ pageParam }) =>
 			getAllProductsApi({
-				page: page,
+				pageParam,
 				search: search,
+				userId: auth?.user?.id,
 			}),
 		{
-			select: data => data.results,
+			cacheTime: 0,
+			getNextPageParam: (lastPage, pages) => {
+				if (pages.length < lastPage.results.last_page) {
+					return pages.length + 1;
+				} else {
+					return undefined;
+				}
+			},
 		}
 	);
+
+	useEffect(() => {
+		console.log(propertyData);
+	}, [propertyData]);
+
+	useInfiniteScroll({ action: fetchNextPage, hasNextPage });
 
 	return (
 		<>
 			<MainContainer>
-				<div className="mt-40">
-					<p className="text-2xl font-semibold text-gray-800">
+				<div className="mt-36">
+					<p className="text-xl font-semibold text-gray-800">
 						Hasil pencarian untuk "{search}"
 					</p>
 				</div>
 			</MainContainer>
 
-			<main className="mt-10 mb-40 lg:mt-0">
+			<main className="mt-10 md:mb-40 lg:mt-0">
 				{isPropertyDataLoading ? (
 					<MainContainer>
 						<div className="flex flex-col items-center justify-center w-full gap-6 h-96">
@@ -51,33 +72,36 @@ export default function SearchPropertyPage() {
 							<p className="font-medium text-gray-400">Memuat...</p>
 						</div>
 					</MainContainer>
-				) : !isPropertyDataLoading && propertyData?.length === 0 ? (
+				) : !isPropertyDataLoading &&
+				  propertyData?.pages[0]?.results?.length === 0 ? (
 					<MainContainer>
-						<div className="flex flex-col items-center justify-center w-full gap-6 h-96">
+						<div className="flex flex-col items-center justify-center w-full h-[calc(100vh-485px)] gap-6">
 							<p className="font-medium text-gray-400">
 								Tidak ada properti yang ditemukan
 							</p>
 						</div>
 					</MainContainer>
-				) : (
+				) : !isPropertyDataLoading &&
+				  propertyData?.pages[0]?.results?.data?.length > 0 ? (
 					<>
 						<MainContainer
-							className={`grid grid-cols-1 mt-20 mb-20 md:grid-cols-2 place-items-center gap-y-8 lg:grid-cols-3 2xl:grid-cols-4`}
+							className={`grid grid-cols-1 mt-14 md:mt-20 mb-20 md:grid-cols-2 place-items-center gap-y-8 lg:grid-cols-3 2xl:grid-cols-4`}
 						>
-							{propertyData?.data?.map((property, index) => (
-								<PropertyCard key={index} data={property} />
-							))}
+							{propertyData?.pages?.map(page =>
+								page?.results?.data?.map((item, index) => (
+									<PropertyCard key={index} data={item} />
+								))
+							)}
 						</MainContainer>
 
-						<MainPaginate
-							page={page}
-							setPage={setPage}
-							pageSlice={pageSlice}
-							setPageSlice={setPageSlice}
-							data={propertyData}
-						/>
+						{isFetchingNextPage && (
+							<div className="flex flex-col items-center justify-center w-full gap-6 py-10">
+								<SyncLoader color="#2563EB" />
+								<p className="font-medium text-gray-400">Memuat...</p>
+							</div>
+						)}
 					</>
-				)}
+				) : null}
 			</main>
 		</>
 	);
