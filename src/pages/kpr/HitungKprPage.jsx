@@ -103,7 +103,7 @@ export default function HitungKprPage() {
 								htmlFor="price"
 								className="text-sm font-medium sm:text-base"
 							>
-								Harga Property
+								Harga Properti
 							</label>
 
 							<div className="relative flex items-center h-fit">

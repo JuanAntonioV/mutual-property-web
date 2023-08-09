@@ -114,20 +114,20 @@ export default function PropertyFilter({
 						htmlFor="search"
 						className={'font-medium text-sm md:text-base'}
 					>
-						Cari property
+						Cari properti
 					</label>
 					<input
 						type="text"
 						id="search"
 						value={searchValue}
 						onChange={handleOnChangeSearch}
-						placeholder="Cari property..."
+						placeholder="Cari properti..."
 						className="w-full inputSecondary bg-gray-50"
 					/>
 				</div>
 				<div className="space-y-2">
 					<label htmlFor="type" className={'font-medium text-sm md:text-base'}>
-						Tipe property
+						Tipe properti
 					</label>
 					<InputSelect
 						options={subCategoryOptions}

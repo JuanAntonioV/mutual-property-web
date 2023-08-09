@@ -48,7 +48,7 @@ export default function ContactForm() {
 	};
 
 	return (
-		<SectionContainer className="mt-32 mb-20" id={'contact-us'}>
+		<SectionContainer className="mb-20 mt-14 md:mt-24" id={'contact-us'}>
 			<SectionTitle
 				center
 				title={'Hubungi Kami Sekarang Juga'}
@@ -60,10 +60,7 @@ export default function ContactForm() {
 					<div className="p-6 duration-200 border shadow-xl bg-bgSoft rounded-xl hover:shadow-md border-borderPrimary">
 						<form className="space-y-6" onSubmit={handleSendMessage}>
 							<div className="space-y-2">
-								<label
-									htmlFor="full_name"
-									className="font-semibold text-secondary"
-								>
+								<label htmlFor="full_name" className="font-semibold">
 									Nama Lengkap
 								</label>
 								<input
@@ -71,16 +68,14 @@ export default function ContactForm() {
 									name="full_name"
 									id="full_name"
 									placeholder="Masukkan nama Anda"
-									className="inputSecondary"
+									className="inputSecondary border-primary"
 									required
+									autoFocus
 									onChange={handleOnChange}
 								/>
 							</div>
 							<div className="space-y-2">
-								<label
-									htmlFor="phoneNumber"
-									className="font-semibold text-secondary"
-								>
+								<label htmlFor="phoneNumber" className="font-semibold">
 									Nomor WhatsApp
 								</label>
 								<input
@@ -88,24 +83,21 @@ export default function ContactForm() {
 									name="phoneNumber"
 									id="phoneNumber"
 									placeholder="Masukkan nomor WhatsApp Anda"
-									className="inputSecondary"
+									className="inputSecondary border-primary"
 									required
 									onChange={handleOnChange}
 								/>
 							</div>
 
 							<div className="space-y-2">
-								<label
-									htmlFor="message"
-									className="font-semibold text-secondary"
-								>
+								<label htmlFor="message" className="font-semibold">
 									Pesan
 								</label>
 								<textarea
 									name="message"
 									id="message"
 									placeholder="Masukkan pesan Anda"
-									className="inputSecondary"
+									className="inputSecondary border-primary"
 									required
 									onChange={handleOnChange}
 									rows="5"
@@ -126,8 +118,9 @@ export default function ContactForm() {
 
 							<div>
 								<p className="mt-4 text-xs text-gray-500">
-									Kami akan menghubungi Anda melalui email yang Anda berikan.
-									Kami tidak akan membagikan informasi Anda kepada pihak ketiga.
+									Kami akan menghubungi Anda melalui nomor whatsapp yang Anda
+									berikan. Kami tidak akan membagikan informasi Anda kepada
+									pihak ketiga.
 								</p>
 							</div>
 						</form>

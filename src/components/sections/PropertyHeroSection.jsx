@@ -13,7 +13,7 @@ export default function PropertyHeroSection({ type, category }) {
 				<div className="flex flex-col gap-14">
 					<div className="space-y-4">
 						<h1 className="text-3xl font-bold leading-normal md:text-4xl lg:text-3xl">
-							Property {textCapitalize(formatedType)} {textCapitalize(category)}
+							{textCapitalize(formatedType)} {textCapitalize(category)}
 						</h1>
 
 						<p className="text-base md:text-lg text-medium lg:text-base w-full lg:w-[500px]">
@@ -31,7 +31,7 @@ export default function PropertyHeroSection({ type, category }) {
 			</div>
 
 			<div className="order-1 mt-10 flexCenter lg:flexEnd lg:order-2 lg:m-0">
-				<img src={PropertyHeroImage} alt="Property Hero Image" width={720} />
+				<img src={PropertyHeroImage} alt="Properti Hero Image" width={720} />
 			</div>
 		</MainContainer>
 	);

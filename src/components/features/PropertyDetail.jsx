@@ -3,7 +3,7 @@ import CollapseWrapper from '../wrappers/CollapseWrapper';
 
 export default function PropertyDetail({ data }) {
 	return (
-		<CollapseWrapper title={'Detail Property'}>
+		<CollapseWrapper title={'Detail Properti'}>
 			<div className="grid grid-cols-2 gap-8 px-8">
 				<div className="space-y-1">
 					<header>

@@ -39,6 +39,12 @@ export default {
 					'100%': { transform: 'translateX(-100%)' },
 				},
 			},
+			backgroundImage: {
+				logo: "url('/src/assets/brand/logo.svg')",
+				featurePenjual: "url('/src/assets/img/penjual-2.jpeg')",
+				featurePembeli: "url('/src/assets/img/pembeli-1.jpeg')",
+				featureAgen: "url('/src/assets/img/agen-1.jpg')",
+			},
 		},
 	},
 	plugins: [require('daisyui')],

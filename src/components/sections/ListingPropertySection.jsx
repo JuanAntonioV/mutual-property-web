@@ -5,12 +5,31 @@ import MainContainer from '../containers/MainContainer';
 import SectionContainer from '../containers/SectionContainer';
 import SectionTitle from '../titles/SectionTitle';
 import { SyncLoader } from 'react-spinners';
+import { useNavigate } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
+import { useEffect } from 'react';
 
 export default function ListingPropertySection() {
+	const navigate = useNavigate();
+
 	const { data: listingProperty, isLoading: isListingPropertyLoading } =
-		useQuery(['listingProperty'], getListingProductsApi, {
-			select: data => data.results,
-		});
+		useQuery(
+			['listingProperty'],
+			() =>
+				getListingProductsApi({
+					count: isMobile ? 4 : 8,
+				}),
+			{
+				select: data => data.results,
+				refetchOnWindowFocus: false,
+			}
+		);
+
+	const handleViewAllNavigate = () => {
+		navigate('/property?category=disewa&type=rumah');
+	};
+
+	if (!isListingPropertyLoading && listingProperty?.length === 0) return null;
 
 	return (
 		<SectionContainer className="mt-20">
@@ -39,6 +58,19 @@ export default function ListingPropertySection() {
 					</MainContainer>
 				)}
 			</main>
+
+			{!isListingPropertyLoading && (
+				<footer className="mt-14">
+					<MainContainer className="flex justify-center">
+						<button
+							className="px-20 outline-none btnSecondary w-fit"
+							onClick={handleViewAllNavigate}
+						>
+							Selengkapnya
+						</button>
+					</MainContainer>
+				</footer>
+			)}
 		</SectionContainer>
 	);
 }

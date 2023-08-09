@@ -6,7 +6,7 @@ export default function InputSelect({ options, value, onChange }) {
 			options={options}
 			name="type"
 			searchable={false}
-			placeholder="Pilih tipe property..."
+			placeholder="Pilih tipe properti..."
 			values={value ? [value] : []}
 			className="w-full h-[50px] !border-borderPrimary !rounded-lg !ring-0 !px-4"
 			itemRenderer={({ item, methods }) =>

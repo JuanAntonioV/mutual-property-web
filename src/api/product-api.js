@@ -1,17 +1,17 @@
 import api from '../lib/client-api';
 
-export const getNewestProductsApi = async () => {
+export const getNewestProductsApi = async ({ count = 4 }) => {
 	try {
-		const res = await api.get('/newest-products');
+		const res = await api.get(`/newest-products?count=${count}`);
 		return res.data;
 	} catch (err) {
 		throw new Error(err.response.data.message);
 	}
 };
 
-export const getListingProductsApi = async () => {
+export const getListingProductsApi = async ({ count = 4 }) => {
 	try {
-		const res = await api.get('/listing-products');
+		const res = await api.get(`/listing-products?count=${count}`);
 		return res.data;
 	} catch (err) {
 		throw new Error(err.response.data.message);

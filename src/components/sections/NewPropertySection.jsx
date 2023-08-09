@@ -5,15 +5,27 @@ import SectionContainer from '../containers/SectionContainer';
 import SectionTitle from '../titles/SectionTitle';
 import { getNewestProductsApi } from '../../api/product-api';
 import { SyncLoader } from 'react-spinners';
+import { useNavigate } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 
 export default function NewPropertySection() {
+	const navigate = useNavigate();
+
 	const { data: newProperty, isLoading: isNewPropertyLoading } = useQuery(
 		['newestProperties'],
-		getNewestProductsApi,
+		() =>
+			getNewestProductsApi({
+				count: isMobile ? 4 : 8,
+			}),
 		{
 			select: data => data.results,
+			refetchOnWindowFocus: false,
 		}
 	);
+
+	const handleViewAllNavigate = () => {
+		navigate('/property?category=baru&type=rumah');
+	};
 
 	if (!isNewPropertyLoading && newProperty?.length === 0) return null;
 
@@ -43,6 +55,19 @@ export default function NewPropertySection() {
 					</MainContainer>
 				)}
 			</main>
+
+			{!isNewPropertyLoading && (
+				<footer className="mt-14">
+					<MainContainer className="flex justify-center">
+						<button
+							className="px-20 outline-none btnSecondary w-fit"
+							onClick={handleViewAllNavigate}
+						>
+							Selengkapnya
+						</button>
+					</MainContainer>
+				</footer>
+			)}
 		</SectionContainer>
 	);
 }

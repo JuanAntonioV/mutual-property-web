@@ -88,7 +88,7 @@ export default function SimulationKpr() {
 			<form className="space-y-8" onSubmit={calculate}>
 				<div className="space-y-4">
 					<label htmlFor="price" className="text-sm font-medium sm:text-base">
-						Harga Property
+						Harga Properti
 					</label>
 
 					<div className="relative flex items-center h-fit">

@@ -11,39 +11,35 @@ import { formatRupiah, parseRupiah } from '../../utils/helpers';
 import { formatPrice } from '../../utils/formaters';
 import { sellPropertyApi } from '../../api/contact-api';
 import { toast } from 'react-toastify';
+import { BiSearch } from 'react-icons/bi';
 
 export default function HomePageHeroSection() {
 	const navigate = useNavigate();
 	const [formTitipJual, setFormTitipJual] = useState({
 		fullName: '',
-		email: '',
 		phoneNumber: '',
 		address: '',
 		property: 0,
-		price: '',
 		description: '',
 	});
+
+	const [searchValue, setSearchValue] = useState('');
+
+	const handleOnSearch = () => {
+		if (searchValue.length > 0) {
+			navigate(`/property/search?keyword=${searchValue}`);
+		}
+	};
 
 	const handleFormTitipJual = e => {
 		const { name, value } = e.target;
 		const regexPhone = /^[0-9\b]+$/;
-		const regexPrice = /^[a-zA-Z0-9.,-]*$/;
 
 		if (name === 'property') {
 			setFormTitipJual(prev => ({
 				...prev,
 				[name]: parseInt(value),
 			}));
-		} else if (name === 'price') {
-			const formated = formatRupiah(value);
-			if (value === '' || value.match(regexPrice)) {
-				setFormTitipJual(prev => ({
-					...prev,
-					[name]: formated,
-				}));
-			} else {
-				return;
-			}
 		} else if (name === 'phoneNumber') {
 			if (value === '' || regexPhone.test(value)) {
 				setFormTitipJual(prev => ({
@@ -77,11 +73,9 @@ export default function HomePageHeroSection() {
 
 		const payload = {
 			full_name: formTitipJual.fullName,
-			email: formTitipJual.email,
 			phone_number: formTitipJual.phoneNumber,
 			address: formTitipJual.address,
 			category: formTitipJual.property,
-			price: parseRupiah(formTitipJual.price),
 			description: formTitipJual.description,
 		};
 
@@ -90,6 +84,7 @@ export default function HomePageHeroSection() {
 
 	const { data, isLoading } = useQuery(['category'], getAllCategoriesApi, {
 		select: res => res.results,
+		refetchOnWindowFocus: false,
 	});
 
 	const handleTitipJual = () => {
@@ -110,19 +105,21 @@ export default function HomePageHeroSection() {
 							<button className="absolute outline-none btn btn-sm btn-circle btn-ghost right-2 top-2">
 								✕
 							</button>
-							<h3 className="text-lg font-bold">Titip Jual Property</h3>
+							<h3 className="text-lg font-bold">Titip Jual – Sewa Properti</h3>
 							<p className="text-sm text-gray-500">
-								Jual properti Anda dengan mudah
+								Jual / Sewa properti anda dengan mudah
 							</p>
 						</header>
 					</form>
 
 					<form
-						className="py-4 space-y-2"
+						className="relative py-4 space-y-2"
 						id="titipJualForm"
 						onSubmit={handleSubmitTitipJual}
 						method="get"
 					>
+						<div className="absolute w-[80%] h-full -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-contain -z-10 bg-logo top-1/2 left-1/2 opacity-5"></div>
+
 						<div className="form-control">
 							<label className="label">
 								<span className="label-text">Nama Lengkap</span>
@@ -139,26 +136,12 @@ export default function HomePageHeroSection() {
 						</div>
 						<div className="form-control">
 							<label className="label">
-								<span className="label-text">Email</span>
-							</label>
-							<input
-								name="email"
-								type="text"
-								placeholder="Masukkan email Anda"
-								className="input input-bordered"
-								value={formTitipJual.email}
-								onChange={handleFormTitipJual}
-								required
-							/>
-						</div>
-						<div className="form-control">
-							<label className="label">
-								<span className="label-text">Nomor Telepon</span>
+								<span className="label-text">Nomor WhatsApp / Telepon</span>
 							</label>
 							<input
 								name="phoneNumber"
 								type="text"
-								placeholder="Masukkan nomor telepon Anda"
+								placeholder="Masukkan nomor whatsapp / telepon Anda"
 								className="input input-bordered"
 								value={formTitipJual.phoneNumber}
 								onChange={handleFormTitipJual}
@@ -199,20 +182,6 @@ export default function HomePageHeroSection() {
 									</option>
 								))}
 							</select>
-						</div>
-						<div className="form-control">
-							<label className="label">
-								<span className="label-text">Harga</span>
-							</label>
-							<input
-								name="price"
-								type="text"
-								placeholder="Masukkan harga properti"
-								className="input input-bordered"
-								value={formTitipJual.price}
-								onChange={handleFormTitipJual}
-								required
-							/>
 						</div>
 						<div className="form-control">
 							<label className="label">
@@ -264,7 +233,7 @@ export default function HomePageHeroSection() {
 							</h1>
 
 							<p className="text-sm text-medium lg:text-base">
-								Kami hadir agar pembeli, penjual dan perantara
+								Kami hadir agar pembeli, penjual dan perantara{' '}
 								<br className="hidden md:block lg:hidden xl:block" />
 								dapat bertransaksi properti dengan mudah
 							</p>
@@ -273,14 +242,37 @@ export default function HomePageHeroSection() {
 						<div className="flex items-center justify-center gap-4 lg:justify-start">
 							<HomePageStat
 								value={'1000'}
-								detail={'Properti Disewa'}
+								detail={'Properti Dijual'}
 								onClick={() => navigate('/property?category=dijual&type=rumah')}
 							/>
 							<HomePageStat
 								value={'1000'}
-								detail={'Properti Dijual'}
+								detail={'Properti Disewa'}
 								onClick={() => navigate('/property?category=disewa&type=rumah')}
 							/>
+						</div>
+
+						<div className="relative block md:hidden">
+							<input
+								type="text"
+								placeholder="Cari Lokasi properti..."
+								className="w-full py-4 pl-5 text-black duration-200 border rounded-full shadow-lg focus:shadow-none border-primary placeholder:text-sm focus:outline-none"
+								onChange={e => setSearchValue(e.target.value)}
+								value={searchValue}
+								maxLength={50}
+								onKeyDown={e => {
+									if (e.key === 'Enter') {
+										handleOnSearch();
+									}
+								}}
+							/>
+
+							<button
+								className="absolute w-10 h-10 -translate-y-1/2 rounded-full top-1/2 right-2 flexCenter bg-primary"
+								onClick={handleOnSearch}
+							>
+								<BiSearch color="#fff" size={18} />
+							</button>
 						</div>
 
 						<div className="flex flex-col items-center gap-5 lg:flex-row">
@@ -308,7 +300,7 @@ export default function HomePageHeroSection() {
 				<div className="order-1 flexCenter lg:flexEnd lg:order-2 lg:m-0">
 					<img
 						src={HeroImageProperty}
-						alt="Mutual Property Hero Image"
+						alt="Mutual Properti Hero Image"
 						className="w-[600px] rounded-xl"
 					/>
 				</div>

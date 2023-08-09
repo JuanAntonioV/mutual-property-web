@@ -20,8 +20,11 @@ export default function HomePageStat({ value, detail, onClick }) {
 			</div>
 
 			{onClick && (
-				<div className="absolute p-2 transition-opacity duration-200 bg-white rounded-full shadow-md opacity-0 right-4 flexCenter group-hover:opacity-100">
-					<BiSearch size={20} className="text-primary" />
+				<div className="absolute p-2 transition-opacity duration-200 bg-white rounded-full shadow-md right-4 flexCenter group-hover:bg-primary">
+					<BiSearch
+						size={20}
+						className="duration-200 group-hover:text-white text-primary"
+					/>
 				</div>
 			)}
 		</div>

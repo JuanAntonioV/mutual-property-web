@@ -129,7 +129,7 @@ export default function PropertyPage() {
 				) : !isPropertyDataLoading && propertyData?.length === 0 ? (
 					<div className="flex flex-col items-center justify-center w-full gap-6 h-96">
 						<p className="font-medium text-gray-400">
-							Tidak ada property yang ditemukan
+							Tidak ada properti yang ditemukan
 						</p>
 					</div>
 				) : (

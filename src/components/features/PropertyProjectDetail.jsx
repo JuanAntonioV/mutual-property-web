@@ -2,6 +2,7 @@ import { MdHome, MdNaturePeople } from 'react-icons/md';
 import CollapseWrapper from '../wrappers/CollapseWrapper';
 import { BsRulers } from 'react-icons/bs';
 import { HiDocumentText } from 'react-icons/hi';
+import { Parser } from 'html-to-react';
 
 export default function PropertyProjectDetail({ data }) {
 	return (
@@ -80,7 +81,8 @@ export default function PropertyProjectDetail({ data }) {
 				</header>
 
 				<main className="py-4 space-y-6 text-sm font-medium text-secondary md:text-base">
-					<div dangerouslySetInnerHTML={{ __html: data?.description }} />
+					{/* <div dangerouslySetInnerHTML={{ __html: data?.description }} /> */}
+					{Parser().parse(data?.description)}
 				</main>
 			</div>
 		</CollapseWrapper>

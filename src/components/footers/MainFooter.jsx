@@ -48,7 +48,7 @@ export default function MainFooter() {
 							</li>
 							<li className="py-2">
 								<Link to="/property?category=baru&type=rumah">
-									Property Baru
+									Properti Baru
 								</Link>
 							</li>
 							<li className="py-2">
@@ -71,7 +71,11 @@ export default function MainFooter() {
 								<span>0852 7730 3838</span>
 							</li>
 							<li className="flex py-2 space-x-2 item-center">
-								<MdLocationOn size={22} color={'#213D77'} className="w-12" />
+								<MdLocationOn
+									size={22}
+									color={'#213D77'}
+									className="w-7 md:w-6 lg:w-12"
+								/>
 								<span>
 									Jalan William Iskandar Pasar V, Komplek MMTC Blok N-25
 									(Samping indomaret), 20371{' '}

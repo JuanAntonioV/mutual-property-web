@@ -41,7 +41,7 @@ export default function SubscriptionSection() {
 	};
 
 	return (
-		<SectionContainer className="py-24 mt-40 mb-0 bg-primary">
+		<SectionContainer className="py-24 mt-24 mb-0 md:mt-28 bg-primary">
 			<MainContainer className="text-center text-white">
 				<header className="space-y-2">
 					<h3 className="text-2xl font-bold">
