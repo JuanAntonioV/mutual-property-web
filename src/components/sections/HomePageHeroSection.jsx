@@ -12,6 +12,7 @@ import { formatPrice } from '../../utils/formaters';
 import { sellPropertyApi } from '../../api/contact-api';
 import { toast } from 'react-toastify';
 import { BiSearch } from 'react-icons/bi';
+import Slider from 'react-slick';
 
 export default function HomePageHeroSection() {
 	const navigate = useNavigate();
@@ -94,6 +95,15 @@ export default function HomePageHeroSection() {
 	const handleContactUsClicked = e => {
 		e.preventDefault();
 		window.location.replace('/#contact-us');
+	};
+
+	const settings = {
+		className: 'center',
+		centerMode: true,
+		infinite: true,
+		centerPadding: '60px',
+		slidesToShow: 1,
+		speed: 500,
 	};
 
 	return (
@@ -298,11 +308,46 @@ export default function HomePageHeroSection() {
 				</div>
 
 				<div className="order-1 flexCenter lg:flexEnd lg:order-2 lg:m-0">
-					<img
-						src={HeroImageProperty}
-						alt="Mutual Properti Hero Image"
-						className="w-[600px] rounded-xl"
-					/>
+					<Slider
+						{...settings}
+						className="w-[400px] lg:w-[700px] hover:cursor-move"
+					>
+						<div className="px-2">
+							<img
+								src={HeroImageProperty}
+								alt="Mutual Properti Hero Image"
+								className="w-full h-full rounded-xl"
+							/>
+						</div>
+						<div className="px-2">
+							<img
+								src={HeroImageProperty}
+								alt="Mutual Properti Hero Image"
+								className="w-full h-full rounded-xl"
+							/>
+						</div>
+						<div className="px-2">
+							<img
+								src={HeroImageProperty}
+								alt="Mutual Properti Hero Image"
+								className="w-full h-full rounded-xl"
+							/>
+						</div>
+						<div className="px-2">
+							<img
+								src={HeroImageProperty}
+								alt="Mutual Properti Hero Image"
+								className="w-full h-full rounded-xl"
+							/>
+						</div>
+						<div className="px-2">
+							<img
+								src={HeroImageProperty}
+								alt="Mutual Properti Hero Image"
+								className="w-full h-full rounded-xl"
+							/>
+						</div>
+					</Slider>
 				</div>
 			</section>
 		</>

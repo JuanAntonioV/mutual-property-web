@@ -9,7 +9,7 @@ import FeatureSection from '@/components/sections/FeatureSection';
 export default function HomePage() {
 	return (
 		<>
-			<MainContainer className="mt-10 md:mt-[120px]">
+			<MainContainer className="mt-36 md:mt-[120px]">
 				<HomePageHeroSection />
 			</MainContainer>
 

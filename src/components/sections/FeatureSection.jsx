@@ -22,7 +22,7 @@ export default function FeatureSection() {
 					/>
 				</header>
 
-				<main className="mt-10">
+				<main className="mt-4 md:mt-10">
 					<div className="grid grid-cols-1 gap-y-8 gap-x-4 md:grid-cols-2 lg:grid-cols-3">
 						<div className="overflow-hidden border rounded-xl">
 							<header className="w-full py-5 text-white bg-primaryHover">
