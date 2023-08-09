@@ -36,11 +36,6 @@ input[type='number']::-webkit-outer-spin-button {
 	text-decoration: none;
 }
 
-.slick-active {
-	outline: none;
-	border: none;
-}
-
 @layer components {
 	.flexCenter {
 		@apply flex items-center justify-center;

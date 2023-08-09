@@ -312,35 +312,35 @@ export default function HomePageHeroSection() {
 						{...settings}
 						className="w-[400px] lg:w-[700px] hover:cursor-move"
 					>
-						<div className="px-2">
+						<div className="px-2 !outline-none !border-none">
 							<img
 								src={HeroImageProperty}
 								alt="Mutual Properti Hero Image"
 								className="w-full h-full rounded-xl"
 							/>
 						</div>
-						<div className="px-2">
+						<div className="px-2 !outline-none !border-none">
 							<img
 								src={HeroImageProperty}
 								alt="Mutual Properti Hero Image"
 								className="w-full h-full rounded-xl"
 							/>
 						</div>
-						<div className="px-2">
+						<div className="px-2 !outline-none !border-none">
 							<img
 								src={HeroImageProperty}
 								alt="Mutual Properti Hero Image"
 								className="w-full h-full rounded-xl"
 							/>
 						</div>
-						<div className="px-2">
+						<div className="px-2 !outline-none !border-none">
 							<img
 								src={HeroImageProperty}
 								alt="Mutual Properti Hero Image"
 								className="w-full h-full rounded-xl"
 							/>
 						</div>
-						<div className="px-2">
+						<div className="px-2 !outline-none !border-none">
 							<img
 								src={HeroImageProperty}
 								alt="Mutual Properti Hero Image"
