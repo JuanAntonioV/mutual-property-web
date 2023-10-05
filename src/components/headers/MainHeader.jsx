@@ -105,11 +105,11 @@ export default function MainHeader() {
 			],
 		},
 		{
-			title: 'Property Baru',
+			title: 'Properti Baru',
 			link: '/property?category=baru',
 			section: [
 				{
-					title: 'Property Baru',
+					title: 'Properti Baru',
 					icon: <BiBuildingHouse size={28} color={'#213D77'} />,
 					pathList: [
 						{
@@ -162,19 +162,7 @@ export default function MainHeader() {
 							link: '/tentang-kami',
 						},
 						{
-							title: 'Nilai - Nilai Perusahaan',
-							link: '/tentang-kami',
-						},
-						{
-							title: 'Perjalanan Kami',
-							link: '/tentang-kami',
-						},
-						{
-							title: 'Karir',
-							link: '/tentang-kami',
-						},
-						{
-							title: 'Youtube',
+							title: 'Testimoni Klien',
 							link: '/tentang-kami',
 						},
 						{
@@ -183,6 +171,14 @@ export default function MainHeader() {
 						},
 						{
 							title: 'Instagram',
+							link: '/tentang-kami',
+						},
+						{
+							title: 'Youtube',
+							link: '/tentang-kami',
+						},
+						{
+							title: 'Karir',
 							link: '/tentang-kami',
 						},
 					],

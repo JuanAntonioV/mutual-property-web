@@ -3,14 +3,14 @@ import { BiSearch } from 'react-icons/bi';
 export default function HomePageStat({ value, detail, onClick }) {
 	return (
 		<div
-			className={`flex items-center gap-6 w-full ${
+			className={`flex items-center gap-3 md:gap-6 w-full ${
 				onClick ? 'cursor-pointer  duration-200 rounded-md group relative' : ''
 			}`}
 			onClick={onClick}
 		>
 			<span className="h-14 md:h-16 w-[3px] rounded-full bg-primary/50"></span>
 
-			<div className="md:space-y-1">
+			<div className="text-left md:space-y-1">
 				<span className="text-2xl font-bold xl:text-3xl text-primary">
 					{value ?? '20K+'}+
 				</span>
@@ -20,11 +20,8 @@ export default function HomePageStat({ value, detail, onClick }) {
 			</div>
 
 			{onClick && (
-				<div className="absolute p-2 transition-opacity duration-200 bg-white rounded-full shadow-md right-4 flexCenter group-hover:bg-primary">
-					<BiSearch
-						size={20}
-						className="duration-200 group-hover:text-white text-primary"
-					/>
+				<div className="absolute right-0 p-2 transition-opacity duration-200 bg-white rounded-full shadow-md sm:right-4 flexCenter group-hover:bg-primary md:text-[20] top-0 sm:top-auto">
+					<BiSearch className="duration-200 group-hover:text-white text-primary" />
 				</div>
 			)}
 		</div>

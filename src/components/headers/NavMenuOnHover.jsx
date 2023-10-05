@@ -4,7 +4,7 @@ import MainContainer from '../containers/MainContainer';
 export default function NavMenuOnHover({ data, isHover, onHover, onUnhover }) {
 	return (
 		<div
-			className={`absolute w-screen h-80 bg-white shadow transition-all duration-200 z-20`}
+			className={`w-screen h-80 bg-white shadow transition-all duration-200 z-20 absolute hidden lg:block`}
 			onMouseEnter={onHover}
 			onMouseLeave={onUnhover}
 			style={
@@ -34,7 +34,7 @@ export default function NavMenuOnHover({ data, isHover, onHover, onUnhover }) {
 						<main className={'flex items-center flex-wrap gap-4 py-4'}>
 							<ul
 								className={
-									'grid grid-cols-4 grid-rows-2 last:grid-cols-3 last:grid-rows-3 gap-y-4'
+									'grid grid-flow-col grid-rows-2 last:grid-rows-3 gap-y-4 lg:gap-x-8 xl:gap-x-16'
 								}
 							>
 								{item?.pathList.map((menu, index) => (

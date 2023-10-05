@@ -3,7 +3,7 @@ import Marquee from 'react-fast-marquee';
 export default function HotNewsTicker({ item }) {
 	return (
 		<div className="fixed top-[96px] left-0 right-0 bg-white border-b border-borderPrimary">
-			<div className="absolute z-10 h-full px-6 font-bold bg-blue-200 text-primary flexCenter">
+			<div className="absolute z-10 h-full px-6 text-sm font-bold bg-blue-200 text-primary flexCenter sm:text-md">
 				Hot News
 			</div>
 
@@ -12,7 +12,7 @@ export default function HotNewsTicker({ item }) {
 					<div
 						key={index}
 						className={
-							'px-8 py-3 whitespace-nowrap relative text-black text-sm'
+							'px-8 py-2.5 md:py-3 whitespace-nowrap relative text-black text-sm'
 						}
 					>
 						{/* <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[1px] h-[24px] bg-borderPrimary"></div> */}
