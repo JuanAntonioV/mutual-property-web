@@ -53,7 +53,7 @@ export default function SimulationKpr() {
 
 	const handleOnChangeUangMukaPercent = e => {
 		const target = e.target;
-		const value = target.value;
+		let value = target.value;
 		const regex = /^[0-9.,-]*$/;
 
 		if (regex.test(value)) {
