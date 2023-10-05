@@ -33,9 +33,11 @@ export default function NavMenuOnHover({ data, isHover, onHover, onUnhover }) {
 
 						<main className={'flex items-center flex-wrap gap-4 py-4'}>
 							<ul
-								className={
-									'grid grid-flow-col grid-rows-2 last:grid-rows-3 gap-y-4 lg:gap-x-8 xl:gap-x-16'
-								}
+								className={`grid gap-y-4 ${
+									item.isRowLayout
+										? 'grid-flow-col grid-rows-2 last:grid-rows-3 lg:gap-x-8 xl:gap-x-16'
+										: 'grid-cols-4 grid-rows-2 last:grid-rows-3'
+								}`}
 							>
 								{item?.pathList.map((menu, index) =>
 									menu.action ? (

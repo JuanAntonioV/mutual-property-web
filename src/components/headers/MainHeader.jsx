@@ -44,6 +44,7 @@ export default function MainHeader() {
 				{
 					title: 'Dijual',
 					icon: <MdOutlineRealEstateAgent size={28} color={'#213D77'} />,
+					isRowLayout: false,
 					pathList: [
 						{
 							title: 'Rumah',
@@ -86,6 +87,7 @@ export default function MainHeader() {
 				{
 					title: 'Disewa',
 					icon: <MdOutlineWarehouse size={28} color={'#213D77'} />,
+					isRowLayout: false,
 					pathList: [
 						{
 							title: 'Rumah',
@@ -128,6 +130,7 @@ export default function MainHeader() {
 				{
 					title: 'Properti Baru',
 					icon: <BiBuildingHouse size={28} color={'#213D77'} />,
+					isRowLayout: false,
 					pathList: [
 						{
 							title: 'Rumah',
@@ -175,6 +178,7 @@ export default function MainHeader() {
 				{
 					title: 'Tentang Kami',
 					icon: <HiOutlineUserGroup size={28} color={'#213D77'} />,
+					isRowLayout: true,
 					pathList: [
 						{
 							title: 'Visi Misi',
@@ -216,6 +220,7 @@ export default function MainHeader() {
 				{
 					title: 'Kontak',
 					icon: <MdConnectWithoutContact size={28} color={'#213D77'} />,
+					isRowLayout: true,
 					pathList: [
 						{
 							title: 'Hubungi Kami',
