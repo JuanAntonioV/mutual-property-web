@@ -49,15 +49,28 @@ export default function NavMenuItem({ item, closeNavbar }) {
 
 							<ul className="px-12 bg-gray-100">
 								{menu.pathList.map((item, i) => (
-									<li key={i}>
-										<Link
-											to={item.link}
-											className="block py-5 text-sm text-medium md:text-base"
-											onClick={navLinkClicked}
-										>
-											{item.title}
-										</Link>
-									</li>
+									<>
+										{item.action ? (
+											<li key={i}>
+												<button
+													className="block py-5 text-sm text-medium md:text-base"
+													onClick={item.action}
+												>
+													{item.title}
+												</button>
+											</li>
+										) : (
+											<li key={i}>
+												<Link
+													to={item.link}
+													className="block py-5 text-sm text-medium md:text-base"
+													onClick={navLinkClicked}
+												>
+													{item.title}
+												</Link>
+											</li>
+										)}
+									</>
 								))}
 							</ul>
 						</React.Fragment>

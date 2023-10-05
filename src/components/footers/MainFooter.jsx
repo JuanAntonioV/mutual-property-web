@@ -18,11 +18,16 @@ import { FaTiktok } from 'react-icons/fa';
 
 export default function MainFooter() {
 	const scrollToTop = () => {
-		const c = document.documentElement.scrollTop || document.body.scrollTop;
-		if (c > 0) {
-			window.requestAnimationFrame(scrollToTop);
-			window.scrollTo(0, c - c / 8);
-		}
+		// const c = document.documentElement.scrollTop || document.body.scrollTop;
+		// if (c > 0) {
+		// 	window.requestAnimationFrame(scrollToTop);
+		// 	window.scrollTo(0, c - c / 8);
+		// }
+
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
 	};
 
 	return (

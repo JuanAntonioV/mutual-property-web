@@ -107,7 +107,7 @@ export default function PropertyFilter({
 	};
 
 	return (
-		<MainContainer className="p-8 bg-white border shadow-md rounded-xl border-borderPrimary">
+		<MainContainer className="p-8 transition bg-white border shadow-md rounded-xl border-borderPrimary hover:border-primary">
 			<div className="grid grid-cols-2 gap-8 md:gap-6 lg:grid-cols-5">
 				<div className="col-span-2 space-y-2">
 					<label
@@ -122,7 +122,7 @@ export default function PropertyFilter({
 						value={searchValue}
 						onChange={handleOnChangeSearch}
 						placeholder="Cari properti..."
-						className="w-full inputSecondary bg-gray-50"
+						className="w-full bg-white inputSecondary"
 					/>
 				</div>
 				<div className="space-y-2">

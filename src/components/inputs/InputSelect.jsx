@@ -1,6 +1,11 @@
 import Select from 'react-dropdown-select';
 
-export default function InputSelect({ options, value, onChange }) {
+export default function InputSelect({
+	options,
+	value,
+	onChange,
+	className = '!border-borderPrimary',
+}) {
 	return (
 		<Select
 			options={options}
@@ -8,7 +13,7 @@ export default function InputSelect({ options, value, onChange }) {
 			searchable={false}
 			placeholder="Pilih tipe properti..."
 			values={value ? [value] : []}
-			className="w-full h-[50px] !border-borderPrimary !rounded-lg !ring-0 !px-4"
+			className={`w-full h-[50px] !rounded-lg !ring-0 !px-4 ${className}`}
 			itemRenderer={({ item, methods }) =>
 				item.disabled ? (
 					<div className="p-3 text-[#555] rounded-md m-1 cursor-pointer hover:bg-[#f2f2f2] ">

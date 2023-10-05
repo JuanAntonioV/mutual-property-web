@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { textCapitalize } from '@/utils/helpers';
 
 import MainContainer from '../containers/MainContainer';
@@ -6,6 +5,10 @@ import PropertyHeroImage from '@/assets/img/page-hero-img.svg';
 
 export default function PropertyHeroSection({ type, category }) {
 	const formatedType = type?.includes('-') ? type?.replace('-', ' / ') : type;
+
+	const openContactModal = () => {
+		window.contactModal.showModal();
+	};
 
 	return (
 		<MainContainer className="grid grid-cols-1 lg:grid-cols-2 h-full lg:h-[600px] place-content-center">
@@ -23,9 +26,12 @@ export default function PropertyHeroSection({ type, category }) {
 					</div>
 
 					<div>
-						<Link to={'/tentang-kami'} className="px-20 btnPrimary w-fit">
+						<button
+							onClick={openContactModal}
+							className="px-20 btnPrimary w-fit"
+						>
 							Hubungi Kami
-						</Link>
+						</button>
 					</div>
 				</div>
 			</div>

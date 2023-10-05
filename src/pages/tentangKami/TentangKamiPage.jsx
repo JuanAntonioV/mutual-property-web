@@ -1,53 +1,9 @@
 import MainContainer from '@/components/containers/MainContainer';
 import ContactSection from '@/components/sections/ContactSection';
-import { useMutation } from '@tanstack/react-query';
 
 import { FaQuoteLeft } from 'react-icons/fa';
-import { sendContactApi } from '@/api/contact-api';
-import { PulseLoader } from 'react-spinners';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
 
 export default function TentangKamiPage() {
-	const [contactForm, setContactForm] = useState({
-		full_name: '',
-		phoneNumber: '',
-		message: '',
-	});
-
-	const handleOnChange = e => {
-		const { name, value } = e.target;
-
-		setContactForm(prev => ({
-			...prev,
-			[name]: value,
-		}));
-	};
-
-	const { mutate: sendMessage, isLoading: isSendMessageLoading } = useMutation(
-		payload => sendContactApi(payload),
-		{
-			onSuccess: data => {
-				toast.success('Pesan berhasil dikirim');
-			},
-			onError: err => {
-				toast.error(err.message);
-			},
-		}
-	);
-
-	const handleSendMessage = e => {
-		e.preventDefault();
-
-		const payload = {
-			full_name: contactForm.full_name,
-			phone_number: contactForm.phoneNumber,
-			message: contactForm.message,
-		};
-
-		sendMessage(payload);
-	};
-
 	return (
 		<>
 			<MainContainer className="mt-[100px]">
@@ -139,96 +95,6 @@ export default function TentangKamiPage() {
 
 			<div className="bg-gradient-to-b from-white via-indigo-50 via-80% to-white">
 				<MainContainer>
-					<section className="py-10 space-y-10" id="contact">
-						<header className="space-y-1">
-							<h1 className="text-2xl font-bold text-center text-primary">
-								Titip Jual Property Anda!
-							</h1>
-							<p className="w-full text-center text-secondary md:text-lg">
-								Hubungi kami sekarang juga dengan mengisi form dibawah ini.
-							</p>
-						</header>
-
-						<main className="flexCenter">
-							<div className="p-6 duration-200 border shadow-xl bg-bgSoft rounded-xl hover:shadow-md border-borderPrimary">
-								<form className="space-y-6" onSubmit={handleSendMessage}>
-									<div className="space-y-2">
-										<label
-											htmlFor="full_name"
-											className="font-semibold text-secondary"
-										>
-											Nama
-										</label>
-										<input
-											type="text"
-											name="full_name"
-											id="full_name"
-											placeholder="Masukkan nama Anda"
-											className="inputSecondary"
-											required
-											onChange={handleOnChange}
-										/>
-									</div>
-									<div className="space-y-2">
-										<label
-											htmlFor="phoneNumber"
-											className="font-semibold text-secondary"
-										>
-											Nomor WhatsApp
-										</label>
-										<input
-											type="text"
-											name="phoneNumber"
-											id="phoneNumber"
-											placeholder="Masukkan nomor WhatsApp Anda"
-											className="inputSecondary"
-											required
-											onChange={handleOnChange}
-										/>
-									</div>
-
-									<div className="space-y-2">
-										<label
-											htmlFor="message"
-											className="font-semibold text-secondary"
-										>
-											Pesan
-										</label>
-										<textarea
-											name="message"
-											id="message"
-											placeholder="Masukkan pesan Anda"
-											className="inputSecondary"
-											required
-											onChange={handleOnChange}
-											rows="5"
-										></textarea>
-									</div>
-
-									<button
-										type="submit"
-										className="btnPrimary"
-										disabled={isSendMessageLoading}
-									>
-										{isSendMessageLoading ? (
-											<PulseLoader size={8} color={'#fff'} />
-										) : (
-											'Kirim'
-										)}
-									</button>
-
-									<div>
-										<p className="mt-4 text-xs text-gray-500">
-											Kami akan menghubungi Anda melalui email yang Anda
-											berikan. Kami tidak akan membagikan informasi Anda kepada
-											pihak ketiga.
-										</p>
-									</div>
-								</form>
-							</div>
-						</main>
-					</section>
-
 					<section className="py-20">
 						<header>
 							<h1 className="text-2xl font-bold text-center text-primary">

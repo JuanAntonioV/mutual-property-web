@@ -20,6 +20,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getProfileApi } from '../../api/user-api';
 import { getAllNews } from '../../api/newsApi';
 import HotNewsTicker from '../tickers/HotNewsTicker';
+import ContactModal from '../modals/ContactModal';
 
 export default function MainHeader() {
 	const navigate = useNavigate();
@@ -30,6 +31,10 @@ export default function MainHeader() {
 	const [searchValue, setSearchValue] = useState('');
 	const location = window.location.pathname;
 	const isHome = location === '/';
+
+	const showContactModal = () => {
+		window.contactModal.showModal();
+	};
 
 	const menuList = [
 		{
@@ -43,26 +48,32 @@ export default function MainHeader() {
 						{
 							title: 'Rumah',
 							link: '/property?category=dijual&type=rumah',
+							action: null,
 						},
 						{
 							title: 'Ruko',
 							link: '/property?category=dijual&type=ruko',
+							action: null,
 						},
 						{
 							title: 'Gudang / Pabrik',
 							link: '/property?category=dijual&type=gudang-pabrik',
+							action: null,
 						},
 						{
 							title: 'Tanah',
 							link: '/property?category=dijual&type=tanah',
+							action: null,
 						},
 						{
 							title: 'Apartemen',
 							link: '/property?category=dijual&type=apartemen',
+							action: null,
 						},
 						{
 							title: 'Komersial',
 							link: '/property?category=dijual&type=komersial',
+							action: null,
 						},
 					],
 				},
@@ -79,26 +90,32 @@ export default function MainHeader() {
 						{
 							title: 'Rumah',
 							link: '/property?category=disewa&type=rumah',
+							action: null,
 						},
 						{
 							title: 'Ruko',
 							link: '/property?category=disewa&type=ruko',
+							action: null,
 						},
 						{
 							title: 'Gudang / Pabrik',
 							link: '/property?category=disewa&type=gudang-pabrik',
+							action: null,
 						},
 						{
 							title: 'Tanah',
 							link: '/property?category=disewa&type=tanah',
+							action: null,
 						},
 						{
 							title: 'Apartemen',
 							link: '/property?category=disewa&type=apartemen',
+							action: null,
 						},
 						{
 							title: 'Komersial',
 							link: '/property?category=disewa&type=komersial',
+							action: null,
 						},
 					],
 				},
@@ -115,26 +132,32 @@ export default function MainHeader() {
 						{
 							title: 'Rumah',
 							link: '/property?category=baru&type=rumah',
+							action: null,
 						},
 						{
 							title: 'Ruko',
 							link: '/property?category=baru&type=ruko',
+							action: null,
 						},
 						{
 							title: 'Gudang / Pabrik',
 							link: '/property?category=baru&type=gudang-pabrik',
+							action: null,
 						},
 						{
 							title: 'Tanah',
 							link: '/property?category=baru&type=tanah',
+							action: null,
 						},
 						{
 							title: 'Apartemen',
 							link: '/property?category=baru&type=apartemen',
+							action: null,
 						},
 						{
 							title: 'Komersial',
 							link: '/property?category=baru&type=komersial',
+							action: null,
 						},
 					],
 				},
@@ -156,30 +179,37 @@ export default function MainHeader() {
 						{
 							title: 'Visi Misi',
 							link: '/tentang-kami',
+							action: null,
 						},
 						{
 							title: 'Para Pendiri',
 							link: '/tentang-kami',
+							action: null,
 						},
 						{
 							title: 'Testimoni Klien',
 							link: '/tentang-kami',
+							action: null,
 						},
 						{
 							title: 'Tiktok',
 							link: '/tentang-kami',
+							action: null,
 						},
 						{
 							title: 'Instagram',
 							link: '/tentang-kami',
+							action: null,
 						},
 						{
 							title: 'Youtube',
 							link: '/tentang-kami',
+							action: null,
 						},
 						{
 							title: 'Karir',
 							link: '/tentang-kami',
+							action: null,
 						},
 					],
 				},
@@ -190,6 +220,7 @@ export default function MainHeader() {
 						{
 							title: 'Hubungi Kami',
 							link: '/tentang-kami',
+							action: showContactModal,
 						},
 					],
 				},
@@ -234,108 +265,112 @@ export default function MainHeader() {
 	);
 
 	return (
-		<header className="relative z-30">
-			<div className="fixed top-0 left-0 right-0 text-white bg-primary h-[100px]">
-				<MainContainer className="relative h-full flexBetween">
-					<div className="space-x-8 flexStart">
-						<BrandLogo white width={160} />
+		<>
+			<header className="relative z-30">
+				<div className="fixed top-0 left-0 right-0 text-white bg-primary h-[100px]">
+					<MainContainer className="relative h-full flexBetween">
+						<div className="space-x-8 flexStart">
+							<BrandLogo white width={160} />
 
-						<nav className="hidden lg:block">
-							<ul className="flex items-center gap-x-1 lg:gap-x-3 xl:gap-x-4">
-								{menuList.map((menu, index) =>
-									menu.section.length > 0 ? (
-										<li
-											className="h-[100px] space-x-2 cursor-pointer flexCenter"
-											onMouseEnter={() => onMouseHoverMenu(index)}
-											onMouseLeave={() => setMenuHover(false)}
-											onClick={() => onMouseHoverMenu(index)}
-											key={index}
-										>
-											<span className="font-medium">{menu.title}</span>
-											<IoMdArrowDropdown />
-										</li>
-									) : (
-										<Link
-											to={menu.link}
-											className="h-[100px] space-x-2 cursor-pointer flexCenter"
-											key={index}
-										>
-											<span className="font-medium">{menu.title}</span>
-										</Link>
-									)
-								)}
-							</ul>
-						</nav>
-					</div>
-
-					<div className="space-x-6 xl:space-x-8 flexEnd">
-						<div className="relative hidden w-fit h-fit xl:block">
-							<input
-								type="text"
-								placeholder="Cari Lokasi..."
-								className="w-full py-3 pl-4 text-black rounded-full sm:w-48 xl:w-60 lg:pr-12 placeholder:text-sm focus:outline-none"
-								onChange={e => setSearchValue(e.target.value)}
-								value={searchValue}
-								maxLength={50}
-								onKeyDown={e => {
-									if (e.key === 'Enter') {
-										handleOnSearch();
-									}
-								}}
-							/>
-
-							<button
-								className="absolute w-10 h-10 -translate-y-1/2 rounded-full top-1/2 right-1 flexCenter bg-primary"
-								onClick={handleOnSearch}
-							>
-								<BiSearch color="#fff" size={18} />
-							</button>
+							<nav className="hidden lg:block">
+								<ul className="flex items-center gap-x-1 lg:gap-x-3 xl:gap-x-4">
+									{menuList.map((menu, index) =>
+										menu.section.length > 0 ? (
+											<li
+												className="h-[100px] space-x-2 cursor-pointer flexCenter"
+												onMouseEnter={() => onMouseHoverMenu(index)}
+												onMouseLeave={() => setMenuHover(false)}
+												onClick={() => onMouseHoverMenu(index)}
+												key={index}
+											>
+												<span className="font-medium">{menu.title}</span>
+												<IoMdArrowDropdown />
+											</li>
+										) : (
+											<Link
+												to={menu.link}
+												className="h-[100px] space-x-2 cursor-pointer flexCenter"
+												key={index}
+											>
+												<span className="font-medium">{menu.title}</span>
+											</Link>
+										)
+									)}
+								</ul>
+							</nav>
 						</div>
 
-						{isUserLoading && !isUserError ? (
-							<MoonLoader color="#fff" size={30} />
-						) : !isUserLoading && !auth.isAuth ? (
+						<div className="space-x-6 xl:space-x-8 flexEnd">
+							<div className="relative hidden w-fit h-fit xl:block">
+								<input
+									type="text"
+									placeholder="Cari Lokasi..."
+									className="w-full py-3 pl-4 text-black rounded-full sm:w-48 xl:w-60 lg:pr-12 placeholder:text-sm focus:outline-none"
+									onChange={e => setSearchValue(e.target.value)}
+									value={searchValue}
+									maxLength={50}
+									onKeyDown={e => {
+										if (e.key === 'Enter') {
+											handleOnSearch();
+										}
+									}}
+								/>
+
+								<button
+									className="absolute w-10 h-10 -translate-y-1/2 rounded-full top-1/2 right-1 flexCenter bg-primary"
+									onClick={handleOnSearch}
+								>
+									<BiSearch color="#fff" size={18} />
+								</button>
+							</div>
+
+							{isUserLoading && !isUserError ? (
+								<MoonLoader color="#fff" size={30} />
+							) : !isUserLoading && !auth.isAuth ? (
+								<button
+									className="hidden text-white border-white rounded-full btnSecondary lg:block"
+									onClick={() => navigate('/login')}
+								>
+									Masuk
+								</button>
+							) : (
+								<Link
+									to={'/akun-saya'}
+									className="hidden text-white border-white rounded-full btnSecondary lg:block"
+								>
+									Akun saya
+								</Link>
+							)}
+
 							<button
-								className="hidden text-white border-white rounded-full btnSecondary lg:block"
-								onClick={() => navigate('/login')}
+								className="block flexCenter lg:hidden"
+								onClick={() => setOpenMobileNavbar(true)}
 							>
-								Masuk
+								<BiMenu color="#fff" size={36} />
 							</button>
-						) : (
-							<Link
-								to={'/akun-saya'}
-								className="hidden text-white border-white rounded-full btnSecondary lg:block"
-							>
-								Akun saya
-							</Link>
-						)}
+						</div>
+					</MainContainer>
 
-						<button
-							className="block flexCenter lg:hidden"
-							onClick={() => setOpenMobileNavbar(true)}
-						>
-							<BiMenu color="#fff" size={36} />
-						</button>
-					</div>
-				</MainContainer>
+					<NavMenuOnHover
+						data={selectedMenu}
+						isHover={menuHover}
+						onHover={() => setMenuHover(true)}
+						onUnhover={() => setMenuHover(false)}
+					/>
 
-				<NavMenuOnHover
-					data={selectedMenu}
-					isHover={menuHover}
-					onHover={() => setMenuHover(true)}
-					onUnhover={() => setMenuHover(false)}
+					{isHome && !isNewsLoading && news?.length > 0 && (
+						<HotNewsTicker item={news} />
+					)}
+				</div>
+
+				<NavMenuMobile
+					menu={menuList}
+					isOpen={openMobileNavbar}
+					onClose={() => setOpenMobileNavbar(false)}
 				/>
+			</header>
 
-				{isHome && !isNewsLoading && news?.length > 0 && (
-					<HotNewsTicker item={news} />
-				)}
-			</div>
-
-			<NavMenuMobile
-				menu={menuList}
-				isOpen={openMobileNavbar}
-				onClose={() => setOpenMobileNavbar(false)}
-			/>
-		</header>
+			<ContactModal />
+		</>
 	);
 }

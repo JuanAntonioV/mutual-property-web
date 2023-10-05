@@ -238,7 +238,7 @@ export default function HomePageHeroSection() {
 				</form>
 			</dialog>
 
-			<section className="grid grid-cols-1 lg:grid-cols-2 h-full lg:h-[600px] place-content-center pt-14 md:p-0">
+			<section className="grid grid-cols-1 lg:grid-cols-2 h-full lg:h-[600px] place-content-center pt-14 lg:p-0">
 				<div className="order-2 mt-10 text-center flexCenter lg:text-start lg:flexStart lg:order-1 lg:m-0">
 					<div className="lg:w-[460px] space-y-10">
 						<div className="space-y-4">
@@ -317,7 +317,7 @@ export default function HomePageHeroSection() {
 				<div className="order-1 flexCenter lg:flexEnd lg:order-2 lg:m-0">
 					<Slider
 						{...settings}
-						className="w-[400px] lg:w-[700px] hover:cursor-move"
+						className="w-[400px] lg:w-[500px] xl:w-[700px] hover:cursor-move"
 					>
 						<div className="px-2 !outline-none !border-none">
 							<img

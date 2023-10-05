@@ -13,6 +13,7 @@ import useStore from '../../hooks/useStore';
 import AuthContext from '../../contexts/AuthProvider';
 import { getAllCategoriesApi } from '../../api/category-api';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import ScrollToTopNav from '@/components/navigations/ScrollToTopNav';
 
 export default function PropertyPage() {
 	// const router = useRouter();
@@ -58,9 +59,9 @@ export default function PropertyPage() {
 
 	useEffect(() => {
 		if (selectedCategory?.id === 3) {
-			setCount(9);
+			setCount(27);
 		} else {
-			setCount(8);
+			setCount(20);
 		}
 	}, [selectedCategory]);
 
@@ -171,6 +172,8 @@ export default function PropertyPage() {
 					</>
 				) : null}
 			</main>
+
+			<ScrollToTopNav />
 		</>
 	);
 }

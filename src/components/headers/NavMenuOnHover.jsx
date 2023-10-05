@@ -37,11 +37,17 @@ export default function NavMenuOnHover({ data, isHover, onHover, onUnhover }) {
 									'grid grid-flow-col grid-rows-2 last:grid-rows-3 gap-y-4 lg:gap-x-8 xl:gap-x-16'
 								}
 							>
-								{item?.pathList.map((menu, index) => (
-									<li key={index}>
-										<Link to={menu.link}>{menu.title}</Link>
-									</li>
-								))}
+								{item?.pathList.map((menu, index) =>
+									menu.action ? (
+										<li key={index}>
+											<button onClick={menu.action}>{menu.title}</button>
+										</li>
+									) : (
+										<li key={index}>
+											<Link to={menu.link}>{menu.title}</Link>
+										</li>
+									)
+								)}
 							</ul>
 						</main>
 					</div>

@@ -20,7 +20,7 @@ export default function HomePageStat({ value, detail, onClick }) {
 			</div>
 
 			{onClick && (
-				<div className="absolute right-0 p-2 transition-opacity duration-200 bg-white rounded-full shadow-md sm:right-4 flexCenter group-hover:bg-primary md:text-[20] top-0 sm:top-auto">
+				<div className="absolute right-0 p-2 transition-opacity duration-200 bg-white rounded-full shadow-md sm:right-4 flexCenter group-hover:bg-primary md:text-[20] lg:text-lg top-0 sm:top-auto">
 					<BiSearch className="duration-200 group-hover:text-white text-primary" />
 				</div>
 			)}
