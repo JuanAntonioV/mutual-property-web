@@ -117,7 +117,7 @@ export default function PropertyDetail({ data }) {
 				</div>
 				<div className="space-y-1">
 					<header>
-						<h2 className="text-lg font-semibold">Sertifikat</h2>
+						<h2 className="text-lg font-semibold">Surat</h2>
 					</header>
 					<main>
 						<p className="font-medium text-secondary">

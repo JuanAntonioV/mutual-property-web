@@ -31,7 +31,7 @@ export default function PropertyProjectDetail({ data }) {
 
 					<div>
 						<header>
-							<h2 className="font-semibold lg:text-lg">Status Kepemilikan</h2>
+							<h2 className="font-semibold lg:text-lg">Surat</h2>
 						</header>
 						<main>
 							<p className="text-sm font-medium lg:text-base text-secondary">

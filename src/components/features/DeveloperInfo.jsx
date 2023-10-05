@@ -5,6 +5,7 @@ import { dateFormater } from '../../utils/formaters';
 import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { PulseLoader } from 'react-spinners';
+import BrandLogo from '../brands/BrandLogo';
 
 export default function DeveloperInfo({ data }) {
 	const [viewPhone, setViewPhone] = useState(false);
@@ -30,21 +31,25 @@ export default function DeveloperInfo({ data }) {
 		<>
 			<div className="p-4 bg-white border border-borderPrimary rounded-xl">
 				<header className="gap-5 pt-2 flexBetween">
-					<div className="space-y-3">
-						<p className="text-lg font-bold md:text-xl">
-							{data?.developer_name}
-						</p>
+					<div className="space-y-4">
+						<div>
+							<p className="text-sm text-secondary">Dipasarkan Oleh</p>
+							<p className="text-lg font-bold md:text-xl">
+								{data?.developer_name}
+							</p>
+						</div>
 						<p className="text-sm text-secondary">
-							#{data?.id} • Diposting {dateFormater(data?.created_at)}
+							#{data?.id} • {dateFormater(data?.created_at)}
 						</p>
 					</div>
 
-					<div className="w-24 h-24 overflow-hidden">
-						<img
+					<div className="overflow-hidden w-36 flexCenter">
+						{/* <img
 							src={data?.logo}
 							alt="Developer Logo"
 							className="object-cover w-full h-full rounded-lg"
-						/>
+						/> */}
+						<BrandLogo className={'w-full h-full'} />
 					</div>
 				</header>
 

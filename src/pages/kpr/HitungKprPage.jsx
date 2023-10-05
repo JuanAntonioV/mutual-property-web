@@ -3,7 +3,7 @@
 import MainContainer from '@/components/containers/MainContainer';
 import PageTitle from '@/components/titles/PageTitle';
 import { parseRupiah, formatRupiah, calculatePMT } from '@/utils/helpers';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { PulseLoader } from 'react-spinners';
 
 export default function HitungKprPage() {
@@ -12,6 +12,7 @@ export default function HitungKprPage() {
 		uangMuka: '',
 		jangkaCicilan: 10,
 		bunga: 5,
+		uangMukaPercent: 100,
 	});
 
 	const [calulateClicked, setCalculateClicked] = useState(false);
@@ -31,7 +32,11 @@ export default function HitungKprPage() {
 		const formated = formatRupiah(value);
 
 		if (value.match(regex)) {
-			if (target.name != 'jangkaCicilan' && target.name != 'bunga') {
+			if (
+				target.name != 'jangkaCicilan' &&
+				target.name != 'bunga' &&
+				target.name != 'uangMukaPercent'
+			) {
 				setFormValue({
 					...formValue,
 					[target.name]: formated,
@@ -44,6 +49,67 @@ export default function HitungKprPage() {
 					});
 				}
 			}
+		}
+	};
+
+	const handleOnChangeUangMukaPercent = e => {
+		const target = e.target;
+		const value = target.value;
+		const regex = /^[0-9.,-]*$/;
+
+		if (regex.test(value)) {
+			if (value > 100) {
+				value = 100;
+			}
+
+			let downPayment = (value / 100) * parseRupiah(formValue.hargaProperty);
+
+			if (downPayment < 0) {
+				downPayment = 0;
+			}
+
+			if (downPayment > parseRupiah(formValue.hargaProperty)) {
+				downPayment = parseRupiah(formValue.hargaProperty);
+			}
+
+			setFormValue({
+				...formValue,
+				uangMuka: formatRupiah(String(downPayment) || '0'),
+				[target.name]: value,
+			});
+		}
+	};
+
+	const handleOnChangeUangMuka = e => {
+		const target = e.target;
+		let value = target.value;
+		const regex = /^[0-9.,-]*$/;
+
+		if (regex.test(value)) {
+			const formated = formatRupiah(String(value));
+
+			let downPaymentPercent =
+				(parseRupiah(formated) / parseRupiah(formValue.hargaProperty)) * 100;
+
+			if (downPaymentPercent < 0) {
+				downPaymentPercent = 0;
+			}
+
+			if (downPaymentPercent > 100) {
+				downPaymentPercent = 100;
+			}
+
+			if (isNaN(downPaymentPercent)) {
+				downPaymentPercent = 0;
+			}
+
+			downPaymentPercent = downPaymentPercent.toFixed(0);
+
+			setFormValue({
+				...formValue,
+				uangMukaPercent: downPaymentPercent,
+				[target.name]: formated,
+			});
 		}
 	};
 
@@ -83,6 +149,14 @@ export default function HitungKprPage() {
 			setCalculateLoading(false);
 		}, 500);
 	};
+
+	const disabledInput = useMemo(() => {
+		if (!formValue.hargaProperty) {
+			return true;
+		} else {
+			return false;
+		}
+	}, [formValue.hargaProperty]);
 
 	return (
 		<MainContainer className="mt-[100px] my-20">
@@ -144,12 +218,43 @@ export default function HitungKprPage() {
 									min={0}
 									value={formValue.uangMuka}
 									required
-									onChange={handleOnChange}
+									onChange={handleOnChangeUangMuka}
+									disabled={disabledInput}
 								/>
 							</div>
 						</div>
 
-						<div className="flexBetween">
+						<div className="space-y-4">
+							<label
+								htmlFor="downPaymentPercent"
+								className="text-sm font-medium sm:text-base"
+							>
+								Uang Muka (%)
+							</label>
+
+							<div className="relative flex items-center h-fit">
+								<input
+									id="downPaymentPercent"
+									type="text"
+									name="uangMukaPercent"
+									placeholder="0"
+									className="font-semibold rounded-r-none text-end pl-14 inputSecondary focus:border-borderPrimary"
+									min={0}
+									max={100}
+									value={formValue.uangMukaPercent}
+									required
+									onChange={handleOnChangeUangMukaPercent}
+									disabled={disabledInput}
+								/>
+								<div className="w-20 h-[50px] flexCenter rounded-r-lg bg-[#f5f5f5] border-r border-y border-borderPrimary text-secondarySoftTrans">
+									<span className="text-base font-bold md:text-lg text-primary">
+										%
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div className="flexBetween lg:gap-4">
 							<label
 								htmlFor="range"
 								className="text-sm font-medium sm:text-base"
@@ -170,12 +275,12 @@ export default function HitungKprPage() {
 									onChange={handleOnChange}
 								/>
 								<div className="w-28 h-[50px] flexCenter rounded-r-lg bg-[#f5f5f5] border-r border-y border-borderPrimary text-secondarySoftTrans">
-									<span className="text-sm font-bold md:text-lg">Tahun</span>
+									<span className="text-sm font-bold">Tahun</span>
 								</div>
 							</div>
 						</div>
 
-						<div className="flexBetween">
+						<div className="flexBetween lg:gap-4">
 							<label
 								htmlFor="bunga"
 								className="text-sm font-medium sm:text-base"
@@ -228,7 +333,7 @@ export default function HitungKprPage() {
 						<main className="mt-6 space-y-2">
 							{calulateClicked ? (
 								<>
-									<div className="flexBetween">
+									{/* <div className="flexBetween">
 										<div className="space-y-1">
 											<h4 className="font-semibold md:text-lg">
 												Bunga {calculateResult.bunga}%
@@ -241,10 +346,10 @@ export default function HitungKprPage() {
 												/ Tahun
 											</span>
 										</p>
-									</div>
+									</div> */}
 									<div className="flexBetween">
 										<div className="space-y-1">
-											<h4 className="font-semibold md:text-lg">Cicilan</h4>
+											<h4 className="font-semibold md:text-lg">Angsuran</h4>
 										</div>
 
 										<p className="font-semibold md:text-lg">

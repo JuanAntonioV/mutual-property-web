@@ -8,7 +8,7 @@ import { BiBath } from 'react-icons/bi';
 import ImageCardCarousel from '../carousel/ImageCardCarousel';
 import CardLiker from './CardLiker';
 
-import { textDotsFormat } from '@/utils/formaters';
+import { formatPrice, textDotsFormat } from '@/utils/formaters';
 import { dateFormater } from '../../utils/formaters';
 
 export default function PropertyCard({ data }) {
@@ -30,19 +30,23 @@ export default function PropertyCard({ data }) {
 					{data?.sub_category?.name}
 				</span>
 
-				<h3 className="hidden mt-4 text-lg font-bold md:block">
+				<h4 className="mt-4 text-base font-semibold text-primary">
+					Rp {formatPrice(String(data?.price) || '0')}
+				</h4>
+
+				<h3 className="hidden mt-2 text-lg font-bold md:block">
 					{textDotsFormat(data?.title, 50)}
 				</h3>
-				<h3 className="block mt-4 text-lg font-bold md:hidden">
+				<h3 className="block mt-2 text-lg font-bold md:hidden">
 					{textDotsFormat(data?.title, 80)}
 				</h3>
 
-				<div className="flex mt-3 item-center gap-x-2">
+				<div className="flex mt-4 item-center gap-x-2">
 					<IoLocationSharp size={18} color="#00092980" />
-					<span className="hidden mb-0 text-sm leading-none text-secondarySoftTrans md:block md:text-base">
+					<span className="hidden mb-0 text-sm leading-none text-secondarySoftTrans md:block">
 						{textDotsFormat(data?.address, 30)}
 					</span>
-					<span className="block mb-0 text-sm leading-none text-secondarySoftTrans md:hidden md:text-base">
+					<span className="block mb-0 text-sm leading-none text-secondarySoftTrans md:hidden">
 						{textDotsFormat(data?.address, 37)}
 					</span>
 				</div>
