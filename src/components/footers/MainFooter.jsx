@@ -6,15 +6,10 @@ import BrandLogo from '../brands/BrandLogo';
 import { MdEmail, MdLocationOn } from 'react-icons/md';
 import { HiPhone } from 'react-icons/hi';
 import { IoIosArrowUp } from 'react-icons/io';
-import {
-	AiFillInstagram,
-	AiFillFacebook,
-	AiFillYoutube,
-	AiFillAccountBook,
-} from 'react-icons/ai';
-import { IoLocate } from 'react-icons/io5';
-import { BiLocationPlus } from 'react-icons/bi';
+import { AiFillInstagram, AiFillFacebook, AiFillYoutube } from 'react-icons/ai';
 import { FaTiktok } from 'react-icons/fa';
+import { getContactInfo } from '@/api/about-api';
+import { useQuery } from '@tanstack/react-query';
 
 export default function MainFooter() {
 	const scrollToTop = () => {
@@ -29,6 +24,15 @@ export default function MainFooter() {
 			behavior: 'smooth',
 		});
 	};
+
+	const { data } = useQuery(['aboutContact'], getContactInfo, {
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+		refetchOnReconnect: false,
+		refetchIntervalInBackground: false,
+		refetchInterval: false,
+		select: data => data.results,
+	});
 
 	return (
 		<footer className="pt-20 bg-white border-t-2 pb-14 border-borderPrimary">
@@ -69,11 +73,11 @@ export default function MainFooter() {
 						<ul className="text-sm">
 							<li className="flex py-2 space-x-2 item-center">
 								<MdEmail size={22} color={'#213D77'} />
-								<span>mutualproperti@gmail.com</span>
+								<span>{data?.email}</span>
 							</li>
 							<li className="flex py-2 space-x-2 item-center">
 								<HiPhone size={22} color={'#213D77'} />
-								<span>0852 7730 3838</span>
+								<span>{data?.contact}</span>
 							</li>
 							<li className="flex py-2 space-x-2 item-center">
 								<MdLocationOn
@@ -81,10 +85,7 @@ export default function MainFooter() {
 									color={'#213D77'}
 									className="w-7 md:w-6 lg:w-12"
 								/>
-								<span>
-									Jalan William Iskandar Pasar V, Komplek MMTC Blok N-25
-									(Samping indomaret), 20371{' '}
-								</span>
+								<span>{data?.address}</span>
 							</li>
 						</ul>
 					</div>

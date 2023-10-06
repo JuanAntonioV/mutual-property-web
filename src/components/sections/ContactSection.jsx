@@ -1,11 +1,22 @@
+import { getContactInfo } from '@/api/about-api';
 import MainContainer from '../containers/MainContainer';
 import SectionContainer from '../containers/SectionContainer';
 import SectionTitle from '../titles/SectionTitle';
 
 import { BsTelephoneFill } from 'react-icons/bs';
 import { IoLocation, IoMail } from 'react-icons/io5';
+import { useQuery } from '@tanstack/react-query';
 
 export default function ContactSection() {
+	const { data } = useQuery(['aboutContact'], getContactInfo, {
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+		refetchOnReconnect: false,
+		refetchIntervalInBackground: false,
+		refetchInterval: false,
+		select: data => data.results,
+	});
+
 	return (
 		<SectionContainer className="my-20">
 			<MainContainer>
@@ -28,9 +39,7 @@ export default function ContactSection() {
 
 						<main className="space-y-2 text-center">
 							<p>Hubungi Kami</p>
-							<p className="text-lg font-bold text-primary">
-								0852 - 7730 - 3838
-							</p>
+							<p className="text-lg font-bold text-primary">{data?.contact}</p>
 						</main>
 					</div>
 					<div className="bg-white w-full md:w-[400px] h-[260px] p-4 flexCenterCol gap-4 shadow-lg rounded-xl">
@@ -40,9 +49,7 @@ export default function ContactSection() {
 
 						<main className="space-y-2 text-center">
 							<p>Kunjungi kantor kami di</p>
-							<p className="text-lg font-bold text-primary">
-								Jalan William Iskandar Pasar V, <br /> Komplek MMTC Blok N-25
-							</p>
+							<p className="text-lg font-bold text-primary">{data?.address}</p>
 						</main>
 					</div>
 					<div className="bg-white w-full md:w-[400px] h-[260px] p-4 flexCenterCol gap-4 shadow-lg rounded-xl">
@@ -52,9 +59,7 @@ export default function ContactSection() {
 
 						<main className="space-y-2 text-center">
 							<p>Email kami di</p>
-							<p className="text-lg font-bold text-primary">
-								mutualproperti@gmail.com
-							</p>
+							<p className="text-lg font-bold text-primary">{data?.email}</p>
 						</main>
 					</div>
 				</main>

@@ -1,9 +1,20 @@
+import { getAllAboutInfo } from '@/api/about-api';
 import MainContainer from '@/components/containers/MainContainer';
 import ContactSection from '@/components/sections/ContactSection';
+import { useQuery } from '@tanstack/react-query';
 
 import { FaQuoteLeft } from 'react-icons/fa';
 
 export default function TentangKamiPage() {
+	const { data } = useQuery(['about'], getAllAboutInfo, {
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+		refetchOnReconnect: false,
+		refetchIntervalInBackground: false,
+		refetchInterval: false,
+		select: data => data.results,
+	});
+
 	return (
 		<>
 			<MainContainer className="mt-[100px]">
@@ -14,16 +25,14 @@ export default function TentangKamiPage() {
 								<span className="text-4xl">👋</span> Tentang Kami
 							</h1>
 							<p className="md:text-lg w-full md:w-[600px] text-gray-600">
-								Mutual Property adalah platform untuk membeli, menjual, atau
-								bahkan menyewakan properti Anda dengan mudah dan terpercaya.
-								Kami menyediakan berbagai macam properti yang dapat Anda pilih
-								sesuai dengan kebutuhan Anda. Kami juga menyediakan layanan
-								titip jual properti Anda dengan komisi yang sangat terjangkau.
+								{data?.about?.about_us}
 							</p>
 						</div>
 					</div>
 					<div className="order-1 flexCenter lg:order-2 lg:flexEnd">
-						<div className="w-[600px] h-[300px] bg-gray-200 rounded-xl"></div>
+						<div className="w-[600px] h-[300px] rounded-xl">
+							<img src={data?.about?.about_us_image} alt="about us" />
+						</div>
 					</div>
 				</section>
 
@@ -33,11 +42,7 @@ export default function TentangKamiPage() {
 					</header>
 
 					<p className="md:text-lg text-center mx-auto w-full md:w-[800px] text-gray-600">
-						Mutual Property memiliki visi untuk menjadi platform yang dapat
-						memberikan kemudahan bagi masyarakat dalam membeli, menjual, atau
-						menyewakan properti. Kami juga memiliki misi untuk menjadi platform
-						yang dapat memberikan keuntungan bagi masyarakat dalam bertransaksi
-						properti.
+						{data?.about?.vision}
 					</p>
 				</section>
 
@@ -49,46 +54,28 @@ export default function TentangKamiPage() {
 					</header>
 
 					<main className="flex-wrap w-full flexCenter gap-x-32 gap-y-14">
-						<div className="flexCenter">
-							<div className="flex-col flexCenter">
-								<div className="w-[200px] h-[200px] bg-gray-200 rounded-full"></div>
+						{data?.founders?.map((founder, index) => (
+							<div className="flexCenter" key={index}>
+								<div className="flex-col flexCenter">
+									<div className="w-[200px] h-[200px] rounded-full">
+										<img
+											src={founder?.image}
+											alt="founder"
+											className="w-full h-full rounded-full"
+										/>
+									</div>
 
-								<div className="mt-4">
-									<h1 className="text-lg font-semibold text-center">
-										John Doe
-									</h1>
-									<p className="text-sm text-center text-gray-600">
-										Co-Founder
-									</p>
+									<div className="mt-4">
+										<h1 className="text-lg font-semibold text-center">
+											{founder?.name}
+										</h1>
+										<p className="text-sm text-center text-gray-600">
+											{founder?.position}
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div className="flexCenter">
-							<div className="flex-col flexCenter">
-								<div className="w-[200px] h-[200px] bg-gray-200 rounded-full"></div>
-
-								<div className="mt-4">
-									<h1 className="text-lg font-semibold text-center">
-										John Doe
-									</h1>
-									<p className="text-sm text-center text-gray-600">Founder</p>
-								</div>
-							</div>
-						</div>
-						<div className="flexCenter">
-							<div className="flex-col flexCenter">
-								<div className="w-[200px] h-[200px] bg-gray-200 rounded-full"></div>
-
-								<div className="mt-4">
-									<h1 className="text-lg font-semibold text-center">
-										John Doe
-									</h1>
-									<p className="text-sm text-center text-gray-600">
-										Co-Founder
-									</p>
-								</div>
-							</div>
-						</div>
+						))}
 					</main>
 				</section>
 			</MainContainer>
@@ -103,98 +90,30 @@ export default function TentangKamiPage() {
 						</header>
 
 						<main className="grid grid-cols-1 mt-16 gap-x-4 gap-y-14 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-							<div className="w-full flexCenter">
-								<div className="lg:w-[320px] h-[400px] flexBetween flex-col items-start bg-white rounded-xl border border-borderPrimary p-8">
-									<header>
-										<FaQuoteLeft size={32} color={'#213D77'} />
-									</header>
+							{data?.testimonials?.map((testimonial, index) => (
+								<div className="w-full flexCenter" key={index}>
+									<div className="lg:w-[320px] h-[400px] flexBetween flex-col items-start bg-white rounded-xl border border-borderPrimary p-8">
+										<header>
+											<FaQuoteLeft size={32} color={'#213D77'} />
+										</header>
 
-									<main className="py-10">
-										<p className={'text-gray-600'}>
-											I want thank you for creating such an amazing platform
-											which has the capability to help new entrepreneurs like me
-											to take their product to next level. Thank you for helping
-											me & supporting me during the entire journey.
-										</p>
-									</main>
+										<main className="py-10">
+											<p className={'text-gray-600'}>
+												{testimonial?.testimoni}
+											</p>
+										</main>
 
-									<footer className="w-full pt-3 border-t border-borderPrimary">
-										<p className="text-sm text-secondary">
-											Diposting oleh{' '}
-											<span className="font-semibold">John Doe</span>
-										</p>
-									</footer>
+										<footer className="w-full pt-3 border-t border-borderPrimary">
+											<p className="text-sm text-secondary">
+												Diposting oleh{' '}
+												<span className="font-semibold">
+													{testimonial?.name}
+												</span>
+											</p>
+										</footer>
+									</div>
 								</div>
-							</div>
-							<div className="w-full flexCenter">
-								<div className="lg:w-[320px] h-[400px] flexBetween flex-col items-start bg-white rounded-xl border border-borderPrimary p-8">
-									<header>
-										<FaQuoteLeft size={32} color={'#213D77'} />
-									</header>
-
-									<main className="py-10">
-										<p className={'text-gray-600'}>
-											I want thank you for creating such an amazing platform
-											which has the capability to help new entrepreneurs like me
-											to take their product to next level. Thank you for helping
-											me & supporting me during the entire journey.
-										</p>
-									</main>
-
-									<footer className="w-full pt-3 border-t border-borderPrimary">
-										<p className="text-sm text-secondary">
-											Diposting oleh{' '}
-											<span className="font-semibold">John Doe</span>
-										</p>
-									</footer>
-								</div>
-							</div>
-							<div className="w-full flexCenter">
-								<div className="lg:w-[320px] h-[400px] flexBetween flex-col items-start bg-white rounded-xl border border-borderPrimary p-8">
-									<header>
-										<FaQuoteLeft size={32} color={'#213D77'} />
-									</header>
-
-									<main className="py-10">
-										<p className={'text-gray-600'}>
-											I want thank you for creating such an amazing platform
-											which has the capability to help new entrepreneurs like me
-											to take their product to next level. Thank you for helping
-											me & supporting me during the entire journey.
-										</p>
-									</main>
-
-									<footer className="w-full pt-3 border-t border-borderPrimary">
-										<p className="text-sm text-secondary">
-											Diposting oleh{' '}
-											<span className="font-semibold">John Doe</span>
-										</p>
-									</footer>
-								</div>
-							</div>
-							<div className="w-full flexCenter">
-								<div className="lg:w-[320px] h-[400px] flexBetween flex-col items-start bg-white rounded-xl border border-borderPrimary p-8">
-									<header>
-										<FaQuoteLeft size={32} color={'#213D77'} />
-									</header>
-
-									<main className="py-10">
-										<p className={'text-gray-600'}>
-											I want thank you for creating such an amazing platform
-											which has the capability to help new entrepreneurs like me
-											to take their product to next level. Thank you for helping
-											me & supporting me during the entire journey.
-										</p>
-									</main>
-
-									<footer className="w-full pt-3 border-t border-borderPrimary">
-										<p className="text-sm text-secondary">
-											Diposting oleh{' '}
-											<span className="font-semibold">John Doe</span>
-										</p>
-									</footer>
-								</div>
-							</div>
+							))}
 						</main>
 					</section>
 				</MainContainer>
