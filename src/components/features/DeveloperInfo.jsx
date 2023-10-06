@@ -34,9 +34,10 @@ export default function DeveloperInfo({ data }) {
 					<div className="space-y-4">
 						<div>
 							<p className="text-sm text-secondary">Dipasarkan Oleh</p>
-							<p className="text-lg font-bold md:text-xl">
+							{/* <p className="text-lg font-bold md:text-xl">
 								{data?.developer_name}
-							</p>
+							</p> */}
+							<p className="text-lg font-bold md:text-xl">Mutual Property</p>
 						</div>
 						<p className="text-sm text-secondary">
 							#{data?.id} • {dateFormater(data?.created_at)}
