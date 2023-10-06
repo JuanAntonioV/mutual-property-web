@@ -85,6 +85,18 @@ export default function ProjectDetailPage() {
 					<PropertyProjectDetail data={data} />
 					<PropertyPriceList data={data} />
 					<PropertySidePlan data={data} />
+
+					{data?.video_url && (
+						<iframe
+							width="100%"
+							height="600px"
+							src={data?.video_url}
+							title={`Youtube Video Player`}
+							frameBorder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowFullScreen
+						></iframe>
+					)}
 				</div>
 
 				<div className="col-span-1 space-y-8 md:sticky md:top-36 h-fit">

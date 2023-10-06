@@ -26,6 +26,8 @@ export const getAllProductsApi = async ({
 	search,
 	userId,
 	count = 8,
+	from,
+	to,
 }) => {
 	try {
 		const res = await api.get(
@@ -35,7 +37,7 @@ export const getAllProductsApi = async ({
 				search ? `&search=${search}` : ''
 			}&page=${page}${userId ? `&user_id=${userId}` : ''}${
 				count ? `&count=${count}` : ''
-			}`
+			} ${from ? `&from=${from}` : ''} ${to ? `&to=${to}` : ''}`
 		);
 		return res.data;
 	} catch (err) {

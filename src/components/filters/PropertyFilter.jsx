@@ -10,6 +10,7 @@ export default function PropertyFilter({
 	setSelectedSubCategory,
 	setOrderBy,
 	setSearch,
+	setPrice,
 }) {
 	const navigate = useNavigate();
 	const [subCategoryOptions, setSubCategoryOptions] = useState([]);
@@ -22,6 +23,23 @@ export default function PropertyFilter({
 		useState(null);
 
 	const [searchValue, setSearchValue] = useState('');
+
+	const [priceFilter, setPriceFilter] = useState({
+		from: null,
+		to: null,
+	});
+
+	const handlePriceOnChange = e => {
+		const { name, value } = e.target;
+		const regex = /^[0-9\b]+$/;
+
+		if (value === '' || regex.test(value)) {
+			setPriceFilter({
+				...priceFilter,
+				[name]: value,
+			});
+		}
+	};
 
 	// const rangePrice = [
 	//     { value: 'semua', label: 'Semua' },
@@ -81,11 +99,11 @@ export default function PropertyFilter({
 		}
 	}, [selectedSubCategoryValue]);
 
-	const sortedPrice = [
-		{ value: 'semua', label: 'Semua' },
-		{ value: 'termurah', label: 'Termurah' },
-		{ value: 'termahal', label: 'Termahal' },
-	];
+	// const sortedPrice = [
+	// 	{ value: 'semua', label: 'Semua' },
+	// 	{ value: 'termurah', label: 'Termurah' },
+	// 	{ value: 'termahal', label: 'Termahal' },
+	// ];
 
 	const handleOnChangeSearch = e => {
 		const { value } = e.target;
@@ -96,6 +114,8 @@ export default function PropertyFilter({
 		setSearch(searchValue);
 		setOrderBy(selectedOrderBy);
 		setSelectedSubCategory(selectedSubCategoryValue);
+		setPrice(priceFilter);
+		console.log(priceFilter);
 
 		if (selectedSubCategoryValue?.slug !== undefined) {
 			navigate(
@@ -109,7 +129,7 @@ export default function PropertyFilter({
 	return (
 		<MainContainer className="p-8 transition bg-white border shadow-md rounded-xl border-borderPrimary hover:border-primary">
 			<div className="grid grid-cols-2 gap-8 md:gap-6 lg:grid-cols-5">
-				<div className="col-span-2 space-y-2">
+				<div className="col-span-2 space-y-2 md:col-span-3 lg:col-span-1">
 					<label
 						htmlFor="search"
 						className={'font-medium text-sm md:text-base'}
@@ -125,7 +145,7 @@ export default function PropertyFilter({
 						className="w-full bg-white inputSecondary"
 					/>
 				</div>
-				<div className="space-y-2">
+				<div className="col-span-2 space-y-2 md:col-span-3 lg:col-span-1">
 					<label htmlFor="type" className={'font-medium text-sm md:text-base'}>
 						Tipe properti
 					</label>
@@ -135,15 +155,49 @@ export default function PropertyFilter({
 						value={selectedSubCategoryOptions}
 					/>
 				</div>
-				<div className="space-y-2">
-					<label htmlFor="price" className={'font-medium text-sm md:text-base'}>
-						Harga
-					</label>
-					<InputSelect
+				<div className="flex items-center col-span-2 gap-4">
+					{/* <div className="space-y-2">
+						<InputSelect
 						options={sortedPrice}
 						onChange={value => setSelectedOrderBy(value[0].value)}
 						value={sortedPrice[0]}
 					/>
+					</div> */}
+					<div className="w-full space-y-2">
+						<label
+							htmlFor="priceFrom"
+							className={'font-medium text-sm md:text-base'}
+						>
+							Mulai dari
+						</label>
+						<input
+							type="text"
+							id="priceFrom"
+							name="from"
+							value={priceFilter.from}
+							onChange={handlePriceOnChange}
+							placeholder="Rp 0"
+							className="w-full bg-white inputSecondary"
+						/>
+					</div>
+					<span className="mx-2 mt-8">-</span>
+					<div className="w-full space-y-2">
+						<label
+							htmlFor="priceTo"
+							className={'font-medium text-sm md:text-base'}
+						>
+							Sampai dengan
+						</label>
+						<input
+							type="text"
+							id="priceTo"
+							name="to"
+							value={priceFilter.to}
+							onChange={handlePriceOnChange}
+							placeholder="Rp 0"
+							className="w-full bg-white inputSecondary"
+						/>
+					</div>
 				</div>
 				<div className="items-end col-span-2 flexCenter lg:col-span-1">
 					<button

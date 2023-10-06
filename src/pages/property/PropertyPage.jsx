@@ -26,6 +26,10 @@ export default function PropertyPage() {
 	const [orderBy, setOrderBy] = useState('created_at');
 	const [search, setSearch] = useState('');
 	const [count, setCount] = useState(0);
+	const [priceFilter, setPriceFilter] = useState({
+		from: null,
+		to: null,
+	});
 
 	const { category: categoryData } = useStore();
 
@@ -80,6 +84,7 @@ export default function PropertyPage() {
 			search,
 			auth?.user,
 			count,
+			priceFilter,
 		],
 		({ pageParam }) =>
 			getAllProductsApi({
@@ -90,6 +95,8 @@ export default function PropertyPage() {
 				search: search,
 				userId: auth?.user?.id,
 				count: count,
+				from: priceFilter?.from,
+				to: priceFilter?.to,
 			}),
 		{
 			cacheTime: 0,
@@ -102,6 +109,10 @@ export default function PropertyPage() {
 			},
 		}
 	);
+
+	const handleSetPriceFilter = price => {
+		setPriceFilter(price);
+	};
 
 	useInfiniteScroll({ action: fetchNextPage, hasNextPage });
 
@@ -117,6 +128,7 @@ export default function PropertyPage() {
 						setSelectedSubCategory={setSelectedSubCategory}
 						setOrderBy={setOrderBy}
 						setSearch={setSearch}
+						setPrice={handleSetPriceFilter}
 					/>
 				</div>
 			</header>
