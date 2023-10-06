@@ -31,7 +31,11 @@ export default function TentangKamiPage() {
 					</div>
 					<div className="order-1 flexCenter lg:order-2 lg:flexEnd">
 						<div className="w-[600px] h-[300px] rounded-xl">
-							<img src={data?.about?.about_us_image} alt="about us" />
+							<img
+								src={data?.about?.about_us_image}
+								alt="about us"
+								className="w-full h-full rounded-xl"
+							/>
 						</div>
 					</div>
 				</section>
