@@ -16,6 +16,7 @@ import { sellPropertyApi } from '../../api/contact-api';
 import { toast } from 'react-toastify';
 import { BiSearch } from 'react-icons/bi';
 import Slider from 'react-slick';
+import { getAllHeroImages } from '@/api/hero-image-api';
 
 export default function HomePageHeroSection() {
 	const navigate = useNavigate();
@@ -112,6 +113,15 @@ export default function HomePageHeroSection() {
 		slidesToShow: 1,
 		speed: 500,
 	};
+
+	const { data: heroImages, isLoading: isHeroImagesLoading } = useQuery(
+		['heroImages'],
+		getAllHeroImages,
+		{
+			refetchOnWindowFocus: false,
+			select: res => res.results,
+		}
+	);
 
 	return (
 		<>
@@ -319,41 +329,21 @@ export default function HomePageHeroSection() {
 						{...settings}
 						className="w-[400px] lg:w-[500px] xl:w-[700px] hover:cursor-move"
 					>
-						<div className="px-2 !outline-none !border-none">
-							<img
-								src={HeroImageProperty}
-								alt="Mutual Properti Hero Image"
-								className="w-full h-full rounded-xl"
-							/>
-						</div>
-						<div className="px-2 !outline-none !border-none">
-							<img
-								src={HeroImageProperty}
-								alt="Mutual Properti Hero Image"
-								className="w-full h-full rounded-xl"
-							/>
-						</div>
-						<div className="px-2 !outline-none !border-none">
-							<img
-								src={HeroImageProperty}
-								alt="Mutual Properti Hero Image"
-								className="w-full h-full rounded-xl"
-							/>
-						</div>
-						<div className="px-2 !outline-none !border-none">
-							<img
-								src={HeroImageProperty}
-								alt="Mutual Properti Hero Image"
-								className="w-full h-full rounded-xl"
-							/>
-						</div>
-						<div className="px-2 !outline-none !border-none">
-							<img
-								src={HeroImageProperty}
-								alt="Mutual Properti Hero Image"
-								className="w-full h-full rounded-xl"
-							/>
-						</div>
+						{isHeroImagesLoading
+							? [Array(3).fill(0)].map((_, index) => (
+									<div className="px-2 !outline-none !border-none" key={index}>
+										<div className="w-full h-full bg-gray-300 rounded-xl animate-pulse"></div>
+									</div>
+							  ))
+							: heroImages?.map((item, index) => (
+									<div className="px-2 !outline-none !border-none" key={index}>
+										<img
+											src={item.path}
+											alt="Mutual Properti Hero Image"
+											className="w-full h-full rounded-xl"
+										/>
+									</div>
+							  ))}
 					</Slider>
 				</div>
 			</section>
