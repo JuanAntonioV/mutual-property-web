@@ -220,7 +220,7 @@ export default function PropertyPage() {
 				</div>
 			</header>
 
-			<main className="mb-40 mt-60 lg:mt-0">
+			<main className="mb-40 mt-72 lg:mt-0">
 				{isPropertyDataLoading ? (
 					<div className="flex flex-col items-center justify-center w-full gap-6 h-96">
 						<SyncLoader color="#2563EB" />
