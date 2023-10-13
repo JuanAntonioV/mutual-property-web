@@ -26,8 +26,8 @@ export default function PropertyFilter({
 	const [searchValue, setSearchValue] = useState('');
 
 	const [priceFilter, setPriceFilter] = useState({
-		from: null,
-		to: null,
+		from: '',
+		to: '',
 	});
 
 	const handlePriceOnChange = e => {

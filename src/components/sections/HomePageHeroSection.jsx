@@ -328,7 +328,7 @@ export default function HomePageHeroSection() {
 				<div className="order-1 flexCenter lg:flexEnd lg:order-2 lg:m-0">
 					<Slider
 						{...settings}
-						className="w-[400px] lg:w-[500px] xl:w-[700px] hover:cursor-move"
+						className="w-full lg:w-[500px] xl:w-[700px] hover:cursor-move"
 					>
 						{isHeroImagesLoading
 							? [Array(3).fill(0)].map((_, index) => (
