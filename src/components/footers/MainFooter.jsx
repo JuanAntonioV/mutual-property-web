@@ -10,6 +10,7 @@ import { AiFillInstagram, AiFillFacebook, AiFillYoutube } from 'react-icons/ai';
 import { FaTiktok } from 'react-icons/fa';
 import { getContactInfo } from '@/api/about-api';
 import { useQuery } from '@tanstack/react-query';
+import { isMobile } from 'react-device-detect';
 
 export default function MainFooter() {
 	const scrollToTop = () => {
@@ -33,6 +34,18 @@ export default function MainFooter() {
 		refetchInterval: false,
 		select: data => data.results,
 	});
+
+	const handlePhoneClicked = () => {
+		if (isMobile) {
+			const url = `tel:${data?.contact}`;
+			window.open(url, '_blank');
+		}
+	};
+
+	const handleEmailClicked = () => {
+		const url = `mailto:${data?.email}`;
+		window.open(url, '_blank');
+	};
 
 	return (
 		<footer className="pt-20 bg-white border-t-2 pb-14 border-borderPrimary">
@@ -71,11 +84,17 @@ export default function MainFooter() {
 					<div className="col-span-1 space-y-4 lg:px-8">
 						<h1 className="text-lg font-semibold text-primary">Hubungi Kami</h1>
 						<ul className="text-sm">
-							<li className="flex py-2 space-x-2 item-center">
+							<li
+								className="flex py-2 space-x-2 item-center"
+								onClick={handleEmailClicked}
+							>
 								<MdEmail size={22} color={'#213D77'} />
 								<span>{data?.email}</span>
 							</li>
-							<li className="flex py-2 space-x-2 item-center">
+							<li
+								className="flex py-2 space-x-2 item-center"
+								onClick={handlePhoneClicked}
+							>
 								<HiPhone size={22} color={'#213D77'} />
 								<span>{data?.contact}</span>
 							</li>

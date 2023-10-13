@@ -111,7 +111,8 @@ export default function HomePageHeroSection() {
 		infinite: true,
 		centerPadding: '60px',
 		slidesToShow: 1,
-		speed: 500,
+		autoplay: true,
+		autoplaySpeed: 5000,
 	};
 
 	const { data: heroImages, isLoading: isHeroImagesLoading } = useQuery(

@@ -4,14 +4,19 @@ import { MdOutlineSimCardDownload } from 'react-icons/md';
 import { dateFormater } from '../../utils/formaters';
 import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
-import { PulseLoader } from 'react-spinners';
 import BrandLogo from '../brands/BrandLogo';
+import { isDesktop } from 'react-device-detect';
 
 export default function DeveloperInfo({ data }) {
 	const [viewPhone, setViewPhone] = useState(false);
 
 	const handlePhoneClicked = () => {
-		setViewPhone(true);
+		if (isDesktop) {
+			setViewPhone(true);
+		} else {
+			const url = `tel:${data?.phone_number}`;
+			window.open(url, '_blank');
+		}
 	};
 
 	const handleWhatsappClicked = () => {
@@ -37,21 +42,20 @@ export default function DeveloperInfo({ data }) {
 							{/* <p className="text-lg font-bold md:text-xl">
 								{data?.developer_name}
 							</p> */}
-							<p className="text-lg font-bold md:text-xl">Mutual Property</p>
+							{/* <p className="text-lg font-bold md:text-xl">Mutual Property</p> */}
 						</div>
-						<p className="text-sm text-secondary">
-							#{data?.id} • {dateFormater(data?.created_at)}
-						</p>
-					</div>
-
-					<div className="overflow-hidden w-36 flexCenter">
-						{/* <img
+						<div className="overflow-hidden w-36 flexCenter">
+							{/* <img
 							src={data?.logo}
 							alt="Developer Logo"
 							className="object-cover w-full h-full rounded-lg"
 						/> */}
-						<BrandLogo className={'w-full h-full'} />
+							<BrandLogo className={'w-full h-full'} />
+						</div>
 					</div>
+					<p className="text-sm text-secondary">
+						#{data?.id} • {dateFormater(data?.created_at)}
+					</p>
 				</header>
 
 				<main className="flex-wrap gap-4 pt-6 pb-2 mt-6 border-t border-borderPrimary flexCenter">

@@ -19,8 +19,6 @@ export default function MainPaginate({
 		setPage(pageSlice - maxPageSlice);
 	};
 
-	console.log(data?.last_page);
-
 	if (isLoading) return null;
 
 	return (

@@ -36,7 +36,7 @@ export default function NavMenuOnHover({ data, isHover, onHover, onUnhover }) {
 								className={`grid gap-y-4 ${
 									item.isRowLayout
 										? 'grid-flow-col grid-rows-2 last:grid-rows-3 lg:gap-x-8 xl:gap-x-16'
-										: 'grid-cols-4 grid-rows-2 last:grid-rows-3'
+										: 'grid-cols-4 grid-rows-2 last:grid-rows-3 w-full'
 								}`}
 							>
 								{item?.pathList.map((menu, index) =>

@@ -3,6 +3,7 @@ import MainContainer from '../containers/MainContainer';
 import InputSelect from '../inputs/InputSelect';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { formatRupiah, parseRupiah } from '@/utils/helpers';
 
 export default function PropertyFilter({
 	category,
@@ -31,12 +32,14 @@ export default function PropertyFilter({
 
 	const handlePriceOnChange = e => {
 		const { name, value } = e.target;
-		const regex = /^[0-9\b]+$/;
+		const regex = /^[a-zA-Z0-9.,-]*$/;
 
-		if (value === '' || regex.test(value)) {
+		const formated = formatRupiah(value);
+
+		if (value === '' || value.match(regex)) {
 			setPriceFilter({
 				...priceFilter,
-				[name]: value,
+				[name]: formated,
 			});
 		}
 	};
@@ -114,8 +117,13 @@ export default function PropertyFilter({
 		setSearch(searchValue);
 		setOrderBy(selectedOrderBy);
 		setSelectedSubCategory(selectedSubCategoryValue);
-		setPrice(priceFilter);
-		console.log(priceFilter);
+
+		const priceFilterParsed = {
+			from: priceFilter.from ? parseRupiah(priceFilter.from) : null,
+			to: priceFilter.to ? parseRupiah(priceFilter.to) : null,
+		};
+
+		setPrice(priceFilterParsed);
 
 		if (selectedSubCategoryValue?.slug !== undefined) {
 			navigate(
