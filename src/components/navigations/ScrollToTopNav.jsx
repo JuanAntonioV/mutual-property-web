@@ -29,7 +29,7 @@ export default function ScrollToTopNav() {
 
 	return (
 		<button
-			className="fixed flex items-center justify-center w-12 h-12 text-white rounded-full shadow-lg bg-primary bottom-5 right-5"
+			className="fixed z-50 flex items-center justify-center w-12 h-12 text-white rounded-full shadow-lg bg-primary bottom-5 right-5"
 			onClick={scrollToTop}
 			ref={btnRef}
 			style={{
