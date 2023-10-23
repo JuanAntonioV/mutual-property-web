@@ -26,7 +26,7 @@ export default function PropertyDetail({ data }) {
 							</p>
 						</main>
 					</div>
-					<div className="space-y-1">
+					{/* <div className="space-y-1">
 						<header>
 							<h2 className="text-lg font-semibold">Ukuran Bangunan</h2>
 						</header>
@@ -35,7 +35,7 @@ export default function PropertyDetail({ data }) {
 								{data?.detail?.building_size}
 							</p>
 						</main>
-					</div>
+					</div> */}
 					<div className="space-y-1">
 						<header>
 							<h2 className="text-lg font-semibold">Luas Bangunan</h2>
