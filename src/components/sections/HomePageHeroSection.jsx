@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import HeroImage from '@/assets/img/hero-image.png';
 import HeroImageProperty from '@/assets/img/property.jpeg';
@@ -20,6 +20,8 @@ import { getAllHeroImages } from '@/api/hero-image-api';
 
 export default function HomePageHeroSection() {
 	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
 	const [formTitipJual, setFormTitipJual] = useState({
 		fullName: '',
 		phoneNumber: '',
@@ -32,7 +34,11 @@ export default function HomePageHeroSection() {
 
 	const handleOnSearch = () => {
 		if (searchValue.length > 0) {
-			navigate(`/property/search?keyword=${searchValue}`);
+			navigate(
+				`/property/search?keyword=${searchValue}${
+					marketingRef ? `&ref=${marketingRef}` : ''
+				}`
+			);
 		}
 	};
 
@@ -271,12 +277,24 @@ export default function HomePageHeroSection() {
 							<HomePageStat
 								value={'1000'}
 								detail={'Properti Dijual'}
-								onClick={() => navigate('/property?category=dijual&type=rumah')}
+								onClick={() =>
+									navigate(
+										`/property?category=dijual&type=rumah${
+											marketingRef ? `&ref=${marketingRef}` : ''
+										}`
+									)
+								}
 							/>
 							<HomePageStat
 								value={'1000'}
 								detail={'Properti Disewa'}
-								onClick={() => navigate('/property?category=disewa&type=rumah')}
+								onClick={() =>
+									navigate(
+										`/property?category=disewa&type=rumah${
+											marketingRef ? `&ref=${marketingRef}` : ''
+										}`
+									)
+								}
 							/>
 						</div>
 

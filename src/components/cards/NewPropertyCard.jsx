@@ -3,15 +3,19 @@ import { textDotsFormat } from '@/utils/formaters';
 import { IoLocationSharp } from 'react-icons/io5';
 
 import ImageCardCarousel from '../carousel/ImageCardCarousel';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { dateFormater, formatPrice } from '../../utils/formaters';
 import CardLiker from './CardLiker';
 
 export default function NewPropertyCard({ data, small }) {
 	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
 
 	const hadleCardClicked = () => {
-		navigate(`/projects/${data?.slug}`);
+		navigate(
+			`/projects/${data?.slug}${marketingRef ? `?ref=${marketingRef}` : ''}`
+		);
 	};
 
 	return (

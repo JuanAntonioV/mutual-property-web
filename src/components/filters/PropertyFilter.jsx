@@ -2,7 +2,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import MainContainer from '../containers/MainContainer';
 import InputSelect from '../inputs/InputSelect';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { formatRupiah, parseRupiah } from '@/utils/helpers';
 
 export default function PropertyFilter({
@@ -113,6 +113,9 @@ export default function PropertyFilter({
 		setSearchValue(value);
 	};
 
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
+
 	const handleSearchAction = () => {
 		setSearch(searchValue);
 		setOrderBy(selectedOrderBy);
@@ -127,10 +130,16 @@ export default function PropertyFilter({
 
 		if (selectedSubCategoryValue?.slug !== undefined) {
 			navigate(
-				`/property?category=${category?.slug}&type=${selectedSubCategoryValue?.slug}`
+				`/property?category=${category?.slug}&type=${
+					selectedSubCategoryValue?.slug
+				}${marketingRef ? `&ref=${marketingRef}` : ''}`
 			);
 		} else {
-			navigate(`/property?category=${category?.slug}`);
+			navigate(
+				`/property?category=${category?.slug}${
+					marketingRef ? `&ref=${marketingRef}` : ''
+				}`
+			);
 		}
 	};
 

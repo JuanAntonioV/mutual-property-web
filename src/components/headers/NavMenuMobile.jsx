@@ -2,14 +2,17 @@ import BrandLogo from '../brands/BrandLogo';
 import NavMenuItem from './NavMenuItem';
 
 import { IoMdClose } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function NavMenuMobile({ menu, isOpen, onClose }) {
 	const navigate = useNavigate();
 
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
+
 	const handleLoginClicked = () => {
 		onClose();
-		navigate('/login');
+		navigate(`/login${marketingRef ? `?ref=${marketingRef}` : ''}`);
 	};
 
 	return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import MainContainer from '@/components/containers/MainContainer';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { forgotPasswordApi } from '../../api/auth-api';
 import { PulseLoader } from 'react-spinners';
@@ -9,6 +9,9 @@ import ErrorAlert from '../../components/alerts/ErrorAlert';
 import SuccessAlert from '../../components/alerts/SuccessAlert';
 
 export default function ForgotPasswordPage() {
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
+
 	const [formValue, setFormValue] = useState({
 		email: '',
 	});
@@ -97,7 +100,10 @@ export default function ForgotPasswordPage() {
 					<footer className="pb-2">
 						<p className="mt-6 text-sm text-center text-secondary md:text-base">
 							Sudah ingat password?{' '}
-							<Link to={'/login'} className="textLink">
+							<Link
+								to={`/login${marketingRef ? `?ref=${marketingRef}` : ''}`}
+								className="textLink"
+							>
 								Masuk
 							</Link>
 						</p>

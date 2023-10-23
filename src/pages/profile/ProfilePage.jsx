@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { PulseLoader } from 'react-spinners';
 
@@ -16,6 +16,8 @@ export default function ProfilePage() {
 	const navigate = useNavigate();
 	const { auth, setAuth } = useContext(AuthContext);
 	const [selectedTab, setSelectedTab] = useState('akun-saya');
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
 
 	const { mutate: logoutAction, isLoading: isLogoutLoading } = useMutation(
 		payload => logoutApi(payload),
@@ -24,7 +26,7 @@ export default function ProfilePage() {
 				localStorage.removeItem('token');
 				localStorage.removeItem('user');
 				setAuth({});
-				navigate('/');
+				navigate(`/${marketingRef ? `?ref=${marketingRef}` : ''}`);
 			},
 		}
 	);

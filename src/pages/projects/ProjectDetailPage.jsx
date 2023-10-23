@@ -9,10 +9,11 @@ import { BsMap } from 'react-icons/bs';
 import { formatPrice } from '../../utils/formaters';
 import { useQuery } from '@tanstack/react-query';
 import { getProjectDetailApi } from '../../api/project-api';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import ScreenLoading from '../../components/handlers/ScreenLoading';
 import MainContainer from '../../components/containers/MainContainer';
 import NotFoundPage from '../notFound/NotFoundPage';
+import { useMemo } from 'react';
 
 export default function ProjectDetailPage() {
 	const { slug } = useParams();
@@ -44,6 +45,12 @@ export default function ProjectDetailPage() {
 		const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
 		window.open(whatsappUrl, '_blank');
 	};
+
+	const [searchParams] = useSearchParams();
+	const isRef = searchParams.get('ref');
+	const isRefMarketingRef = useMemo(() => {
+		return isRef ? true : false;
+	}, [isRef]);
 
 	if (isLoading) return <ScreenLoading />;
 
@@ -100,7 +107,7 @@ export default function ProjectDetailPage() {
 				</div>
 
 				<div className="col-span-1 space-y-8 md:sticky md:top-36 h-fit">
-					<DeveloperInfo data={data} />
+					{!isRefMarketingRef && <DeveloperInfo data={data} />}
 					<TypeProperty data={data} />
 				</div>
 			</main>

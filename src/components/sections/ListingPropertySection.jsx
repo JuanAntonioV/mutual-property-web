@@ -5,12 +5,14 @@ import MainContainer from '../containers/MainContainer';
 import SectionContainer from '../containers/SectionContainer';
 import SectionTitle from '../titles/SectionTitle';
 import { SyncLoader } from 'react-spinners';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import { useEffect, useState } from 'react';
 
 export default function ListingPropertySection() {
 	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
 	const [count, setCount] = useState(0);
 
 	useEffect(() => {
@@ -35,7 +37,11 @@ export default function ListingPropertySection() {
 		);
 
 	const handleViewAllNavigate = () => {
-		navigate('/property?category=disewa&type=rumah');
+		navigate(
+			`/property?category=disewa&type=rumah${
+				marketingRef ? `&ref=${marketingRef}` : ''
+			}`
+		);
 	};
 
 	if (!isListingPropertyLoading && listingProperty?.length === 0) return null;

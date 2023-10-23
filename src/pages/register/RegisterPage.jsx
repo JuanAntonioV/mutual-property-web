@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import MainContainer from '@/components/containers/MainContainer';
@@ -17,6 +17,8 @@ export default function RegisterPage() {
 		email: '',
 		password: '',
 	});
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
 
 	const handleOnChange = e => {
 		const { name, value } = e.target;
@@ -31,7 +33,7 @@ export default function RegisterPage() {
 		registerApi,
 		{
 			onSuccess: data => {
-				navigate('/login');
+				navigate(`/login${marketingRef ? `?ref=${marketingRef}` : ''}`);
 				toast.success('Berhasil mendaftar');
 			},
 			onError: err => {
@@ -170,7 +172,10 @@ export default function RegisterPage() {
 
 						<p className="mt-6 text-sm text-center text-secondary md:text-base">
 							Sudah punya akun ?{' '}
-							<Link to={'/login'} className="textLink">
+							<Link
+								to={`/login${marketingRef ? `&ref=${marketingRef}` : ''}`}
+								className="textLink"
+							>
 								Masuk
 							</Link>
 						</p>

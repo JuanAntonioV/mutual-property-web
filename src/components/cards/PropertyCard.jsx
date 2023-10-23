@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { IoDocumentTextOutline, IoLocationSharp } from 'react-icons/io5';
 import { MdOutlineKingBed } from 'react-icons/md';
@@ -13,9 +13,13 @@ import { dateFormater } from '../../utils/formaters';
 
 export default function PropertyCard({ data }) {
 	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
 
 	const hadleCardClicked = () => {
-		navigate(`/property/${data?.slug}`);
+		navigate(
+			`/property/${data?.slug}${marketingRef ? `?ref=${marketingRef}` : ''}`
+		);
 	};
 
 	return (

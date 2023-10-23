@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useContext, useState } from 'react';
 
 import { FcGoogle } from 'react-icons/fc';
@@ -14,6 +14,8 @@ import ErrorAlert from '../../components/alerts/ErrorAlert';
 export default function LoginPage() {
 	const navigate = useNavigate();
 	const { setAuth } = useContext(AuthContext);
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
 
 	const [formValue, setFormValue] = useState({
 		email: '',
@@ -39,7 +41,7 @@ export default function LoginPage() {
 			localStorage.setItem('token', token);
 			localStorage.setItem('user', JSON.stringify(user));
 			setAuth({ token, user, isAuth });
-			navigate('/');
+			navigate(`/${marketingRef ? `?ref=${marketingRef}` : ''}`);
 		},
 	});
 
@@ -98,7 +100,9 @@ export default function LoginPage() {
 							</div>
 
 							<Link
-								to={'/forgot-password'}
+								to={`/forgot-password${
+									marketingRef ? `?ref=${marketingRef}` : ''
+								}`}
 								className="mr-auto text-sm text-link sm:text-base"
 							>
 								Lupa password?
@@ -130,7 +134,10 @@ export default function LoginPage() {
 
 						<p className="mt-6 text-sm text-center text-secondary md:text-base">
 							Belum punya akun ?{' '}
-							<Link to={'/register'} className="textLink">
+							<Link
+								to={`/register${marketingRef ? `?ref=${marketingRef}` : ''}`}
+								className="textLink"
+							>
 								Register
 							</Link>
 						</p>

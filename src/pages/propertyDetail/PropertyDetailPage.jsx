@@ -18,7 +18,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getProductDetailApi } from '../../api/product-api';
 import ScreenLoading from '../../components/handlers/ScreenLoading';
 import { formatPrice } from '../../utils/formaters';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export default function PropertyDetailPage() {
 	const [isProjectProduct, setIsProjectProduct] = useState(false);
@@ -60,6 +60,12 @@ export default function PropertyDetailPage() {
 		const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
 		window.open(whatsappUrl, '_blank');
 	};
+
+	const [searchParams] = useSearchParams();
+	const isRef = searchParams.get('ref');
+	const isRefMarketingRef = useMemo(() => {
+		return isRef ? true : false;
+	}, [isRef]);
 
 	if (isLoading) return <ScreenLoading />;
 
@@ -126,14 +132,14 @@ export default function PropertyDetailPage() {
 				<div className="col-span-1 space-y-8 md:sticky md:top-36 h-fit">
 					{!isProjectProduct ? (
 						<>
-							<MarketingInfo data={data} />
+							{!isRefMarketingRef && <MarketingInfo data={data} />}
 							<SimulationKpr />
 						</>
 					) : (
 						<>
 							{!isProjectUnit ? (
 								<>
-									<DeveloperInfo data={data} />
+									{!isRefMarketingRef && <DeveloperInfo data={data} />}
 									<TypeProperty data={data} />
 								</>
 							) : (

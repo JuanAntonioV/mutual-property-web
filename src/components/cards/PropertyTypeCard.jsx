@@ -1,8 +1,10 @@
-import PropertyImage from '@/assets/img/house.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { formatPrice, textDotsFormat } from '../../utils/formaters';
 
 export default function PropertyTypeCard({ data }) {
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
+
 	return (
 		<div className="gap-6 flexBetween">
 			<div className="overflow-hidden bg-gray-200 h-52 w-60 rounded-xl">
@@ -28,7 +30,9 @@ export default function PropertyTypeCard({ data }) {
 
 				<footer className="pt-4 border-t border-borderPrimary">
 					<Link
-						to={`/property/${data?.slug}`}
+						to={`/property/${data?.slug}${
+							marketingRef ? `?ref=${marketingRef}` : ''
+						}`}
 						className="w-full gap-2 px-4 py-2 btnSecondary flexCenter"
 					>
 						<span className="text-sm text-primary">Lihat Detail</span>

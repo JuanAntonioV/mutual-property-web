@@ -1,8 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import MainContainer from '@/components/containers/MainContainer';
 
 export default function NotFoundPage() {
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
+
 	return (
 		<MainContainer className="mt-[100px]">
 			<div className="h-[calc(100vh-100px)] flexCenterCol space-y-10">
@@ -17,7 +20,11 @@ export default function NotFoundPage() {
 					</p>
 				</main>
 
-				<Link rel="noopener noreferrer" to={'/'} className="btnPrimary w-fit">
+				<Link
+					rel="noopener noreferrer"
+					to={`/${marketingRef ? `?ref=${marketingRef}` : ''}`}
+					className="btnPrimary w-fit"
+				>
 					Back to homepage
 				</Link>
 			</div>

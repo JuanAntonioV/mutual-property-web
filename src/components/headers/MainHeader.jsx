@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import NavMenuOnHover from './NavMenuOnHover';
 import BrandLogo from '../brands/BrandLogo';
@@ -29,8 +29,10 @@ export default function MainHeader() {
 	const [selectedMenu, setSelectedMenu] = useState(null);
 	const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
 	const [searchValue, setSearchValue] = useState('');
+	const [searchParams] = useSearchParams();
 	const location = window.location.pathname;
 	const isHome = location === '/';
+	const marketingRef = searchParams.get('ref');
 
 	const showContactModal = () => {
 		window.contactModal.showModal();
@@ -39,7 +41,9 @@ export default function MainHeader() {
 	const menuList = [
 		{
 			title: 'Dijual',
-			link: '/property?category=dijual',
+			link: `/property?category=dijual${
+				marketingRef ? `&ref=${marketingRef}` : ''
+			}`,
 			section: [
 				{
 					title: 'Dijual',
@@ -48,32 +52,44 @@ export default function MainHeader() {
 					pathList: [
 						{
 							title: 'Rumah',
-							link: '/property?category=dijual&type=rumah',
+							link: `/property?category=dijual&type=rumah${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Ruko',
-							link: '/property?category=dijual&type=ruko',
+							link: `/property?category=dijual&type=ruko${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Gudang / Pabrik',
-							link: '/property?category=dijual&type=gudang-pabrik',
+							link: `/property?category=dijual&type=gudang-pabrik${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Tanah',
-							link: '/property?category=dijual&type=tanah',
+							link: `/property?category=dijual&type=tanah${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Apartemen',
-							link: '/property?category=dijual&type=apartemen',
+							link: `/property?category=dijual&type=apartemen${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Komersial',
-							link: '/property?category=dijual&type=komersial',
+							link: `/property?category=dijual&type=komersial${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 					],
@@ -82,7 +98,9 @@ export default function MainHeader() {
 		},
 		{
 			title: 'Disewa',
-			link: '/property?category=disewa',
+			link: `/property?category=disewa${
+				marketingRef ? `&ref=${marketingRef}` : ''
+			}`,
 			section: [
 				{
 					title: 'Disewa',
@@ -91,32 +109,44 @@ export default function MainHeader() {
 					pathList: [
 						{
 							title: 'Rumah',
-							link: '/property?category=disewa&type=rumah',
+							link: `/property?category=disewa&type=rumah${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Ruko',
-							link: '/property?category=disewa&type=ruko',
+							link: `/property?category=disewa&type=ruko${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Gudang / Pabrik',
-							link: '/property?category=disewa&type=gudang-pabrik',
+							link: `/property?category=disewa&type=gudang-pabrik${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Tanah',
-							link: '/property?category=disewa&type=tanah',
+							link: `/property?category=disewa&type=tanah${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Apartemen',
-							link: '/property?category=disewa&type=apartemen',
+							link: `/property?category=disewa&type=apartemen${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Komersial',
-							link: '/property?category=disewa&type=komersial',
+							link: `/property?category=disewa&type=komersial${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 					],
@@ -125,7 +155,9 @@ export default function MainHeader() {
 		},
 		{
 			title: 'Properti Baru',
-			link: '/property?category=baru',
+			link: `/property?category=baru${
+				marketingRef ? `&ref=${marketingRef}` : ''
+			}`,
 			section: [
 				{
 					title: 'Properti Baru',
@@ -134,32 +166,44 @@ export default function MainHeader() {
 					pathList: [
 						{
 							title: 'Rumah',
-							link: '/property?category=baru&type=rumah',
+							link: `/property?category=baru&type=rumah${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Ruko',
-							link: '/property?category=baru&type=ruko',
+							link: `/property?category=baru&type=ruko${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Gudang / Pabrik',
-							link: '/property?category=baru&type=gudang-pabrik',
+							link: `/property?category=baru&type=gudang-pabrik${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Tanah',
-							link: '/property?category=baru&type=tanah',
+							link: `/property?category=baru&type=tanah${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Apartemen',
-							link: '/property?category=baru&type=apartemen',
+							link: `/property?category=baru&type=apartemen${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Komersial',
-							link: '/property?category=baru&type=komersial',
+							link: `/property?category=baru&type=komersial${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 					],
@@ -168,12 +212,12 @@ export default function MainHeader() {
 		},
 		{
 			title: 'KPR',
-			link: '/kpr',
+			link: `/kpr${marketingRef ? `&ref=${marketingRef}` : ''}`,
 			section: [],
 		},
 		{
 			title: 'Tentang Kami',
-			link: '/tentang-kami',
+			link: `/tentang-kami${marketingRef ? `&ref=${marketingRef}` : ''}`,
 			section: [
 				{
 					title: 'Tentang Kami',
@@ -182,37 +226,51 @@ export default function MainHeader() {
 					pathList: [
 						{
 							title: 'Visi Misi',
-							link: '/tentang-kami',
+							link: `/tentang-kami${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Para Pendiri',
-							link: '/tentang-kami',
+							link: `/tentang-kami${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Testimoni Klien',
-							link: '/tentang-kami',
+							link: `/tentang-kami${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Tiktok',
-							link: '/tentang-kami',
+							link: `/tentang-kami${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Instagram',
-							link: '/tentang-kami',
+							link: `/tentang-kami${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Youtube',
-							link: '/tentang-kami',
+							link: `/tentang-kami${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 						{
 							title: 'Karir',
-							link: '/tentang-kami',
+							link: `/tentang-kami${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: null,
 						},
 					],
@@ -224,7 +282,9 @@ export default function MainHeader() {
 					pathList: [
 						{
 							title: 'Hubungi Kami',
-							link: '/tentang-kami',
+							link: `/tentang-kami${
+								marketingRef ? `&ref=${marketingRef}` : ''
+							}`,
 							action: showContactModal,
 						},
 					],
@@ -257,7 +317,11 @@ export default function MainHeader() {
 
 	const handleOnSearch = () => {
 		if (searchValue.length > 0) {
-			navigate(`/property/search?keyword=${searchValue}`);
+			navigate(
+				`/property/search?keyword=${searchValue}${
+					marketingRef ? `&ref=${marketingRef}` : ''
+				}`
+			);
 		}
 	};
 
@@ -334,13 +398,17 @@ export default function MainHeader() {
 							) : !isUserLoading && !auth.isAuth ? (
 								<button
 									className="hidden text-white border-white rounded-full btnSecondary lg:block"
-									onClick={() => navigate('/login')}
+									onClick={() =>
+										navigate(
+											`/login${marketingRef ? `?ref=${marketingRef}` : ''}`
+										)
+									}
 								>
 									Masuk
 								</button>
 							) : (
 								<Link
-									to={'/akun-saya'}
+									to={`/akun-saya${marketingRef ? `?ref=${marketingRef}` : ''}`}
 									className="hidden text-white border-white rounded-full btnSecondary lg:block"
 								>
 									Akun saya

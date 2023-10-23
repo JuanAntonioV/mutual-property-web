@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import MainContainer from '../containers/MainContainer';
 import BrandLogo from '../brands/BrandLogo';
@@ -47,6 +47,9 @@ export default function MainFooter() {
 		window.open(url, '_blank');
 	};
 
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
+
 	return (
 		<footer className="pt-20 bg-white border-t-2 pb-14 border-borderPrimary">
 			<MainContainer>
@@ -63,21 +66,45 @@ export default function MainFooter() {
 						<h1 className="text-lg font-semibold text-primary">Tautan</h1>
 						<ul className="text-sm">
 							<li className="py-2">
-								<Link to="/property?category=dijual&type=rumah">Dijual</Link>
+								<Link
+									to={`/property?category=dijual&type=rumah${
+										marketingRef ? `&ref=${marketingRef}` : ''
+									}`}
+								>
+									Dijual
+								</Link>
 							</li>
 							<li className="py-2">
-								<Link to="/property?category=disewa&type=rumah">Disewa</Link>
+								<Link
+									to={`/property?category=disewa&type=rumah${
+										marketingRef ? `&ref=${marketingRef}` : ''
+									}`}
+								>
+									Disewa
+								</Link>
 							</li>
 							<li className="py-2">
-								<Link to="/property?category=baru&type=rumah">
+								<Link
+									to={`/property?category=baru&type=rumah${
+										marketingRef ? `&ref=${marketingRef}` : ''
+									}`}
+								>
 									Properti Baru
 								</Link>
 							</li>
 							<li className="py-2">
-								<Link to="/kpr">KPR</Link>
+								<Link to={`/kpr${marketingRef ? `?ref=${marketingRef}` : ''}`}>
+									KPR
+								</Link>
 							</li>
 							<li className="py-2">
-								<Link to="/tentang-kami">Tentang Kami</Link>
+								<Link
+									to={`/tentang-kami${
+										marketingRef ? `?ref=${marketingRef}` : ''
+									}`}
+								>
+									Tentang Kami
+								</Link>
 							</li>
 						</ul>
 					</div>

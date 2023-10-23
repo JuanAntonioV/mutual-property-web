@@ -16,6 +16,7 @@ export default function ResetPasswordPage() {
 	const [searchParams] = useSearchParams();
 	const token = searchParams.get('token');
 	const email = searchParams.get('email');
+	const ref = searchParams.get('ref');
 
 	const navigate = useNavigate();
 
@@ -50,7 +51,7 @@ export default function ResetPasswordPage() {
 				password: '',
 				passwordConfirmation: '',
 			});
-			navigate('/login');
+			navigate(`/login${marketingRef ? `?ref=${marketingRef}` : ''}`);
 		},
 	});
 

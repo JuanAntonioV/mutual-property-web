@@ -5,13 +5,16 @@ import SectionContainer from '../containers/SectionContainer';
 import SectionTitle from '../titles/SectionTitle';
 import { getNewestProductsApi } from '../../api/product-api';
 import { SyncLoader } from 'react-spinners';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import { useEffect, useState } from 'react';
 
 export default function NewPropertySection() {
 	const navigate = useNavigate();
 	const [count, setCount] = useState(0);
+
+	const [searchParams] = useSearchParams();
+	const marketingRef = searchParams.get('ref');
 
 	useEffect(() => {
 		if (isMobile) {
@@ -34,7 +37,11 @@ export default function NewPropertySection() {
 	);
 
 	const handleViewAllNavigate = () => {
-		navigate('/property?category=baru&type=rumah');
+		navigate(
+			`/property?category=baru&type=rumah${
+				marketingRef ? `&ref=${marketingRef}` : ''
+			}`
+		);
 	};
 
 	if (!isNewPropertyLoading && newProperty?.length === 0) return null;

@@ -10,13 +10,12 @@ import {
 	useQueryClient,
 } from '@tanstack/react-query';
 import { getAllProductsApi } from '../../api/product-api';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import PropertyCard from '../../components/cards/PropertyCard';
 import { SyncLoader } from 'react-spinners';
 import useStore from '../../hooks/useStore';
 import AuthContext from '../../contexts/AuthProvider';
 import { getAllCategoriesApi } from '../../api/category-api';
-import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import ScrollToTopNav from '@/components/navigations/ScrollToTopNav';
 import MainPaginate from '@/components/pagination/MainPaginate';
 import { isMobile } from 'react-device-detect';
