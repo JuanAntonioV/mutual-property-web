@@ -212,12 +212,12 @@ export default function MainHeader() {
 		},
 		{
 			title: 'KPR',
-			link: `/kpr${marketingRef ? `&ref=${marketingRef}` : ''}`,
+			link: `/kpr${marketingRef ? `?ref=${marketingRef}` : ''}`,
 			section: [],
 		},
 		{
 			title: 'Tentang Kami',
-			link: `/tentang-kami${marketingRef ? `&ref=${marketingRef}` : ''}`,
+			link: `/tentang-kami${marketingRef ? `?ref=${marketingRef}` : ''}`,
 			section: [
 				{
 					title: 'Tentang Kami',
@@ -227,49 +227,49 @@ export default function MainHeader() {
 						{
 							title: 'Visi Misi',
 							link: `/tentang-kami${
-								marketingRef ? `&ref=${marketingRef}` : ''
+								marketingRef ? `?ref=${marketingRef}` : ''
 							}`,
 							action: null,
 						},
 						{
 							title: 'Para Pendiri',
 							link: `/tentang-kami${
-								marketingRef ? `&ref=${marketingRef}` : ''
+								marketingRef ? `?ref=${marketingRef}` : ''
 							}`,
 							action: null,
 						},
 						{
 							title: 'Testimoni Klien',
 							link: `/tentang-kami${
-								marketingRef ? `&ref=${marketingRef}` : ''
+								marketingRef ? `?ref=${marketingRef}` : ''
 							}`,
 							action: null,
 						},
 						{
 							title: 'Tiktok',
 							link: `/tentang-kami${
-								marketingRef ? `&ref=${marketingRef}` : ''
+								marketingRef ? `?ref=${marketingRef}` : ''
 							}`,
 							action: null,
 						},
 						{
 							title: 'Instagram',
 							link: `/tentang-kami${
-								marketingRef ? `&ref=${marketingRef}` : ''
+								marketingRef ? `?ref=${marketingRef}` : ''
 							}`,
 							action: null,
 						},
 						{
 							title: 'Youtube',
 							link: `/tentang-kami${
-								marketingRef ? `&ref=${marketingRef}` : ''
+								marketingRef ? `?ref=${marketingRef}` : ''
 							}`,
 							action: null,
 						},
 						{
 							title: 'Karir',
 							link: `/tentang-kami${
-								marketingRef ? `&ref=${marketingRef}` : ''
+								marketingRef ? `?ref=${marketingRef}` : ''
 							}`,
 							action: null,
 						},
@@ -283,7 +283,7 @@ export default function MainHeader() {
 						{
 							title: 'Hubungi Kami',
 							link: `/tentang-kami${
-								marketingRef ? `&ref=${marketingRef}` : ''
+								marketingRef ? `?ref=${marketingRef}` : ''
 							}`,
 							action: showContactModal,
 						},

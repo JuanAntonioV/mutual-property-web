@@ -11,15 +11,23 @@ import CardLiker from './CardLiker';
 import { formatPrice, textDotsFormat } from '@/utils/formaters';
 import { dateFormater } from '../../utils/formaters';
 
-export default function PropertyCard({ data }) {
+export default function PropertyCard({ data, isNewest }) {
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 	const marketingRef = searchParams.get('ref');
 
 	const hadleCardClicked = () => {
-		navigate(
-			`/property/${data?.slug}${marketingRef ? `?ref=${marketingRef}` : ''}`
-		);
+		if (isNewest) {
+			navigate(
+				`/projects/${data?.project[0]?.slug}${
+					marketingRef ? `?ref=${marketingRef}` : ''
+				}`
+			);
+		} else {
+			navigate(
+				`/property/${data?.slug}${marketingRef ? `?ref=${marketingRef}` : ''}`
+			);
+		}
 	};
 
 	return (

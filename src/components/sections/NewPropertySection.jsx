@@ -67,7 +67,7 @@ export default function NewPropertySection() {
 				) : (
 					<MainContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 place-items-center gap-y-8">
 						{newProperty?.map((property, index) => (
-							<PropertyCard key={index} data={property} />
+							<PropertyCard key={index} data={property} isNewest />
 						))}
 					</MainContainer>
 				)}
