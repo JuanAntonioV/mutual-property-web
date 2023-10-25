@@ -1,5 +1,6 @@
 import Logo from '@/assets/brand/logo.svg';
-import LogoWhite from '@/assets/brand/logo-white.svg';
+// import LogoWhite from '@/assets/brand/logo-white.svg';
+import LogoWhitePng from '@/assets/brand/logo-white.png';
 import { Link, useSearchParams } from 'react-router-dom';
 
 export default function BrandLogo({ white = false, className = '', ...props }) {
@@ -12,7 +13,7 @@ export default function BrandLogo({ white = false, className = '', ...props }) {
 			className="flexCenter w-fit"
 		>
 			<div className={`flexCenter ${className}`}>
-				<img src={white ? LogoWhite : Logo} alt="Logo" {...props} />
+				<img src={white ? LogoWhitePng : Logo} alt="Logo" {...props} />
 			</div>
 		</Link>
 	);
