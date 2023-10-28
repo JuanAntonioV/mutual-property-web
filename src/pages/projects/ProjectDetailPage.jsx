@@ -14,6 +14,7 @@ import ScreenLoading from '../../components/handlers/ScreenLoading';
 import MainContainer from '../../components/containers/MainContainer';
 import NotFoundPage from '../notFound/NotFoundPage';
 import { useMemo } from 'react';
+import _ from 'lodash';
 
 export default function ProjectDetailPage() {
 	const { slug } = useParams();
@@ -54,7 +55,7 @@ export default function ProjectDetailPage() {
 
 	if (isLoading) return <ScreenLoading />;
 
-	if (isError) return <NotFoundPage />;
+	if (isError || _.isEmpty(data)) return <NotFoundPage />;
 
 	return (
 		<MainContainer className="mt-[130px] pb-20">

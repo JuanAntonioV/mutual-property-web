@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import MainBadge from '../badges/MainBadge';
 import CollapseWrapper from '../wrappers/CollapseWrapper';
 
@@ -128,7 +129,7 @@ export default function PropertyDetail({ data }) {
 					</div>
 				</div>
 
-				{data?.facility && (
+				{!_.isEmpty(data?.facility) && (
 					<div className="px-8 pb-4 mt-10 space-y-2">
 						<header>
 							<h2 className="text-lg font-semibold">Sudah Termasuk</h2>

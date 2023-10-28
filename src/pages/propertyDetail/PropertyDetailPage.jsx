@@ -19,6 +19,7 @@ import { getProductDetailApi } from '../../api/product-api';
 import ScreenLoading from '../../components/handlers/ScreenLoading';
 import { formatPrice } from '../../utils/formaters';
 import { useEffect, useMemo, useState } from 'react';
+import _ from 'lodash';
 
 export default function PropertyDetailPage() {
 	const [isProjectProduct, setIsProjectProduct] = useState(false);
@@ -69,7 +70,7 @@ export default function PropertyDetailPage() {
 
 	if (isLoading) return <ScreenLoading />;
 
-	if (isError) return <NotFoundPage />;
+	if (isError || _.isEmpty(data)) return <NotFoundPage />;
 
 	return (
 		<MainContainer className="mt-[130px] pb-20">
@@ -83,13 +84,15 @@ export default function PropertyDetailPage() {
 				</div>
 
 				<div className="w-full gap-4 md:flexEnd flexCenter">
-					<button
-						className="w-full gap-3 px-6 py-2 text-sm btnSecondary flexCenter md:w-fit md:text-base"
-						onClick={handleViewMap}
-					>
-						<BsMap size={18} />
-						<span className="text-primary">Lihat peta</span>
-					</button>
+					{data?.map_url && (
+						<button
+							className="w-full gap-3 px-6 py-2 text-sm btnSecondary flexCenter md:w-fit md:text-base"
+							onClick={handleViewMap}
+						>
+							<BsMap size={18} />
+							<span className="text-primary">Lihat peta</span>
+						</button>
+					)}
 					<button
 						className="w-full gap-3 px-6 py-2 text-sm btnSecondary flexCenter md:w-fit md:text-base"
 						onClick={handleShare}

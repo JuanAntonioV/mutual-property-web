@@ -10,6 +10,7 @@ import CardLiker from './CardLiker';
 
 import { formatPrice, textDotsFormat } from '@/utils/formaters';
 import { dateFormater } from '../../utils/formaters';
+import _ from 'lodash';
 
 export default function PropertyCard({ data, isNewest }) {
 	const navigate = useNavigate();
@@ -18,11 +19,17 @@ export default function PropertyCard({ data, isNewest }) {
 
 	const hadleCardClicked = () => {
 		if (isNewest) {
-			navigate(
-				`/projects/${data?.project[0]?.slug}${
-					marketingRef ? `?ref=${marketingRef}` : ''
-				}`
-			);
+			if (_.isEmpty(data?.project)) {
+				navigate(
+					`/property/${data?.slug}${marketingRef ? `?ref=${marketingRef}` : ''}`
+				);
+			} else {
+				navigate(
+					`/projects/${data?.project[0]?.slug}${
+						marketingRef ? `?ref=${marketingRef}` : ''
+					}`
+				);
+			}
 		} else {
 			navigate(
 				`/property/${data?.slug}${marketingRef ? `?ref=${marketingRef}` : ''}`
