@@ -8,6 +8,7 @@ import { SyncLoader } from 'react-spinners';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import { useEffect, useState } from 'react';
+import NewPropertyCard from '../cards/NewPropertyCard';
 
 export default function NewPropertySection() {
 	const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function NewPropertySection() {
 		if (isMobile) {
 			setCount(4);
 		} else {
-			setCount(8);
+			setCount(6);
 		}
 	}, [isMobile]);
 
@@ -65,9 +66,9 @@ export default function NewPropertySection() {
 						<p className="font-medium text-gray-400">Memuat...</p>
 					</div>
 				) : (
-					<MainContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 place-items-center gap-y-8">
+					<MainContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-y-8">
 						{newProperty?.map((property, index) => (
-							<PropertyCard key={index} data={property} isNewest />
+							<NewPropertyCard key={index} data={property} />
 						))}
 					</MainContainer>
 				)}

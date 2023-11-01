@@ -20,7 +20,7 @@ export default function NewPropertyCard({ data, small }) {
 
 	return (
 		<div
-			className={`w-full bg-white shadow-md rounded-lg overflow-hidden ${
+			className={`w-full bg-white h-[530px] shadow-md rounded-lg overflow-hidden relative ${
 				small ? ' md:w-[330px]' : 'md:w-[420px]'
 			}`}
 			onClick={hadleCardClicked}
@@ -28,7 +28,7 @@ export default function NewPropertyCard({ data, small }) {
 			<ImageCardCarousel image={data?.images} height={small ? '230' : '280'} />
 
 			<main className="p-5 cursor-pointer">
-				<h3 className="text-lg md:text-xl">
+				<h3 className="md:text-lg">
 					<strong>{data?.name}</strong> | by {data?.developer_name}
 				</h3>
 
@@ -37,13 +37,13 @@ export default function NewPropertyCard({ data, small }) {
 						Harga Mulai Rp {formatPrice(data?.started_price)}
 					</h1>
 
-					<div className="flex mt-2 item-center gap-x-2">
-						<IoLocationSharp size={18} color="#00092980" />
+					<div className="flex mt-2 item-center gap-x-1">
+						<IoLocationSharp size={18} color="#1f2937" className="mt-[3px]" />
 
-						<span className="block text-sm leading-tight text-secondarySoftTrans md:hidden md:text-base">
+						<span className="block text-sm md:hidden md:text-base">
 							{textDotsFormat(data?.address, small ? 26 : 36)}
 						</span>
-						<span className="hidden text-sm leading-tight text-secondarySoftTrans md:block md:text-base">
+						<span className="hidden text-sm md:block md:text-base">
 							{textDotsFormat(data?.address, small ? 28 : 38)}
 						</span>
 					</div>
@@ -55,8 +55,8 @@ export default function NewPropertyCard({ data, small }) {
 				</div>
 			</main>
 
-			<footer className="px-5 pt-2 pb-5 cursor-pointer flexBetween">
-				<span className={'text-sm text-secondarySoftTrans'}>
+			<footer className="absolute bottom-0 w-full px-5 pt-2 pb-5 cursor-pointer flexBetween">
+				<span className={'text-xs text-secondarySoftTrans'}>
 					#{data?.id} • Diposting {dateFormater(data?.created_at)}
 				</span>
 

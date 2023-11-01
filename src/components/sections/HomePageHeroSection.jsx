@@ -14,9 +14,16 @@ import { formatRupiah, parseRupiah } from '../../utils/helpers';
 import { formatPrice } from '../../utils/formaters';
 import { sellPropertyApi } from '../../api/contact-api';
 import { toast } from 'react-toastify';
-import { BiSearch } from 'react-icons/bi';
+import {
+	BiLeftArrow,
+	BiLeftArrowAlt,
+	BiRightArrowAlt,
+	BiSearch,
+} from 'react-icons/bi';
 import Slider from 'react-slick';
 import { getAllHeroImages } from '@/api/hero-image-api';
+import LazyLoadImageHandler from '../handlers/LazyLoadImageHandler';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 export default function HomePageHeroSection() {
 	const navigate = useNavigate();
@@ -111,14 +118,75 @@ export default function HomePageHeroSection() {
 		window.location.replace('/#contact-us');
 	};
 
+	function SampleNextArrow(props) {
+		const { className, style, onClick } = props;
+		return (
+			<div
+				// className={className}
+				style={{
+					...style,
+					position: 'absolute',
+					top: '50%',
+					transform: 'translateY(-50%)',
+					right: '-1rem',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					width: '50px',
+					height: '50px',
+					zIndex: 1,
+					borderRadius: '100%',
+					background: 'white',
+					border: '1px solid #213D77',
+					boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+				}}
+				onClick={onClick}
+			>
+				<MdKeyboardArrowRight color="#213D77" size={32} />
+			</div>
+		);
+	}
+
+	function SamplePrevArrow(props) {
+		const { className, style, onClick } = props;
+		return (
+			<div
+				// className={className}
+				style={{
+					...style,
+					position: 'absolute',
+					top: '50%',
+					transform: 'translateY(-50%)',
+					left: '-1rem',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					width: '50px',
+					height: '50px',
+					zIndex: 1,
+					borderRadius: '100%',
+					background: 'white',
+					border: '1px solid #213D77',
+					boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+				}}
+				onClick={onClick}
+			>
+				<MdKeyboardArrowLeft color="#213D77" size={32} />
+			</div>
+		);
+	}
+
 	const settings = {
-		className: 'center',
-		centerMode: true,
+		// className: 'center',
+		// centerMode: true,
 		infinite: true,
 		centerPadding: '60px',
 		slidesToShow: 1,
 		autoplay: true,
 		autoplaySpeed: 5000,
+		dots: false,
+		nextArrow: <SampleNextArrow />,
+		prevArrow: <SamplePrevArrow />,
 	};
 
 	const { data: heroImages, isLoading: isHeroImagesLoading } = useQuery(
@@ -355,13 +423,20 @@ export default function HomePageHeroSection() {
 									</div>
 							  ))
 							: heroImages?.map((item, index) => (
-									<div className="px-2 !outline-none !border-none" key={index}>
-										<img
-											src={item.path}
-											alt="Mutual Properti Hero Image"
-											className="w-full h-full rounded-xl"
-										/>
-									</div>
+									// <div
+									// 	className="px-2 !outline-none !border-none !h-[500px]"
+									// 	key={index}
+									// >
+									<LazyLoadImageHandler
+										src={item.path}
+										alt="Mutual Properti Hero Image"
+										width="100%"
+										height="100%"
+										wrapperClassName="px-2 !outline-none !border-none !h-[500px]"
+										className="object-cover w-full h-full rounded-xl"
+										key={index}
+									/>
+									// </div>
 							  ))}
 					</Slider>
 				</div>

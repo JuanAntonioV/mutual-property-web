@@ -49,17 +49,17 @@ export default function FeatureSection() {
 								</div>
 							</main>
 						</div>
-						<div className="overflow-hidden transition-all duration-200 border shadow-2xl rounded-xl h-fit">
+						<div className="h-full overflow-hidden transition-all duration-200 border shadow-2xl rounded-xl">
 							<header className="w-full py-5 text-white bg-primaryHover">
 								<h3 className="text-lg font-bold text-center">PEMBELI</h3>
 							</header>
 
-							<main className="relative pt-10 bg-slate-800">
+							<main className="relative h-full pt-10 bg-slate-800">
 								<div className="absolute w-full h-full -translate-x-1/2 -translate-y-1/2 bg-center bg-no-repeat bg-cover opacity-20 bg-featurePembeli left-1/2 top-1/2"></div>
 
 								<div className="p-10 mx-4 mb-6 text-white border border-white rounded-lg">
 									<h4 className="text-lg text-center md:text-left">
-										Mau mencari properti impian{' '}
+										Mau mencari properti terbaru impian{' '}
 										<span className="font-bold text-yellow-300">Terbaik ?</span>{' '}
 									</h4>
 								</div>
